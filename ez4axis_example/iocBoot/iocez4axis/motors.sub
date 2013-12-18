@@ -1,0 +1,8 @@
+file "$(ALLMOTION)/db/allmotion_motor.db" {
+pattern
+{   P,  M,          DESC, DTYP,      DIR, VELO, VBAS, ACCL, BDST, BVEL, BACC, PORT, ADDR, MRES,  PREC, EGU, DHLM,  DLLM,   INIT}
+{IOC:ALM:, m1,     "motor 1", asynMotor, 0,     5,     5,    1,    0,    0,    0,    ALM1, 0,    0.001, 3,    um,  10000, -10000, 0}
+{IOC:ALM:, m2,     "motor 2", asynMotor, 0,     5,     5,    1,    0,    0,    0,    ALM1, 1,    0.001, 3,    um,  10000, -10000, 0}
+{IOC:ALM:, m3,     "motor 3", asynMotor, 0,     5,     5,    1,    0,    0,    0,    ALM1, 2,    0.001, 3,    um,  10000, -10000, 0}
+{IOC:ALM:, m4,     "motor 4", asynMotor, 0,     5,     5,    1,    0,    0,    0,    ALM1, 3,    0.001, 3,    um,  10000, -10000, 0}
+}

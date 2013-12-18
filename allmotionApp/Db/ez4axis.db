@@ -1,0 +1,965 @@
+# vi: sw=4 ts=4
+
+## Write-only
+record(bo, "$(P)KILL_ALL") {
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_KILLALL")
+
+    field(ZNAM, "Kill")
+    field(ONAM, "Kill")
+}
+
+## Read-only
+record(bo, "$(P)READ_ADC") {
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_READ_ADC")
+    field(SCAN, "1 second")
+
+    info(autosaveFields_pass0, "SCAN")
+}
+
+record(ai, "$(P)ADC_1") {
+    field(DESC, "Analog input #1")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_1")
+    field(PREC, "5")
+    field(SCAN, "I/O Intr")
+}
+
+record(ai, "$(P)ADC_2") {
+    field(DESC, "Analog input #2")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_2")
+    field(PREC, "5")
+    field(SCAN, "I/O Intr")
+}
+
+record(ai, "$(P)ADC_3") {
+    field(DESC, "Analog input #3")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_3")
+    field(PREC, "5")
+    field(SCAN, "I/O Intr")
+}
+
+record(ai, "$(P)ADC_4") {
+    field(DESC, "Analog input #4")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_4")
+    field(PREC, "5")
+    field(SCAN, "I/O Intr")
+}
+
+## Programs
+record(stringout, "$(P)PROG_0-O") {
+    field(DESC, "Program 0 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_0")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_1-O") {
+    field(DESC, "Program 1 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_1")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_2-O") {
+    field(DESC, "Program 2 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_2")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_3-O") {
+    field(DESC, "Program 3 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_3")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_4-O") {
+    field(DESC, "Program 4 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_4")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_5-O") {
+    field(DESC, "Program 5 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_5")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_6-O") {
+    field(DESC, "Program 6 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_6")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_7-O") {
+    field(DESC, "Program 7 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_7")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_8-O") {
+    field(DESC, "Program 8 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_8")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_9-O") {
+    field(DESC, "Program 9 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_9")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_10-O") {
+    field(DESC, "Program 10 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_10")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_11-O") {
+    field(DESC, "Program 11 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_11")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_12-O") {
+    field(DESC, "Program 12 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_12")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_13-O") {
+    field(DESC, "Program 13 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_13")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_14-O") {
+    field(DESC, "Program 14 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_14")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_15-O") {
+    field(DESC, "Program 15 string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_15")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+
+## Run program
+record(longout, "$(P)RUN_PROG-O") {
+    field(DESC, "Run program number")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_RUN")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(calcout, "$(P)RUN_IDX-O") {
+    field(DESC, "Run program in $(P)PROG_IDX-O")
+    field(INPA, "$(P)PROG_IDX-O")
+    field(CALC, "A")
+    field(OOPT, "Every Time")
+    field(OUT,  "$(P)RUN_PROG-O PP")
+    field(SCAN, "Passive")
+    
+    field(TPRO, 1)
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Write program by index
+record(longout, "$(P)PROG_IDX-O") {
+    field(DESC, "Program number to write to")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_IDX")
+    field(LOPR, 0)
+    field(HOPR, 16)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(stringout, "$(P)PROG_WRITE-O") {
+    field(DESC, "Program string")
+    field(DTYP, "asynOctetWrite")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_WRITE")
+    
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Error string [ERROR]
+record(stringin, "$(P)ERROR-I") {
+    field(DESC, "Error string")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ERROR")
+    field(SCAN, "I/O Intr")
+}
+
+record(calcout, "$(P)CLEAR_ERR") {
+    field(OUT, "$(P)ERROR-I")
+    field(VAL, "OK")
+}
+
+## Firmware version [FIRMWARE]
+record(stringin, "$(P)FIRMWARE-I") {
+    field(DESC, "Firmware version")
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_FIRMWARE")
+    field(SCAN, "I/O Intr")
+}
+
+## Microsteps per step [MICROSTEPS]
+record(longin, "$(P)MICROSTEPS-I") {
+    field(DESC, "Microsteps per step")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MICROSTEPS")
+    field(EGU,  "usteps")
+    field(SCAN, "I/O Intr")
+}
+
+record(ao, "$(P)MICROSTEPS-O") {
+    field(DESC, "Microsteps per step")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MICROSTEPS")
+    field(EGU,  "usteps")
+    info(autosaveFields_pass0, "VAL")
+    field(VAL,  256)
+
+    field(FLNK, "$(P)MICROSTEPS-I")
+}
+
+## Microstep tweak value [MICROSTEP_TWEAK]
+record(ao, "$(P)USTEP_TWEAK-O") {
+    field(DESC, "Tweak to fix microstep unevenness")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MICROSTEP_TWEAK")
+    field(EGU,  "usteps")
+    field(VAL,  1500)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Switch debounce time [SWITCH_DEBOUNCE]
+record(ao, "$(P)DEBOUNCE-O") {
+    field(DESC, "Switch debounce time")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_SWITCH_DEBOUNCE")
+    field(EGU,  "x 50uS")
+    field(VAL,  10)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Voltage input threshold [INPUT_THRESHOLD0]
+record(bo, "$(P)READ_THRESH") {
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_READ_THRESH")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+}
+
+record(ai, "$(P)INPUT_THRESH0-I") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD0")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(SCAN, "I/O Intr")
+}
+
+record(ao, "$(P)INPUT_THRESH0-O") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD0")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(FLNK, "$(P)READ_THRESH")
+    field(VAL,  6144)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Voltage input threshold [INPUT_THRESHOLD1]
+record(ai, "$(P)INPUT_THRESH1-I") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD1")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(SCAN, "I/O Intr")
+}
+
+record(ao, "$(P)INPUT_THRESH1-O") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD1")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(FLNK, "$(P)READ_THRESH")
+    field(VAL,  6144)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Voltage input threshold [INPUT_THRESHOLD2]
+record(ai, "$(P)INPUT_THRESH2-I") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD2")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(SCAN, "I/O Intr")
+}
+record(ao, "$(P)INPUT_THRESH2-O") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD2")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(FLNK, "$(P)READ_THRESH")
+    field(VAL,  6144)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Voltage input threshold [INPUT_THRESHOLD3]
+record(ai, "$(P)INPUT_THRESH3-I") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD3")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(SCAN, "I/O Intr")
+}
+record(ao, "$(P)INPUT_THRESH3-O") {
+    field(DESC, "Voltage input threshold")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD3")
+    field(EGU,  "V")
+    field(PREC, 5)
+    field(FLNK, "$(P)READ_THRESH")
+    field(VAL,  6144)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Potentiometer offset [POT_OFFSET]
+record(longout, "$(P)POT_OFFSET-O") {
+    field(DESC, "Potentiometer offset")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_POT_OFFSET")
+    field(EGU,  "")
+    field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Potentiometer multiplier [POT_MUL]
+record(longout, "$(P)POT_MUL-O") {
+    field(DESC, "Potentiometer multiplier")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_POT_MUL")
+    field(EGU,  "")
+    field(VAL,  256)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Potentiometer deadband [POT_DEADBAND]
+record(longout, "$(P)POT_DEADBAND-O") {
+    field(DESC, "Potentiometer deadband")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_POT_DEADBAND")
+    field(EGU,  "")
+    field(VAL,  50)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Encoder outer deadband [ENC_OUTER_DB]
+#    When in position correction mode, set distance allowed to move 
+#    before the motor corrects using encoder feedback
+record(longout, "$(P)ENC_OUTER_DB-O") {
+    field(DESC, "Encoder outer deadband")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ENC_OUTER_DB")
+    field(EGU,  "counts")
+    field(VAL,  "")
+    field(VAL,  50)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Encoder inner deadband [ENC_INNER_DB]
+#    Sets the final error allowed by the fine position correction 
+#    algorithm. 
+record(longout, "$(P)ENC_INNER_DB-O") {
+    field(DESC, "Encoder inner deadband")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ENC_INNER_DB")
+    field(EGU,  "counts")
+    field(VAL,  50)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Encoder ratio (ticks/rev to ustep/rev) [ENC_RATIO]
+
+## TODO motor record
+record(longout, "$(P)ENC_RATIO-O") {
+    field(DESC, "Encoder ratio (ticks/rev to ustep/rev)")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ENC_RATIO")
+    field(EGU,  "ticks/ustep")
+    field(VAL,  1000)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Overload timeout [OVERLOAD_TIMEOUT]
+record(longout, "$(P)OVERLOAD_TIMEOUT-O") {
+    field(DESC, "Overload timeout")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_OVERLOAD_TIMEOUT")
+    field(EGU,  "tries")
+    field(VAL,  10)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Integration period [INT_PERIOD]
+record(longout, "$(P)INT_PERIOD-O") {
+    field(DESC, "Integration period")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INT_PERIOD")
+    field(EGU,  "")
+    field(VAL,  10)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Recovery program run count [RECOVERY_RUNS]
+record(longout, "$(P)RECOVERY_RUNS-O") {
+    field(DESC, "Recovery program run count")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_RECOVERY_RUNS")
+    field(EGU,  "")
+    field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Daughter card current [DAUGHTER_CURRENT]
+record(longout, "$(P)DHT_CURRENT-O") {
+    field(DESC, "Daughter card current")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DAUGHTER_CURRENT")
+    field(EGU,  "%")
+}
+
+## Daughter card current flow direction [DAUGHTER_CUR_FLOW]
+record(bo, "$(P)DHT_CUR_FLOW-O") {
+    field(DESC, "Daughter card current flow direction")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DAUGHTER_CUR_FLOW")
+    field(ZNAM, "Neg")
+    field(ONAM, "Pos")
+}
+
+## Read inputs (switches, optos, encoders)
+record(bo, "$(P)READ_INP") {
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_READ_INP")
+    field(SCAN, "1 second")
+
+    info(autosaveFields_pass0, "SCAN")
+}
+
+## Input: encoder index [INP_IDX]
+record(bi, "$(P)INP_IDX-I") {
+    field(DESC, "Encoder index")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_IDX")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Input: switch 1 [INP_SW1]
+record(bi, "$(P)INP_SW1-I") {
+    field(DESC, "Input switch 1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_SW1")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Input: switch 1 [INP_SW2]
+record(bi, "$(P)INP_SW2-I") {
+    field(DESC, "Input switch 1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_SW2")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Input: Opto switch 1 [INP_OPTO1]
+record(bi, "$(P)INP_OPTO1-I") {
+    field(DESC, "Opto switch 1")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_OPTO1")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Input: Opto switch 2 [INP_OPTO2]
+record(bi, "$(P)INP_OPTO2-I") {
+    field(DESC, "Opto switch 2")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_OPTO2")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Input: Encoder channel A [INP_CHA]
+record(bi, "$(P)INP_CHA-I") {
+    field(DESC, "Encoder channel A")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_CHA")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Input: Encoder channel B [INP_CHB]
+record(bi, "$(P)INP_CHB-I") {
+    field(DESC, "Encoder channel B")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_CHB")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(SCAN, "I/O Intr")
+}
+
+## Toggle driver 1 power [DRIVER1_POWER]
+record(bo, "$(P)DRIVER1_POWER-O") {
+    field(DESC, "Toggle driver 1 power")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DRIVER1_POWER")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(VAL,  1)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Toggle driver 2 power [DRIVER2_POWER]
+record(bo, "$(P)DRIVER2_POWER-O") {
+    field(DESC, "Toggle driver 2 power")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DRIVER2_POWER")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(VAL,  1)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Device reset [RESET]
+record(bo, "$(P)RESET-O") {
+    field(DESC, "Device reset")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_RESET")
+    field(ZNAM, "Reset")
+    field(ONAM, "Reset")
+    field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Home polarity [HOME_POLARITY]
+record(bo, "$(P)HOME_POLARITY-O") {
+    field(DESC, "Home polarity")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOME_POLARITY")
+    field(ZNAM, "Negative")
+    field(ONAM, "Positive")
+    field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Movement mode
+record(bo, "$(P)MOD_PULSE_JOG") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_EN_LIMITS") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_CONT_JOG") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_CLOSED_LOOP") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_OVR_REPORT") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_STEP_DIR") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_MOTOR_SLAVE") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_DUAL_ENCODER") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_JOYSTICK") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_OVR_RUN_13") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_OVR_RUN_14") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_OVR_RUN_15") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_POT_2") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_SW1_KILLS") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_SW2_KILLS") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(bo, "$(P)MOD_OPTO2_POT_VEL") {
+    field(DESC, "Mode: Pulse jog")
+    field(FLNK, "$(P)MODE_CALC")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+}
+
+record(calc, "$(P)MODE_CALC") {
+    field(INPA, "$(P)MOD_PULSE_JOG NPP")
+    field(INPB, "$(P)MOD_EN_LIMITS NPP")
+    field(INPC, "$(P)MOD_CONT_JOG NPP")
+    field(INPD, "$(P)MOD_CLOSED_LOOP NPP")
+    field(INPE, "$(P)MOD_OVR_REPORT NPP")
+    field(INPF, "$(P)MOD_STEP_DIR NPP")
+    field(INPG, "$(P)MOD_MOTOR_SLAVE NPP")
+    field(INPH, "$(P)MOD_DUAL_ENCODER NPP")
+    field(INPI, "$(P)MOD_JOYSTICK NPP")
+    field(INPJ, "$(P)MOD_OVR_RUN_13 NPP")
+    field(INPK, "$(P)MOD_OVR_RUN_14 NPP")
+    field(INPL, "$(P)MOD_OVR_RUN_15 NPP")
+    field(CALC, "A+B*2+C*4+D*8+E*16+F*32+G*64+H*96+I*128+J*512+K*1024+L*1536")
+    field(FLNK, "$(P)MODE_CALC1-O")
+    field(TPRO, 1)
+}
+
+record(calcout, "$(P)MODE_CALC1-O") {
+    field(INPA, "$(P)MODE_CALC NPP")
+    field(INPB, "$(P)MOD_POT_2 NPP")
+    field(INPC, "$(P)MOD_SW1_KILLS NPP")
+    field(INPD, "$(P)MOD_SW2_KILLS NPP")
+    field(INPE, "$(P)MOD_OPTO2_POT_VEL NPP")
+    field(CALC, "A + B*8192 + C*16384 + D*32768 + E*65536")
+    field(OOPT, "Every Time")
+
+    field(OUT, "$(P)MODE_RAW-O PP MS")
+    field(TPRO, 1)
+}
+
+record(mbbo, "$(P)MODE-O") {
+    field(DESC, "Mode")
+    field(OUT,  "$(P)MODE_RAW-O PP MS")
+
+    field(ZRVL, 1)
+    field(ZRST, "Pulse jog")
+    field(ONVL, 2)
+    field(ONST, "Enable limits")
+    field(TWVL, 4)
+    field(TWST, "Continuous jog")
+    field(THVL, 8)
+    field(THST, "Closed-loop")
+    field(FRVL, 16)
+    field(FRST, "Overload report")
+    field(FVVL, 32)
+    field(FVST, "Step/direction")
+    field(SXVL, 64)
+    field(SXST, "Motor slave")
+    field(SVVL, 96)
+    field(SVST, "Dual encoder")
+    field(EIVL, 128)
+    field(EIST, "Joystick mode")
+    field(NIVL, 512)
+    field(NIST, "Overload run 13")
+    field(TEVL, 1024)
+    field(TEST, "Overload run 14")
+    field(ELVL, 1536)
+    field(ELST, "Overload run 15")
+    field(TVVL, 8192)
+    field(TVST, "Potentiometer 2")
+    field(TTVL, 16384)
+    field(TTST, "Switch 1 kills")
+    field(FTVL, 32768)
+    field(FTST, "Switch 2 kills")
+    field(FFVL, 65536)
+    field(FFST, "Opto 2 pot. velocity")
+    field(TPRO, 1)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(mbbo, "$(P)MODE_RAW-O") {
+    field(DESC, "Mode")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asynMask($(PORT),$(ADDR),0xffffffff,$(TIMEOUT=1.0))ALM_MODE")
+
+    field(TPRO, 1)
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Special mode
+record(mbbo, "$(P)SP_MODE-O") {
+    field(DESC, "Special mode")
+    field(OUT,  "$(P)RAW_SP_MODE-O PP MS")
+
+    field(ZRVL, 0)
+    field(ZRST, "Unset")
+    field(ONVL, 1)
+    field(ONST, "Encoder w/o index")
+    field(TWVL, 2)
+    field(TWST, "Encoder w/index")
+    field(THVL, 3)
+    field(THST, "Pot 1 as encoder")
+    field(FRVL, 4)
+    field(FRST, "Home opto then idx")
+    field(FVVL, 5)
+    field(FVST, "CANBUS slave")
+    field(SXVL, 6)
+    field(SXST, "Home idx exactly")
+    field(TPRO, 1)
+
+    field(STAT, "NO_ALARM")
+    field(SEVR, "NO_ALARM")
+    field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+record(mbbo, "$(P)RAW_SP_MODE-O") {
+    field(DESC, "Special mode")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask($(PORT),$(ADDR),0xffffffff,$(TIMEOUT=1.0))ALM_SP_MODE")
+    field(VAL,  0)
+
+    field(TPRO, 1)
+    info(autosaveFields_pass0, "VAL")
+}
+

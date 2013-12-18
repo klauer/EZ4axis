@@ -1,0 +1,3 @@
+record(bo, "$(P)allstop") {
+    field(FLNK, "$(P)KILL_ALL")
+}

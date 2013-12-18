@@ -1,0 +1,46 @@
+# Supported in driver, but not in EZ4Axis
+
+## Input invert 0 [INVERT_INPUT0]
+record(bo, "$(P)INVERT_INPUT0-O") {
+    field(DESC, "Input invert 0")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT0")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Input invert 1 [INVERT_INPUT1]
+record(bo, "$(P)INVERT_INPUT1-O") {
+    field(DESC, "Input invert 1")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT1")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Input invert 2 [INVERT_INPUT2]
+record(bo, "$(P)INVERT_INPUT2-O") {
+    field(DESC, "Input invert 2")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT2")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
+## Input invert 3 [INVERT_INPUT3]
+record(bo, "$(P)INVERT_INPUT3-O") {
+    field(DESC, "Input invert 3")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT3")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+
+    info(autosaveFields_pass0, "VAL")
+}
+
