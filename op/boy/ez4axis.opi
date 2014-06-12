@@ -8,9 +8,10 @@
     <M2>m2</M2>
     <M3>m3</M3>
     <M4>m4</M4>
+    <EPICS_OPI>/CSS/epics-opi</EPICS_OPI>
   </macros>
   <wuid>c16092a:142ed4291e5:-8000</wuid>
-  <boy_version>3.2.10.201312131100</boy_version>
+  <boy_version>3.2.10.201312171754</boy_version>
   <scripts />
   <show_ruler>true</show_ruler>
   <height>500</height>
@@ -86,7 +87,7 @@
     <auto_size>true</auto_size>
     <scripts />
     <zoom_to_fit>true</zoom_to_fit>
-    <height>229</height>
+    <height>201</height>
     <name>Linking Container</name>
     <scale_options>
       <width_scalable>true</width_scalable>
@@ -98,7 +99,7 @@
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <background_color>
-      <color red="200" green="200" blue="200" />
+      <color red="218" green="218" blue="218" />
     </background_color>
     <group_name></group_name>
     <enabled>true</enabled>
@@ -106,7 +107,7 @@
     <font>
       <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
     </font>
-    <width>518</width>
+    <width>477</width>
     <border_style>0</border_style>
     <rules />
     <border_width>1</border_width>
@@ -127,7 +128,7 @@
     <auto_size>true</auto_size>
     <scripts />
     <zoom_to_fit>true</zoom_to_fit>
-    <height>139</height>
+    <height>133</height>
     <name>Linking Container_1</name>
     <scale_options>
       <width_scalable>true</width_scalable>
@@ -147,7 +148,7 @@
     <font>
       <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
     </font>
-    <width>601</width>
+    <width>548</width>
     <border_style>0</border_style>
     <rules />
     <border_width>0</border_width>

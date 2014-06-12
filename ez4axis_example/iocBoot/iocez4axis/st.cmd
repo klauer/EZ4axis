@@ -1,4 +1,5 @@
-#!../../bin/linux-x86_64/ez4axis
+#!../../bin/linux-x86/ez4axis
+## #!../../bin/linux-x86_64/ez4axis
 
 ## You may have to change ez4axis to something else
 ## everywhere it appears in this file
@@ -10,7 +11,8 @@ dbLoadDatabase("../../dbd/ez4axis.dbd",0,0)
 ez4axis_registerRecordDeviceDriver(pdbbase) 
 
 epicsEnvSet(P      , "IOC:ALM:")
-epicsEnvSet(EZ_IP  , "10.3.0.23")
+epicsEnvSet(EZ_IP  , "192.168.127.254")
+#epicsEnvSet(EZ_IP  , "10.3.0.23")
 epicsEnvSet(EZ_PORT, 4001)
 epicsEnvSet(ASYN_P , "IP1")
 epicsEnvSet(ALM_P  , "ALM1")
