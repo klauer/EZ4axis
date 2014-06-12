@@ -529,28 +529,6 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
   return status;
 }
 
-void almController::appendChecksum(char str[ALM_STRING_LEN]) {
-  int i = 0;
-  unsigned char checksum = 0;
-
-  if (str[0] == ALM_OEM_START_CHAR) {
-    // Sequence byte comes after the starting character
-    // TODO: increase sequence byte if a repeat
-    while (i < ALM_STRING_LEN && str[i] != 0 && str[i] != ALM_OEM_END_CHAR) {
-      checksum ^= str[i];
-      i++;
-    }
-
-    if (str[i] == ALM_OEM_END_CHAR) {
-      checksum ^= str[i];
-      if (str[i + 1] == 0x0 || str[i + 1] == ' ') {
-        str[i + 1] = checksum;
-        str[i + 2] = 0x0;
-      }
-    }
-  }
-}
-
 asynStatus almController::queryParameter(int axis, const char *operand, almResponsePacket &response) {
   almCommandPacket *command = getCommandPacket();
   command->select_axis(axis);

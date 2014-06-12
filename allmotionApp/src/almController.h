@@ -46,7 +46,6 @@ public:
   virtual asynStatus writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask);
   virtual asynStatus writeOctet(asynUser *pasynUser, const char *value, size_t maxChars,
                                 size_t *nActual);
-  void appendChecksum(char str[ALM_STRING_LEN]);
   almStatus getResponseCode() { return response_code_; }
 
   asynStatus terminateCommand();

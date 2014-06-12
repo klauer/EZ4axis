@@ -119,6 +119,7 @@
 #define ALM_STATUS_MASK                 0xF
 
 // OEM protocol byte definitions
+#define ALM_USE_OEM_PROTOCOL            0
 #define ALM_OEM_START_CHAR              0x02
 #define ALM_OEM_END_CHAR                0x03
 #define ALM_OEM_SEQ_START               '1' // 0x31

@@ -918,7 +918,7 @@ record(mbbo, "$(P)MODE-O") {
 
 record(mbbo, "$(P)MODE_RAW-O") {
     field(DESC, "Mode")
-    field(DTYP, "asynInt32")
+    field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),0xffffffff,$(TIMEOUT=1.0))ALM_MODE")
 
     field(TPRO, 1)

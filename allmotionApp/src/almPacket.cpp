@@ -191,8 +191,12 @@ bool almCommandPacket::set_repeat() {
 }
 
 void almCommandPacket::start(int address) {
+#if ALM_USE_OEM_PROTOCOL
   unsigned char seq = next_sequence_num();
   append("%c%d%c", ALM_OEM_START_CHAR, address, seq);
+#else
+  append("/%d", address);
+#endif
   finished_ = false;
 }
 
@@ -209,18 +213,24 @@ bool almCommandPacket::finish() {
   if (finished_)
     return true;
 
+  finished_ = true;
+
+#if ALM_USE_OEM_PROTOCOL
+  unsigned char csum;
   if (!append(ALM_OEM_END_CHAR))
     return false;
-  
+
   if ((buf_pos_ + 2) >= ALM_STRING_LEN)
     return false;
 
-  unsigned char csum;
   if (!calcChecksum(buf, buf_pos_, csum))
     return false;
-  
-  finished_ = true;
+
   return append(csum);
+#else
+  return append((unsigned char)'\n');
+#endif
+
 }
 
 void almCommandPacket::dump(asynUser* user, int asyn_trace_mask) {
