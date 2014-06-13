@@ -30,6 +30,7 @@ public:
   /* And these are specific to this class: */
   asynStatus setServo(bool enabled);
   asynStatus queryStatus();
+  asynStatus queryLimits();
   asynStatus terminateCommand();
   bool checkMoving();
 
@@ -62,6 +63,8 @@ private:
   bool has_encoder_;
   bool moving_;
   bool errored_;
+  int limit_adc_[2]; 
+  bool limits_[2];
   int axis_num_;            // according to asyn (0-based)
   int status_;
   //int param_num_;           // last parameter number (according to allmotion_params) to be queried

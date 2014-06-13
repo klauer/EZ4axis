@@ -42,6 +42,8 @@ asynStatus almAxis::poll(bool *moving) {
 
   queryStatus();
 
+  queryLimits();
+
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
             "Axis %d Position: %f (encoder %f) velocity: %f moving: %s\n",
             axis_num_, pos, enc, vel, (moving_ ? "yes" : "no"));
@@ -53,15 +55,31 @@ asynStatus almAxis::poll(bool *moving) {
   return asynSuccess;
 }
 
-asynStatus almAxis::queryStatus() {
+asynStatus almAxis::queryLimits() {
   almResponsePacket response;
-  almCommandPacket *command = pc_->getCommandPacket();
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
 
-  command->select_axis(axis_num_);
-  command->append(ALM_QUERY_STATUS);
+  command.query_limits(axis_num_);
 
   if (pc_->writeRead(response, command) == asynSuccess) {
-    //printf("ready: %d\n", response.is_ready());
+    sscanf((const char*)response.get_buffer(), "%d,%d", 
+           &limit_adc_[0], &limit_adc_[1]);
+    // printf("axis %d limit adc %d %d\n", axis_num_, limit_adc_[0], limit_adc_[1]);
+  }
+  
+  return asynSuccess;
+}
+
+asynStatus almAxis::queryStatus() {
+  almResponsePacket response;
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+
+  command.select_axis(axis_num_);
+  command.append(ALM_QUERY_STATUS);
+
+  if (pc_->writeRead(response, command) == asynSuccess) {
     if (moving_ && response.is_ready()) {
       motionFinished();
     }
@@ -76,8 +94,7 @@ asynStatus almAxis::queryStatus() {
         get_allmotion_error_string(response.get_status()));
     }
   }
-
-  delete command;
+  
   return asynSuccess;
 }
 
@@ -88,10 +105,11 @@ void almAxis::motionFinished() {
 }
 
 asynStatus almAxis::terminateCommand() {
-  almCommandPacket *command = pc_->getCommandPacket();
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
   
-  command->select_axis(axis_num_);
-  command->terminate();
+  command.select_axis(axis_num_);
+  command.terminate();
   asynStatus ret = pc_->runWrite(command);
 
   if (ret == asynError) {
@@ -112,16 +130,16 @@ asynStatus almAxis::home(double min_velocity, double max_velocity, double accele
     "%s:%s: axis %d: home (forwards=%d)\n",
     driverName, __func__, axis_num_, forwards);
   
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->select_axis(axis_num_);
-  command->home((forwards) ? home_counts_ : -home_counts_);
-  command->run();
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+  command.select_axis(axis_num_);
+  command.home((forwards) ? home_counts_ : -home_counts_);
+  command.run();
 
   asynStatus ret = pc_->write(command);
   if (ret == asynSuccess)
     moving_ = true;
 
-  delete command;
   return ret;
 }
 
@@ -149,7 +167,7 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
     position, relative);
   
   // Set slew speed
-  //command->append("V%d", (int)max_velocity);
+  //command.append("V%d", (int)max_velocity);
   //
   // Acceleration is in microsteps/sec^2
   //  = L * (400,000,000 / 65536)
@@ -157,14 +175,16 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
   // if L=1, at t=16.384, V=100,000
   // t = V / a
   //
-  //command->set_accel((int)acceleration);
+  //command.set_accel((int)acceleration);
   
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->set_velocity(axis_num_, max_velocity);
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+
+  command.set_velocity(axis_num_, max_velocity);
   asynStatus ret = pc_->runWrite(command);
   
-  command = pc_->getCommandPacket();
-  command->move(axis_num_, position, (relative != 0));
+  pc_->initCommandPacket(command);
+  command.move(axis_num_, position, (relative != 0));
   ret = pc_->runWrite(command);
 
   if (ret == asynSuccess)
@@ -180,15 +200,16 @@ asynStatus almAxis::moveVelocity(double min_velocity, double max_velocity, doubl
     driverName, __func__, axis_num_, 
     max_velocity, acceleration);
 
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->select_axis(axis_num_);
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+  command.select_axis(axis_num_);
 
   // Set slew speed
-  //command->append("V%d", abs(max_velocity));
+  //command.append("V%d", abs(max_velocity));
   if (max_velocity > 0)
-    command->append("P0");
+    command.append("P0");
   else
-    command->append("D0");
+    command.append("D0");
 
   asynStatus ret = pc_->runWrite(command);
 
@@ -227,8 +248,9 @@ asynStatus almAxis::setUIntDigitalParam(int index, epicsUInt32 value) {
 }
 
 asynStatus almAxis::setHoldCurrent(int value) {
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->set_hold_current(axis_num_, value);
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+  command.set_hold_current(axis_num_, value);
   asynStatus ret = pc_->runWrite(command);
 
   if (ret == asynSuccess) {
@@ -238,8 +260,9 @@ asynStatus almAxis::setHoldCurrent(int value) {
 }
 
 asynStatus almAxis::setMoveCurrent(int value) {
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->set_move_current(axis_num_, value);
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+  command.set_move_current(axis_num_, value);
 
   asynStatus ret = pc_->runWrite(command);
 
@@ -267,8 +290,9 @@ asynStatus almAxis::setClosedLoop(bool closed) {
 }
 
 asynStatus almAxis::setMicrosteps(unsigned int microsteps) {
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->set_microsteps(axis_num_, microsteps);
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+  command.set_microsteps(axis_num_, microsteps);
 
   asynStatus ret = pc_->runWrite(command);
 
@@ -277,9 +301,10 @@ asynStatus almAxis::setMicrosteps(unsigned int microsteps) {
 }
 
 asynStatus almAxis::setMicrostepTweak(unsigned int size) {
-  almCommandPacket *command = pc_->getCommandPacket();
-  command->select_axis(axis_num_);
-  command->set_microstep_tweak(size);
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+  command.select_axis(axis_num_);
+  command.set_microstep_tweak(size);
   return pc_->runWrite(command);
 }
 

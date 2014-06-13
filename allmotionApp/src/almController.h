@@ -87,6 +87,7 @@ public:
 
 protected:
   virtual almCommandPacket *getCommandPacket();
+  virtual void initCommandPacket(almCommandPacket &packet);
   virtual asynStatus poll();
 
   int param_kill_all_;
@@ -166,6 +167,6 @@ protected:
 private:
   friend class almAxis;
 
-  asynStatus runWrite(almCommandPacket *packet);
+  asynStatus runWrite(almCommandPacket &packet);
   
 };

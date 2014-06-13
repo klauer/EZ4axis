@@ -172,6 +172,9 @@
 #define ALM_MODE_OPEN_LOOP              0
 #define ALM_MODE_CLOSED_LOOP            8
 
+// Single mode allows only one axis to move at a time
+#define ALM_CONTROL_SINGLE              0
+
 #ifndef min
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #endif

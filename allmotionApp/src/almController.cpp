@@ -530,26 +530,27 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
 }
 
 asynStatus almController::queryParameter(int axis, const char *operand, almResponsePacket &response) {
-  almCommandPacket *command = getCommandPacket();
-  command->select_axis(axis);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.select_axis(axis);
 
   if (operand[0] == '&') {
-    command->append(operand[0]);
+    command.append(operand[0]);
   } else {
-    command->append("?%s", operand);
+    command.append("?%s", operand);
   }
   
-  //command->dump();
+  //command.dump();
 
   asynStatus ret = writeRead(response, command);
-  delete command;
   return ret;
 }
 
 asynStatus almController::terminateCommand() {
-  almCommandPacket *command = getCommandPacket();
+  almCommandPacket command;
+  initCommandPacket(command);
   
-  command->terminate();
+  command.terminate();
   asynStatus ret = runWrite(command);
 
   if (ret == asynError) {
@@ -677,15 +678,21 @@ almCommandPacket *almController::getCommandPacket() {
   return new almCommandPacket(address_);
 }
 
+void almController::initCommandPacket(almCommandPacket &packet) {
+  packet.clear();
+  packet.start(address_);
+}
+
 double adc_to_volts(int value) {
   return 3.3 * ((double)value / 16368.0);
 }
 
 asynStatus almController::readADC() {
-  almCommandPacket *command = getCommandPacket();
   almResponsePacket response;
+  almCommandPacket command;
+  initCommandPacket(command);
   
-  command->read_adc();
+  command.read_adc();
 
   asynStatus status = writeRead(response, command);
   if (status == asynSuccess) {
@@ -705,18 +712,16 @@ asynStatus almController::readADC() {
 
   }
   
-  delete command;
   return status;
 }
 
-asynStatus almController::runWrite(almCommandPacket *command) {
-  command->run();
+asynStatus almController::runWrite(almCommandPacket &command) {
+  command.run();
 
-  command->dump(pasynUser_, ASYN_TRACEIO_DRIVER);
-  //command->dump();
+  command.dump(pasynUser_, ASYN_TRACEIO_DRIVER);
+  //command.dump();
 
   asynStatus ret = write(command);
-  delete command;
   return ret;
 }
 
@@ -729,26 +734,30 @@ asynStatus almController::writeProgram(int number, const char *program) {
     return asynError;
   }
 
-  almCommandPacket *command = getCommandPacket();
-  command->append("s%d", number);
-  command->append(program);
+  almCommandPacket command;
+  initCommandPacket(command);
+
+  command.append("s%d", number);
+  command.append(program);
   
-  command->dump();
-  if (command->get_last_ch() == 'R')
+  command.dump();
+  if (command.get_last_ch() == 'R')
     return write(command);
   else
     return runWrite(command);
 }
 
 asynStatus almController::runProgram(int number) {
-  almCommandPacket *command = getCommandPacket();
-  command->append("e%d", number);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.append("e%d", number);
   return runWrite(command);
 }
 
 asynStatus almController::setHomeFlagPolarity(bool polarity) {
-  almCommandPacket *command = getCommandPacket();
-  command->home_flag_polarity(polarity);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.home_flag_polarity(polarity);
   return runWrite(command);
 }
 
@@ -764,28 +773,32 @@ asynStatus almController::invertInputs(unsigned int input, bool invert) {
   else
     in[input] = invert;
 
-  almCommandPacket *command = getCommandPacket();
-  command->invert_inputs(in[0], in[1], in[2], in[3]);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.invert_inputs(in[0], in[1], in[2], in[3]);
 
-  command->dump();
+  command.dump();
   return runWrite(command);
 }
 
 asynStatus almController::invertInputs(unsigned int mask) {
-  almCommandPacket *command = getCommandPacket();
-  command->invert_inputs(mask);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.invert_inputs(mask);
   return runWrite(command);
 }
 
 asynStatus almController::resetDevice() {
-  almCommandPacket *command = getCommandPacket();
-  command->reset_processor();
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.reset_processor();
   return runWrite(command);
 }
 
 asynStatus almController::setSwitchDebounce(int periods) {
-  almCommandPacket *command = getCommandPacket();
-  command->switch_debounce(periods);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.switch_debounce(periods);
   return runWrite(command);
 }
 
@@ -802,22 +815,25 @@ asynStatus almController::driverPower(int driver, bool enabled) {
   else
     enabled2 = enabled;
 
-  almCommandPacket *command = getCommandPacket();
-  command->driver_power(enabled1, enabled2);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.driver_power(enabled1, enabled2);
 
-  command->dump();
+  command.dump();
   return runWrite(command);
 }
 
 asynStatus almController::daughterCurrent(unsigned int current) {
-  almCommandPacket *command = getCommandPacket();
-  command->daughter_current_flow(current);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.daughter_current_flow(current);
   return runWrite(command);
 }
 
 asynStatus almController::daughterCurrentFlow(bool direction) {
-  almCommandPacket *command = getCommandPacket();
-  command->daughter_current_flow(direction);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.daughter_current_flow(direction);
   return runWrite(command);
 }
 
@@ -829,10 +845,11 @@ asynStatus almController::setInputThreshold(unsigned int chan, double thresh) {
 
   unsigned int raw_thresh = (unsigned int)((thresh / 3.3) * 16368.0);
 
-  almCommandPacket *command = getCommandPacket();
-  command->input_threshold(chan, raw_thresh);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.input_threshold(chan, raw_thresh);
 
-  command->dump();
+  command.dump();
   asynStatus ret = runWrite(command);
 
   getInputThresholds();
@@ -861,20 +878,23 @@ asynStatus almController::getInputThresholds() {
 }
 
 asynStatus almController::setPotOffset(unsigned int offset) {
-  almCommandPacket *command = getCommandPacket();
-  command->pot_offset(offset);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.pot_offset(offset);
   return runWrite(command);
 }
 
 asynStatus almController::setPotMul(unsigned int mul) {
-  almCommandPacket *command = getCommandPacket();
-  command->pot_mul(mul);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.pot_mul(mul);
   return runWrite(command);
 }
 
 asynStatus almController::setPotDeadband(unsigned int deadband) {
-  almCommandPacket *command = getCommandPacket();
-  command->pot_deadband(deadband);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.pot_deadband(deadband);
   return runWrite(command);
 }
 
@@ -930,56 +950,65 @@ asynStatus almController::queryFirmware() {
 }
 
 asynStatus almController::eraseEEPROM() {
-  almCommandPacket *command = getCommandPacket();
-  command->erase_eeprom();
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.erase_eeprom();
   return runWrite(command);
 }
 
 asynStatus almController::setEncoderOuterDeadband(unsigned int counts) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_encoder_outer_deadband(counts);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_encoder_outer_deadband(counts);
   return runWrite(command);
 }
 
 asynStatus almController::setEncoderInnerDeadband(unsigned int counts) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_encoder_inner_deadband(counts);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_encoder_inner_deadband(counts);
   return runWrite(command);
 }
 
 asynStatus almController::setEncoderRatio(unsigned int ticks_per_ustep) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_encoder_ratio(ticks_per_ustep);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_encoder_ratio(ticks_per_ustep);
   return runWrite(command);
 }
 
 asynStatus almController::setOverloadTimeout(unsigned int moves) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_overload_timeout(moves);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_overload_timeout(moves);
   return runWrite(command);
 }
 
 asynStatus almController::setIntegrationPeriod(unsigned int pd) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_integration_period(pd);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_integration_period(pd);
   return runWrite(command);
 }
 
 asynStatus almController::setRecoveryScriptRuns(unsigned int runs) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_recovery_script_runs(runs);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_recovery_script_runs(runs);
   return runWrite(command);
 }
 
 asynStatus almController::setMode(unsigned int mode) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_mode(mode);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_mode(mode);
   return runWrite(command);
 }
 
 asynStatus almController::setSpecialMode(unsigned int mode) {
-  almCommandPacket *command = getCommandPacket();
-  command->set_special_mode(mode);
+  almCommandPacket command;
+  initCommandPacket(command);
+  command.set_special_mode(mode);
   return runWrite(command);
 }
 

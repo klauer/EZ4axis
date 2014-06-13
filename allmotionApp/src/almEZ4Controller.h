@@ -12,7 +12,7 @@ public:
   virtual asynStatus queryVelocities();
 
 protected:
-  virtual almCommandPacket *getCommandPacket();
+  //virtual almCommandPacket *getCommandPacket();
   //virtual asynStatus poll();
 
 private:

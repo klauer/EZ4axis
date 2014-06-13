@@ -36,8 +36,6 @@ public:
   const byte *get_buffer() { return buf_; }
   int as_float();
   int as_int();
-  //int as_int_array(int *array, int max_, char delim=',');
-  //
 };
 
 
@@ -92,6 +90,7 @@ public:
   virtual bool set_bump_jog_dist(unsigned int counts);
 
   virtual bool read_adc();
+  virtual bool query_limits(byte axis);
 
   bool halt_condition(unsigned int input, bool value);
   bool skip_next(unsigned int input, bool value);
@@ -211,17 +210,4 @@ public:
   bool set_microstep_tweak(unsigned int size) {
     return append("o%d", min(size, ALM_MAX_MICROSTEP_SIZE));
   }
-};
-
-
-class almEZ4CommandPacket : public almCommandPacket {
-public:
-  almEZ4CommandPacket();
-  almEZ4CommandPacket(int address);
-  virtual ~almEZ4CommandPacket() {}
-
-  virtual bool select_axis(byte axis);
-  virtual bool move(byte axis, int position, bool relative);
-  virtual bool set_axis_param(byte param, byte axis, int value);
-
 };

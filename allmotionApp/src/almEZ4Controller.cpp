@@ -36,7 +36,3 @@ asynStatus almEZ4Controller::queryVelocities() {
 
   return asynSuccess;
 }
-
-almCommandPacket *almEZ4Controller::getCommandPacket() {
-    return new almEZ4CommandPacket(address_);
-}

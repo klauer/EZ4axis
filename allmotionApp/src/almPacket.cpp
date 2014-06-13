@@ -207,8 +207,11 @@ void almCommandPacket::start(int address) {
 }
 
 bool almCommandPacket::select_axis(byte axis) {
+  if (axis == 0 || axis == axis_)
+    return true;
+  
   axis_ = axis;
-  return true;
+  return append("aM%d", axis);
 }
 
 bool almCommandPacket::run() {
@@ -312,7 +315,12 @@ bool almCommandPacket::read_adc() {
   return append("?aa");
 }
 
+bool almCommandPacket::query_limits(byte axis) {
+  return append("?aa%d", axis);
+}
+
 bool almCommandPacket::move(byte axis, int position, bool relative) {
+#if ALM_CONTROL_SINGLE
   select_axis(axis);
 
   if (!relative) {
@@ -323,6 +331,19 @@ bool almCommandPacket::move(byte axis, int position, bool relative) {
     else
       append("D%d", -position);
   }
+  return true;
+#else
+  // don't select a specific axis, but write in the format "A,,,"
+  if (!relative) {
+    append_four('A', axis, position);
+  } else {
+    if (position > 0)
+      append_four('P', axis, position);
+    else
+      append_four('D', axis, -position);
+  }
+#endif
+
   return true;
 }
 
@@ -375,8 +396,12 @@ bool almCommandPacket::home(int counts) {
 
 
 bool almCommandPacket::set_axis_param(byte param, byte axis, int value) {
+#if ALM_CONTROL_SINGLE
   select_axis(axis);
   return append("%c%d", param, value);
+#else
+  return append_four(param, axis, value);
+#endif
 }
 
 
@@ -386,43 +411,4 @@ almCommandPacket::almCommandPacket(const almCommandPacket &other) {
   finished_ = other.finished_;
 
   memcpy(buf, other.buf, ALM_STRING_LEN);
-}
-
-//////////////////////
-/* EZ4Axis-specific */
-almEZ4CommandPacket::almEZ4CommandPacket() : almCommandPacket() 
-{
-}
-
-almEZ4CommandPacket::almEZ4CommandPacket(int address)
-  : almCommandPacket()
-{
-  start(address);
-}
-
-bool almEZ4CommandPacket::select_axis(byte axis) {
-  // Axes start counting at 1
-  if (axis == 0 || axis == axis_)
-    return true;
-  
-  axis_ = axis;
-  return append("aM%d", axis);
-}
-
-bool almEZ4CommandPacket::move(byte axis, int position, bool relative) {
-  // don't select a specific axis, but write in the format "A,,,"
-  if (!relative) {
-    append_four('A', axis, position);
-  } else {
-    if (position > 0)
-      append_four('P', axis, position);
-    else
-      append_four('D', axis, -position);
-  }
-  return true;
-
-}
-
-bool almEZ4CommandPacket::set_axis_param(byte param, byte axis, int value) {
-  return append_four(param, axis, value);
 }
