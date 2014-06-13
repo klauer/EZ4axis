@@ -19,7 +19,7 @@ asynStatus almEZ4Controller::queryPositions() {
   almResponsePacket response;
 
   if (queryParameter(0, ALM_QUERY_ALL_POS, response) == asynSuccess) {
-    sscanf(response.get_buffer(), "%d,%d,%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d", 
            &positions_[0], &positions_[1], &positions_[2], &positions_[3]);
     return asynSuccess;
   }
@@ -30,7 +30,7 @@ asynStatus almEZ4Controller::queryVelocities() {
   almResponsePacket response;
 
   if (queryParameter(0, ALM_QUERY_ALL_VEL, response) == asynSuccess) {
-    sscanf(response.get_buffer(), "%d,%d,%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d", 
            &velocities_[0], &velocities_[1], &velocities_[2], &velocities_[3]);
   }
 

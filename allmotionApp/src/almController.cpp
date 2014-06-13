@@ -171,14 +171,14 @@ almController::almController(const char *portName, const char *asynPortName, int
       driverName, __func__);
   }
 
-  status = pasynOctetSyncIO->setInputEos(pasynUser_, "\r", 1);
+  status = pasynOctetSyncIO->setInputEos(pasynUser_, ALM_INPUT_EOS, 1);
   if (status) {
     asynPrint(pasynUser_, ASYN_TRACE_ERROR|ASYN_TRACE_FLOW,
       "%s: Unable to set input EOS on %s: %s\n",
       __func__, asynPortName, pasynUser_->errorMessage);
   }
 
-  status = pasynOctetSyncIO->setOutputEos(pasynUser_, "\r", 1);
+  status = pasynOctetSyncIO->setOutputEos(pasynUser_, ALM_OUTPUT_EOS, 1);
   if (status) {
     asynPrint(pasynUser_, ASYN_TRACE_ERROR|ASYN_TRACE_FLOW,
       "%s: Unable to set output EOS on %s: %s\n",
@@ -600,14 +600,14 @@ asynStatus almController::writeRead(almResponsePacket &input, almCommandPacket &
   command.dump(pasynUser_, ASYN_TRACEIO_DRIVER);
 
   status = pasynOctetSyncIO->writeRead(pasynUser_,
-                                       command.get_buffer(), command.length(),
+                                       (const char*)command.get_buffer(), command.length(),
                                        buf, ALM_STRING_LEN,
                                        timeout_, &nwrite, &nread, &eomReason);
 
   unlock();
 
   if (nread > 0) {
-    input.received(buf, nread);
+    input.received((const byte*)buf, nread);
     if (nread > 0) {
       input.dump(pasynUser_, ASYN_TRACEIO_DEVICE);
     }
@@ -691,7 +691,7 @@ asynStatus almController::readADC() {
   if (status == asynSuccess) {
     int adc_int[ALM_ADC_COUNT];
 
-    sscanf(response.get_buffer(), "%d,%d,%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d", 
            &adc_int[3], &adc_int[2], &adc_int[1], &adc_int[0]);
 
     for (int i=0; i < ALM_ADC_COUNT; i++) {
@@ -846,7 +846,7 @@ asynStatus almController::getInputThresholds() {
 
   if (queryControllerParam(ALM_QUERY_ADC_THRESHOLDS, response) == asynSuccess) {
     //printf("Input thresholds %s\n", response.get_buffer());
-    sscanf(response.get_buffer(), "%d,%d,%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d", 
            &thresh[3], &thresh[2], &thresh[1], &thresh[0]);
     
     // 0 to 16368 -> 0.0 to 3.3V
@@ -923,7 +923,7 @@ asynStatus almController::queryFirmware() {
   almResponsePacket response;
   if (queryControllerParam(ALM_QUERY_FIRMWARE, response) == asynSuccess) {
     printf("Firmware version: %s\n", response.get_buffer());
-    setStringParam(param_firmware_, response.get_buffer());
+    setStringParam(param_firmware_, (const char*)response.get_buffer());
     return asynSuccess;
   }
   return asynError;

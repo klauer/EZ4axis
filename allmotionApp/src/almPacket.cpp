@@ -1,7 +1,7 @@
 #include "allmotion.h"
 
 // vim: tabstop=2 shiftwidth=2
-static unsigned char sequence_num = 0;
+static byte sequence_num = 0;
 
 #ifndef strnchr
 char* strnchr(const char* str, size_t len, char c) {
@@ -23,13 +23,13 @@ char* strnchr(const char* str, size_t len, char c) {
 }
 #endif
 
-static unsigned char next_sequence_num(void) {
+static byte next_sequence_num(void) {
   sequence_num = (sequence_num + 1) % 7 + 0x31;
   return sequence_num;
 }
 
 
-bool calcChecksum(const char *buf, int buflen, unsigned char &checksum) {
+bool calcChecksum(const byte *buf, int buflen, byte &checksum) {
   int i = 0;
   checksum = 0;
 
@@ -57,8 +57,16 @@ void almResponsePacket::invalidate() {
   memset(buf_, '\0', (size_t)ALM_STRING_LEN);
 }
 
-bool almResponsePacket::received(char *input, int len) {
-  const char *response = find_response_start(input, len);
+bool almResponsePacket::received(const byte *input, int len) {
+  const byte *response = find_response_start(input, len);
+#if 0
+  printf("received length=%d\n", len);
+  for (int i=0; i <= len; i++) {
+    printf("0x%x ", input[i]);
+  }
+  printf("\n");
+#endif
+
   if (response) {
     // Parse out the codes in the first byte
     valid_ = ((response[0] & ALM_ALWAYS_SET_MASK) == ALM_ALWAYS_SET_MASK);
@@ -83,12 +91,12 @@ bool almResponsePacket::received(char *input, int len) {
   return false;
 }
 
-bool almResponsePacket::verifyChecksum(const char *buf, int buflen) {
-  unsigned char csum;
+bool almResponsePacket::verifyChecksum(const byte *buf, int buflen) {
+  byte csum;
   if (!calcChecksum(buf, buflen, csum))
     return false;
 
-  char *buf_end = strnchr(buf, buflen, ALM_OEM_END_CHAR);
+  byte *buf_end = (byte *)strnchr((char *)buf, buflen, ALM_OEM_END_CHAR);
   if (!buf_end)
     return false;
 
@@ -102,7 +110,7 @@ bool almResponsePacket::verifyChecksum(const char *buf, int buflen) {
   return false;
 }
 
-const char *almResponsePacket::find_response_start(const char *str, int buflen) {
+const byte *almResponsePacket::find_response_start(const byte *str, int buflen) {
   // Response: /0bXXYY where b is the status byte and XXYY is optionally
   // any data contained in the response (in OEM protocol, / is ALM_OEM_START_CHAR)
   for (int i=0; i < buflen - 1; i++) {
@@ -138,20 +146,18 @@ void almResponsePacket::dump(asynUser* user, int asyn_trace_mask) {
 
 void almResponsePacket::dump() {
   for (int i=0; i <= ALM_STRING_LEN; i++) {
-    if (buf_[i] >= 32 && buf_[i] < 127)
-      printf("0x%x ", buf_[i]);
-    else
-      printf(".");
+    printf("0x%x ", buf_[i]);
 
     if (buf_[i] == 0)
       break;
   }
+
   printf("\n");
 }
 
 int almResponsePacket::as_float() {
   if (valid_) {
-    return atof(buf_);
+    return atof((const char*)buf_);
   } else {
     return 0.0f;
   }
@@ -159,7 +165,7 @@ int almResponsePacket::as_float() {
 
 int almResponsePacket::as_int() {
   if (valid_) {
-    return atoi(buf_);
+    return atoi((const char*)buf_);
   } else {
     return 0;
   }
@@ -192,7 +198,7 @@ bool almCommandPacket::set_repeat() {
 
 void almCommandPacket::start(int address) {
 #if ALM_USE_OEM_PROTOCOL
-  unsigned char seq = next_sequence_num();
+  byte seq = next_sequence_num();
   append("%c%d%c", ALM_OEM_START_CHAR, address, seq);
 #else
   append("/%d", address);
@@ -200,7 +206,7 @@ void almCommandPacket::start(int address) {
   finished_ = false;
 }
 
-bool almCommandPacket::select_axis(unsigned char axis) {
+bool almCommandPacket::select_axis(byte axis) {
   axis_ = axis;
   return true;
 }
@@ -216,19 +222,19 @@ bool almCommandPacket::finish() {
   finished_ = true;
 
 #if ALM_USE_OEM_PROTOCOL
-  unsigned char csum;
+  byte csum;
   if (!append(ALM_OEM_END_CHAR))
-    return false;
-
-  if ((buf_pos_ + 2) >= ALM_STRING_LEN)
     return false;
 
   if (!calcChecksum(buf, buf_pos_, csum))
     return false;
 
-  return append(csum);
+  if (!append(csum))
+    return false;
+
+  return append((byte)'\0');
 #else
-  return append((unsigned char)'\n');
+  return append("\r\n");
 #endif
 
 }
@@ -256,7 +262,7 @@ void almCommandPacket::dump() {
   
 }
 
-bool almCommandPacket::append(unsigned char c) {
+bool almCommandPacket::append(byte c) {
   if ((buf_pos_ + 1) < ALM_STRING_LEN) {
     buf[buf_pos_++] = c;
     return true;
@@ -288,11 +294,11 @@ bool almCommandPacket::append(const char *fmt, ...) {
 }
 
 
-bool almCommandPacket::append_four(unsigned char c, int v1, int v2, int v3, int v4) {
+bool almCommandPacket::append_four(byte c, int v1, int v2, int v3, int v4) {
   return append("%c%d,%d,%d,%d", v1, v2, v3, v4);
 }
 
-bool almCommandPacket::append_four(unsigned char c, unsigned char axis, int value) {
+bool almCommandPacket::append_four(byte c, byte axis, int value) {
   switch (axis) {
   case 0: return append("%c%d,,,", c, value);
   case 1: return append("%c,%d,,", c, value);
@@ -306,7 +312,7 @@ bool almCommandPacket::read_adc() {
   return append("?aa");
 }
 
-bool almCommandPacket::move(unsigned char axis, int position, bool relative) {
+bool almCommandPacket::move(byte axis, int position, bool relative) {
   select_axis(axis);
 
   if (!relative) {
@@ -368,7 +374,7 @@ bool almCommandPacket::home(int counts) {
 }
 
 
-bool almCommandPacket::set_axis_param(unsigned char param, unsigned char axis, int value) {
+bool almCommandPacket::set_axis_param(byte param, byte axis, int value) {
   select_axis(axis);
   return append("%c%d", param, value);
 }
@@ -394,7 +400,7 @@ almEZ4CommandPacket::almEZ4CommandPacket(int address)
   start(address);
 }
 
-bool almEZ4CommandPacket::select_axis(unsigned char axis) {
+bool almEZ4CommandPacket::select_axis(byte axis) {
   // Axes start counting at 1
   if (axis == 0 || axis == axis_)
     return true;
@@ -403,7 +409,7 @@ bool almEZ4CommandPacket::select_axis(unsigned char axis) {
   return append("aM%d", axis);
 }
 
-bool almEZ4CommandPacket::move(unsigned char axis, int position, bool relative) {
+bool almEZ4CommandPacket::move(byte axis, int position, bool relative) {
   // don't select a specific axis, but write in the format "A,,,"
   if (!relative) {
     append_four('A', axis, position);
@@ -417,6 +423,6 @@ bool almEZ4CommandPacket::move(unsigned char axis, int position, bool relative) 
 
 }
 
-bool almEZ4CommandPacket::set_axis_param(unsigned char param, unsigned char axis, int value) {
+bool almEZ4CommandPacket::set_axis_param(byte param, byte axis, int value) {
   return append_four(param, axis, value);
 }

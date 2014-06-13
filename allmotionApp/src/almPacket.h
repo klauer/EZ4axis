@@ -1,9 +1,13 @@
 #include "allmotion.h"
 
+#ifndef byte
+typedef unsigned char byte;
+#endif
+
 // vim: tabstop=2 shiftwidth=2
 class almResponsePacket {
 private:
-  char buf_[ALM_STRING_LEN];
+  byte buf_[ALM_STRING_LEN];
   bool valid_;
   bool ready_;
   bool overflow_;
@@ -17,19 +21,19 @@ public:
   
   void invalidate();
 
-  bool received(char *input, int len);
-  const char *find_response_start(const char *str, int buflen);
+  bool received(const byte *input, int len);
+  const byte *find_response_start(const byte *str, int buflen);
   
   void dump();
   void dump(asynUser* user, int asyn_trace_mask);
 
-  bool verifyChecksum(const char *buf, int buflen);
+  bool verifyChecksum(const byte *buf, int buflen);
   bool is_valid() { return valid_; }
   bool is_ready() { return ready_; }
   almStatus get_status() { return code_; }
 
   // return info on the data buffer
-  const char *get_buffer() { return (const char*)buf_; }
+  const byte *get_buffer() { return buf_; }
   int as_float();
   int as_int();
   //int as_int_array(int *array, int max_, char delim=',');
@@ -39,9 +43,9 @@ public:
 
 class almCommandPacket {
 protected:
-  char buf[ALM_STRING_LEN];
+  byte buf[ALM_STRING_LEN];
   int buf_pos_;
-  unsigned char axis_;
+  byte axis_;
   bool finished_;
 
 public:
@@ -54,16 +58,16 @@ public:
     return buf_pos_ + 1;
   }
 
-  const char *get_buffer() { return buf; }
-  char get_last_ch() { return buf[buf_pos_]; }
+  const byte *get_buffer() { return buf; }
+  byte get_last_ch() { return buf[buf_pos_]; }
 
   bool set_repeat();
 
-  bool append(unsigned char c);
+  bool append(byte c);
   bool append(const char *fmt, va_list argptr);
   bool append(const char *fmt, ...);
-  bool append_four(unsigned char c, int v1, int v2, int v3, int v4);
-  bool append_four(unsigned char c, unsigned char axis, int value);
+  bool append_four(byte c, int v1, int v2, int v3, int v4);
+  bool append_four(byte c, byte axis, int value);
 
   virtual void start(int address);
   virtual void clear();
@@ -74,9 +78,9 @@ public:
   virtual void dump();
   void dump(asynUser* user, int asyn_trace_mask);
 
-  virtual bool select_axis(unsigned char axis);
-  virtual bool move(unsigned char axis, int position, bool relative);
-  virtual bool set_axis_param(unsigned char param, unsigned char axis, int value);
+  virtual bool select_axis(byte axis);
+  virtual bool move(byte axis, int position, bool relative);
+  virtual bool set_axis_param(byte param, byte axis, int value);
   virtual bool home(int counts);
   virtual bool set_position(int counts);
 
@@ -172,19 +176,19 @@ public:
     return append("J%d", ((power2 << 1) | power1)); 
   }
 
-  bool set_velocity(unsigned char axis, unsigned int velocity) {
+  bool set_velocity(byte axis, unsigned int velocity) {
     return set_axis_param('V', axis, min(velocity, ALM_MAX_VELOCITY)); 
   }
 
-  bool set_hold_current(unsigned char axis, unsigned int current) { 
+  bool set_hold_current(byte axis, unsigned int current) { 
     return set_axis_param('h', axis, min(current, 100)); 
   }
 
-  bool set_move_current(unsigned char axis, unsigned int current) {
+  bool set_move_current(byte axis, unsigned int current) {
     return set_axis_param('m', axis, min(current, 100)); 
   }
 
-  bool set_microsteps(unsigned char axis, unsigned int microsteps) {
+  bool set_microsteps(byte axis, unsigned int microsteps) {
     return set_axis_param('j', axis, min(microsteps, ALM_MAX_MICROSTEPS)); 
   }
 
@@ -216,8 +220,8 @@ public:
   almEZ4CommandPacket(int address);
   virtual ~almEZ4CommandPacket() {}
 
-  virtual bool select_axis(unsigned char axis);
-  virtual bool move(unsigned char axis, int position, bool relative);
-  virtual bool set_axis_param(unsigned char param, unsigned char axis, int value);
+  virtual bool select_axis(byte axis);
+  virtual bool move(byte axis, int position, bool relative);
+  virtual bool set_axis_param(byte param, byte axis, int value);
 
 };

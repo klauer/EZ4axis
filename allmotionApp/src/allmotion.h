@@ -120,6 +120,13 @@
 
 // OEM protocol byte definitions
 #define ALM_USE_OEM_PROTOCOL            0
+#if ALM_USE_OEM_PROTOCOL
+#    define ALM_INPUT_EOS               "\n"
+#    define ALM_OUTPUT_EOS              "\0"
+#else
+#    define ALM_INPUT_EOS               "\03"
+#    define ALM_OUTPUT_EOS              "\n"
+#endif
 #define ALM_OEM_START_CHAR              0x02
 #define ALM_OEM_END_CHAR                0x03
 #define ALM_OEM_SEQ_START               '1' // 0x31
