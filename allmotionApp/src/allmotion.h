@@ -119,7 +119,7 @@
 #define ALM_STATUS_MASK                 0xF
 
 // OEM protocol byte definitions
-#define ALM_USE_OEM_PROTOCOL            0
+#define ALM_USE_OEM_PROTOCOL            1
 #if ALM_USE_OEM_PROTOCOL
 #    define ALM_INPUT_EOS               "\n"
 #    define ALM_OUTPUT_EOS              "\0"
