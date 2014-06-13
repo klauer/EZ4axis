@@ -1,3 +1,5 @@
+# vi: sw=4 ts=4
+
 record(motor, "$(P)$(M)") {
   field(DESC, "$(DESC)")
   field(DTYP, "$(DTYP)")
@@ -74,6 +76,7 @@ record(longout, "$(P)$(M):MOVE_CUR-O") {
     field(VAL,  50)
     field(PINI, "YES")
  
+    info(autosaveFields_pass0, "VAL")
     info(autosaveFields_pass1, "VAL")
 }
 
@@ -98,6 +101,7 @@ record(longout, "$(P)$(M):HOLD_CUR-O") {
     field(PINI, "YES")
 
     field(VAL, 50)
+    info(autosaveFields_pass0, "VAL")
     info(autosaveFields_pass1, "VAL")
 }
 

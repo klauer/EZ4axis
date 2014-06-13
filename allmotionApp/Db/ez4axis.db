@@ -285,9 +285,10 @@ record(stringin, "$(P)ERROR-I") {
     field(SCAN, "I/O Intr")
 }
 
-record(calcout, "$(P)CLEAR_ERR") {
+record(scalcout, "$(P)CLEAR_ERR") {
     field(OUT, "$(P)ERROR-I")
-    field(VAL, "OK")
+    field(CALC, "'OK'")
+    field(OOPT, "Every Time")
 }
 
 ## Firmware version [FIRMWARE]
@@ -692,6 +693,8 @@ record(bo, "$(P)MOD_PULSE_JOG") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_EN_LIMITS") {
@@ -702,6 +705,8 @@ record(bo, "$(P)MOD_EN_LIMITS") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_CONT_JOG") {
@@ -712,6 +717,8 @@ record(bo, "$(P)MOD_CONT_JOG") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_CLOSED_LOOP") {
@@ -722,6 +729,8 @@ record(bo, "$(P)MOD_CLOSED_LOOP") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_OVR_REPORT") {
@@ -732,6 +741,8 @@ record(bo, "$(P)MOD_OVR_REPORT") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_STEP_DIR") {
@@ -742,6 +753,8 @@ record(bo, "$(P)MOD_STEP_DIR") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_MOTOR_SLAVE") {
@@ -752,6 +765,8 @@ record(bo, "$(P)MOD_MOTOR_SLAVE") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_DUAL_ENCODER") {
@@ -762,6 +777,8 @@ record(bo, "$(P)MOD_DUAL_ENCODER") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_JOYSTICK") {
@@ -772,6 +789,8 @@ record(bo, "$(P)MOD_JOYSTICK") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_OVR_RUN_13") {
@@ -782,6 +801,8 @@ record(bo, "$(P)MOD_OVR_RUN_13") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_OVR_RUN_14") {
@@ -792,6 +813,8 @@ record(bo, "$(P)MOD_OVR_RUN_14") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_OVR_RUN_15") {
@@ -802,6 +825,8 @@ record(bo, "$(P)MOD_OVR_RUN_15") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_POT_2") {
@@ -812,6 +837,8 @@ record(bo, "$(P)MOD_POT_2") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_SW1_KILLS") {
@@ -822,6 +849,8 @@ record(bo, "$(P)MOD_SW1_KILLS") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_SW2_KILLS") {
@@ -832,6 +861,8 @@ record(bo, "$(P)MOD_SW2_KILLS") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(bo, "$(P)MOD_OPTO2_POT_VEL") {
@@ -842,6 +873,8 @@ record(bo, "$(P)MOD_OPTO2_POT_VEL") {
     field(STAT, "NO_ALARM")
     field(SEVR, "NO_ALARM")
     field(VAL,  0)
+
+    info(autosaveFields_pass0, "VAL")
 }
 
 record(calc, "$(P)MODE_CALC") {

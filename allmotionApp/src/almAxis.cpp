@@ -69,7 +69,7 @@ asynStatus almAxis::queryLimits() {
     sscanf((const char*)response.get_buffer(), "%d,%d", 
            &lim[0], &lim[1]);
 
-    getIntegerParam(pc_->param_invert_input_[axis_num_ - 1], &invert);
+    pc_->getIntegerParam(pc_->param_invert_input_[axis_num_ - 1], &invert);
   
     for (int i=0; i < 2; i++) {
       limit_adc_[i] = adc_to_volts(lim[i]);
