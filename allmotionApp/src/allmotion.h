@@ -229,4 +229,7 @@ typedef struct allmotionNode {
 bool addToList(const char *portName, almController *drv);
 almController* findByPortName(const char *portName);
 
+double adc_to_volts(int value);
+unsigned int volts_to_adc(double volts);
+
 #endif

@@ -684,7 +684,13 @@ void almController::initCommandPacket(almCommandPacket &packet) {
 }
 
 double adc_to_volts(int value) {
+  // 0 to 16368 -> 0.0 to 3.3V
   return 3.3 * ((double)value / 16368.0);
+}
+
+unsigned int volts_to_adc(double volts) {
+  // 0 to 16368 <- 0.0 to 3.3V
+  return (unsigned int)((volts / 3.3) * 16368.0);
 }
 
 asynStatus almController::readADC() {
@@ -838,12 +844,10 @@ asynStatus almController::daughterCurrentFlow(bool direction) {
 }
 
 asynStatus almController::setInputThreshold(unsigned int chan, double thresh) {
-  // 0.0 to 3.3V
-  // 0 to 16368
   if (thresh < 0.0 || thresh > 3.3)
     return asynError;
 
-  unsigned int raw_thresh = (unsigned int)((thresh / 3.3) * 16368.0);
+  unsigned int raw_thresh = volts_to_adc(thresh);
 
   almCommandPacket command;
   initCommandPacket(command);
@@ -868,7 +872,7 @@ asynStatus almController::getInputThresholds() {
     
     // 0 to 16368 -> 0.0 to 3.3V
     for (int i=0; i < ALM_ADC_COUNT; i++) {
-      thresholds_[i] = ((double)thresh[i] / 16368) * 3.3;
+      thresholds_[i] = adc_to_volts(thresh[i]);
       setDoubleParam(param_input_threshold_[i], thresholds_[i]);
     }
 

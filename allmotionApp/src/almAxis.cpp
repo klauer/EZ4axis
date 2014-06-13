@@ -61,10 +61,30 @@ asynStatus almAxis::queryLimits() {
   pc_->initCommandPacket(command);
 
   command.query_limits(axis_num_);
+  
+  int lim[2];
+  int invert;
 
   if (pc_->writeRead(response, command) == asynSuccess) {
     sscanf((const char*)response.get_buffer(), "%d,%d", 
-           &limit_adc_[0], &limit_adc_[1]);
+           &lim[0], &lim[1]);
+
+    getIntegerParam(pc_->param_invert_input_[axis_num_ - 1], &invert);
+  
+    for (int i=0; i < 2; i++) {
+      limit_adc_[i] = adc_to_volts(lim[i]);
+      limits_[i] = (limit_adc_[i] < (pc_->thresholds_[axis_num_ - 1]));
+      
+      if (invert) {
+        limits_[i] = !limits_[i];
+      }
+
+      if (i == 0) {
+        setIntegerParam(pc_->motorStatusHighLimit_, limits_[i]);
+      } else {
+        setIntegerParam(pc_->motorStatusLowLimit_, limits_[i]);
+      }
+    }
     // printf("axis %d limit adc %d %d\n", axis_num_, limit_adc_[0], limit_adc_[1]);
   }
   

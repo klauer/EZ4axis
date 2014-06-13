@@ -63,7 +63,7 @@ private:
   bool has_encoder_;
   bool moving_;
   bool errored_;
-  int limit_adc_[2]; 
+  double limit_adc_[2]; 
   bool limits_[2];
   int axis_num_;            // according to asyn (0-based)
   int status_;
