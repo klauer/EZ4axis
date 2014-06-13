@@ -1,0 +1,4 @@
+file "motor_positions.req", P=$(P), M=m1
+file "motor_positions.req", P=$(P), M=m2
+file "motor_positions.req", P=$(P), M=m3
+file "motor_positions.req", P=$(P), M=m4
