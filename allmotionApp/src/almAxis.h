@@ -18,8 +18,8 @@ public:
   asynStatus setPosition(double position);
   asynStatus setUIntDigitalParam(int index, epicsUInt32 value);
 
-  asynStatus setHoldCurrent(int value);
-  asynStatus setMoveCurrent(int value);
+  asynStatus setHoldCurrent(double value);
+  asynStatus setMoveCurrent(double value);
 
   asynStatus setMicrosteps(unsigned int microsteps);
   asynStatus setMicrostepTweak(unsigned int size);

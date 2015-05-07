@@ -81,6 +81,7 @@ public:
 
   asynStatus setMode(unsigned int mode);
   asynStatus setSpecialMode(unsigned int mode);
+  int ampsToPercent(double amps);
 
   virtual asynStatus queryPositions();
   virtual asynStatus queryVelocities();
@@ -121,6 +122,7 @@ protected:
   int param_firmware_;
   int param_microsteps_;
   int param_microstep_tweak_;
+  int param_max_amps_;
 
   int param_driver1_power_;
   int param_driver2_power_;

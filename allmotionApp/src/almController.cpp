@@ -125,6 +125,7 @@ almController::almController(const char *portName, const char *asynPortName, int
   createParam(ALM_PSTR_INVERT_INPUT3     ,    asynParamInt32, &param_invert_input_[3]);
 
   createParam(ALM_PSTR_MICROSTEP_TWEAK   ,    asynParamInt32, &param_microstep_tweak_);
+  createParam(ALM_PSTR_MAX_AMPS          ,  asynParamFloat64, &param_max_amps_);
 
   // Read-only
   createParam(ALM_PSTR_ADC_1             ,  asynParamFloat64,  &param_adc_[0]);
@@ -173,6 +174,9 @@ almController::almController(const char *portName, const char *asynPortName, int
 
   setStringParam(param_error_, "");
   setIntegerParam(motorStatusHasEncoder_, 1);
+
+  // TODO other drives different?
+  setDoubleParam(param_max_amps_, 2.0);
 
   /* Connect to the AllMotion controller */
   asynStatus status = pasynOctetSyncIO->connect(asynPortName, 0, &pasynUser_, NULL);
@@ -311,6 +315,10 @@ asynStatus almController::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
     status = pAxis->setLowLimitThreshold(value);
   } else if (function == param_limit_thresh_[ALM_LIM_HIGH]) {
     status = pAxis->setHighLimitThreshold(value);
+  } else if (function == param_hold_i_) {
+    status = pAxis->setHoldCurrent(value);
+  } else if (function == param_move_i_) {
+    status = pAxis->setMoveCurrent(value);
   } else {
     /* Call base class method */
     status = asynMotorController::writeFloat64(pasynUser, value);
@@ -471,12 +479,6 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
   status = setIntegerParam(pAxis->axisNo_, function, value);
   if (function == param_kill_all_) {
     terminateCommand();
-  } else if (function == param_hold_i_) {
-    //printf("Set hold current %d = %d\n", pAxis->axisNo_, value);
-    status = pAxis->setHoldCurrent(value);
-  } else if (function == param_move_i_) {
-    //printf("Set move current %d = %d\n", pAxis->axisNo_, value);
-    status = pAxis->setMoveCurrent(value);
   } else if (function == param_read_adc_) {
     status = readADC();
   } else if (function == param_read_inp_) {
@@ -1064,3 +1066,18 @@ asynStatus almController::setSpecialMode(unsigned int mode) {
   return runWrite(command);
 }
 
+int almController::ampsToPercent(double amps) {
+  double max_amps;
+  getDoubleParam(param_max_amps_, &max_amps);
+  if (max_amps <= 0.0) {
+    max_amps = 2.0;
+  }
+
+  if (amps < 0.0) {
+    amps = 0.0;
+  } else if (amps > max_amps) {
+    amps = max_amps;
+  }
+
+  return (int)((amps / max_amps) * 100.0);
+}

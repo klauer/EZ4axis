@@ -296,29 +296,19 @@ asynStatus almAxis::setUIntDigitalParam(int index, epicsUInt32 value) {
   return pc_->setUIntDigitalParam(axisNo_, index, value, 0xffffffff);
 }
 
-asynStatus almAxis::setHoldCurrent(int value) {
+asynStatus almAxis::setHoldCurrent(double amps) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.set_hold_current(axis_num_, value);
-  asynStatus ret = pc_->runWrite(command);
-
-  if (ret == asynSuccess) {
-  }
-
-  return ret;
+  command.set_hold_current(axis_num_, pc_->ampsToPercent(amps));
+  return pc_->runWrite(command);
 }
 
-asynStatus almAxis::setMoveCurrent(int value) {
+asynStatus almAxis::setMoveCurrent(double amps) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.set_move_current(axis_num_, value);
+  command.set_move_current(axis_num_, pc_->ampsToPercent(amps));
 
-  asynStatus ret = pc_->runWrite(command);
-
-  if (ret == asynSuccess) {
-  }
-
-  return ret;
+  return pc_->runWrite(command);
 }
 
 asynStatus almAxis::setClosedLoop(bool closed) {

@@ -69,53 +69,58 @@ record(scalcout, "$(P)$(M)_twCh") {
 
 
 ## Move current
-record(longout, "$(P)$(M):MOVE_CUR-O") {
+record(ao, "$(P)$(M):MOVE_CUR-O") {
     field(DESC, "Move current")
-    field(DTYP, "asynInt32")
+    field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MOVE_I")
     field(FLNK, "$(P)$(M):MOVE_CUR-I")
-    field(EGU,  "%")
+    field(EGU,  "A")
+    field(PREC, 1)
     field(LOPR, 0)
-    field(HOPR, 100)
-    field(VAL,  50)
+    field(HOPR, 2.0)
+    field(VAL,  0.2)
     field(PINI, "YES")
  
-    info(autosaveFields_pass0, "VAL")
-    info(autosaveFields_pass1, "VAL")
+    info(autosaveFields_pass0, "VAL HOPR LOPR")
+    info(autosaveFields_pass1, "VAL HOPR LOPR")
 }
 
-record(longin, "$(P)$(M):MOVE_CUR-I") {
+record(ai, "$(P)$(M):MOVE_CUR-I") {
     field(DESC, "Move current")
-    field(DTYP, "asynInt32")
+    field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MOVE_I")
-    field(EGU,  "%")
+    field(EGU,  "A")
+    field(PREC, 1)
     field(LOPR, 0)
-    field(HOPR, 100)
+    field(HOPR, 2.0)
 }
 
 ## Hold current
-record(longout, "$(P)$(M):HOLD_CUR-O") {
+record(ao, "$(P)$(M):HOLD_CUR-O") {
     field(DESC, "Hold current")
-    field(DTYP, "asynInt32")
+    field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOLD_I")
-    field(LOPR, 0)
-    field(HOPR, 100)
     field(FLNK, "$(P)$(M):HOLD_CUR-I")
-    field(EGU,  "%")
+    field(EGU,  "A")
     field(PINI, "YES")
-
-    field(VAL, 50)
-    info(autosaveFields_pass0, "VAL")
-    info(autosaveFields_pass1, "VAL")
+    
+    field(PREC, 1)
+    field(LOPR, 0)
+    field(HOPR, 2.0)
+    field(VAL, 0.0)
+    info(autosaveFields_pass0, "VAL HOPR LOPR")
+    info(autosaveFields_pass1, "VAL HOPR LOPR")
 }
 
-record(longin, "$(P)$(M):HOLD_CUR-I") {
+record(ai, "$(P)$(M):HOLD_CUR-I") {
     field(DESC, "Hold current")
-    field(DTYP, "asynInt32")
+    field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOLD_I")
-    field(EGU,  "%")
+    field(EGU,  "A")
+
+    field(PREC, 1)
     field(LOPR, 0)
-    field(HOPR, 100)
+    field(HOPR, 2.0)
 }
 
 # Limit thresholds (Low)
@@ -124,12 +129,14 @@ record(ai, "$(P)$(M):LOW_THRESH-I") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_LOW")
     field(EGU,  "V")
+    field(PREC, 2)
 }
 record(ao, "$(P)$(M):LOW_THRESH-O") {
     field(DESC, "Low limit threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_LOW")
     field(EGU,  "V")
+    field(PREC, 2)
     field(LOPR, 0)
     field(HOPR, 3.3)
     field(PINI, "YES")
@@ -147,6 +154,7 @@ record(ai, "$(P)$(M):HIGH_THRESH-I") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_HIGH")
     field(EGU,  "V")
+    field(PREC, 2)
 }
 
 record(ao, "$(P)$(M):HIGH_THRESH-O") {
@@ -154,6 +162,7 @@ record(ao, "$(P)$(M):HIGH_THRESH-O") {
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_HIGH")
     field(EGU,  "V")
+    field(PREC, 2)
     field(LOPR, 0)
     field(HOPR, 3.3)
     field(PINI, "YES")
