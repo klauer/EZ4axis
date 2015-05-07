@@ -32,9 +32,9 @@ asynStatus almAxis::poll(bool *moving) {
   // Controllers poll the positions at the same time and store them
   // all together.
   double pos, vel, enc;
-  enc = pc_->encoder_positions_[axis_num_];
-  pos = pc_->positions_[axis_num_];
-  vel = pc_->velocities_[axis_num_];
+  enc = pc_->encoder_positions_[axis_num_ - 1];
+  pos = pc_->positions_[axis_num_ - 1];
+  vel = pc_->velocities_[axis_num_ - 1];
 
   setDoubleParam(pc_->motorEncoderPosition_, enc);
   setDoubleParam(pc_->motorPosition_, pos);
@@ -55,39 +55,68 @@ asynStatus almAxis::poll(bool *moving) {
   return asynSuccess;
 }
 
+asynStatus almAxis::getIntegerParam(int param, epicsInt32 *value) {
+  return pc_->getIntegerParam(axis_num_ - 1, param, value);
+}
+
+asynStatus almAxis::getDoubleParam(int param, epicsFloat64 *value) {
+  return pc_->getDoubleParam(axis_num_ - 1, param, value);
+}
+
+asynStatus almAxis::setPosition(double pos_) {
+  epicsInt32 pos = (int)pos_;
+
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+
+  command.select_axis(axis_num_);
+  command.set_position(pos);
+  asynStatus ret = pc_->runWrite(command);
+  // command.dump();
+  return ret;
+
+}
+
+
+// TODO : invert limits per axis by:
+//   /1aM_f0R  <-- normal limits   (logic high when hitting limit)
+//   /1aM_f1R  <-- inverted limits (logic low  when hitting limit)
+//
 asynStatus almAxis::queryLimits() {
+  int lim[2];
+  epicsInt32 invert;
+
   almResponsePacket response;
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
   command.query_limits(axis_num_);
-  
-  int lim[2];
-  int invert;
 
   if (pc_->writeRead(response, command) == asynSuccess) {
-    sscanf((const char*)response.get_buffer(), "%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d",
            &lim[0], &lim[1]);
 
-    pc_->getIntegerParam(pc_->param_invert_input_[axis_num_ - 1], &invert);
-  
+    getIntegerParam(pc_->param_limit_invert_, &invert);
+
     for (int i=0; i < 2; i++) {
+      getDoubleParam(pc_->param_limit_thresh_[i], &limit_threshold_[i]);
+
       limit_adc_[i] = adc_to_volts(lim[i]);
-      limits_[i] = (limit_adc_[i] < (pc_->thresholds_[axis_num_ - 1]));
-      
+      limits_[i] = (limit_adc_[i] < limit_threshold_[i]);
+
       if (invert) {
         limits_[i] = !limits_[i];
       }
 
-      if (i == 0) {
+      if (i == ALM_LIM_HIGH) {
         setIntegerParam(pc_->motorStatusHighLimit_, limits_[i]);
       } else {
         setIntegerParam(pc_->motorStatusLowLimit_, limits_[i]);
       }
     }
-    // printf("axis %d limit adc %d %d\n", axis_num_, limit_adc_[0], limit_adc_[1]);
+    // printf("axis %d limit adc %f %f\n", axis_num_, limit_adc_[0], limit_adc_[1]);
   }
-  
+
   return asynSuccess;
 }
 
@@ -114,7 +143,7 @@ asynStatus almAxis::queryStatus() {
         get_allmotion_error_string(response.get_status()));
     }
   }
-  
+
   return asynSuccess;
 }
 
@@ -127,7 +156,7 @@ void almAxis::motionFinished() {
 asynStatus almAxis::terminateCommand() {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  
+
   command.select_axis(axis_num_);
   command.terminate();
   asynStatus ret = pc_->runWrite(command);
@@ -149,7 +178,7 @@ asynStatus almAxis::home(double min_velocity, double max_velocity, double accele
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW | ASYN_TRACE_ERROR,
     "%s:%s: axis %d: home (forwards=%d)\n",
     driverName, __func__, axis_num_, forwards);
-  
+
   almCommandPacket command;
   pc_->initCommandPacket(command);
   command.select_axis(axis_num_);
@@ -165,7 +194,7 @@ asynStatus almAxis::home(double min_velocity, double max_velocity, double accele
 
 int almAxis::position_to_counts(double position) {
   double res;
-  pc_->getDoubleParam(axis_num_, pc_->motorResolution_, &res);
+  pc_->getDoubleParam(axis_num_ - 1, pc_->motorResolution_, &res);
 
   if (res < 1e-10)
     return 0.0;
@@ -175,7 +204,7 @@ int almAxis::position_to_counts(double position) {
 
 double almAxis::counts_to_position(int counts) {
   double res;
-  pc_->getDoubleParam(axis_num_, pc_->motorResolution_, &res);
+  pc_->getDoubleParam(axis_num_ - 1, pc_->motorResolution_, &res);
   return res * counts;
 }
 
@@ -183,9 +212,9 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
 {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW | ASYN_TRACE_ERROR,
     "%s:%s: axis %d: move to %g (relative=%d)\n",
-    driverName, __func__, axis_num_, 
+    driverName, __func__, axis_num_,
     position, relative);
-  
+
   // Set slew speed
   //command.append("V%d", (int)max_velocity);
   //
@@ -196,13 +225,13 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
   // t = V / a
   //
   //command.set_accel((int)acceleration);
-  
+
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
   command.set_velocity(axis_num_, max_velocity);
   asynStatus ret = pc_->runWrite(command);
-  
+
   pc_->initCommandPacket(command);
   command.move(axis_num_, position, (relative != 0));
   ret = pc_->runWrite(command);
@@ -211,13 +240,13 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
     moving_ = true;
 
   return ret;
-  
+
 }
 
 asynStatus almAxis::moveVelocity(double min_velocity, double max_velocity, double acceleration) {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
     "%s:%s: axis %d: jog with max velocity %g accel %g\n",
-    driverName, __func__, axis_num_, 
+    driverName, __func__, axis_num_,
     max_velocity, acceleration);
 
   almCommandPacket command;
@@ -340,3 +369,22 @@ asynStatus almAxis::getMicrosteps() {
 asynStatus almAxis::queryParameter(const char *operand, almResponsePacket &response) {
   return pc_->queryParameter(axis_num_, operand, response);
 }
+
+asynStatus almAxis::setLowLimitThreshold(epicsFloat64 value) {
+  almCommandPacket command;
+  int int_thresh = volts_to_adc(value);
+
+  pc_->initCommandPacket(command);
+  command.low_limit_threshold(axis_num_, int_thresh);
+  return pc_->runWrite(command);
+}
+
+asynStatus almAxis::setHighLimitThreshold(epicsFloat64 value) {
+  almCommandPacket command;
+  int int_thresh = volts_to_adc(value);
+
+  pc_->initCommandPacket(command);
+  command.high_limit_threshold(axis_num_, int_thresh);
+  return pc_->runWrite(command);
+}
+

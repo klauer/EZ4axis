@@ -24,10 +24,10 @@ almController* findByPortName(const char *portName) {
     allmotionNode *pNode;
     static const char *functionName = "findByPortName";
 
-    // Find this 
+    // Find this
     if (!allmotionListInitialized) {
         printf("%s:%s: ERROR, allmotion list not initialized\n",
-            driverName, functionName);
+               driverName, functionName);
         return NULL;
     }
 
@@ -50,11 +50,11 @@ almController* findByPortName(const char *portName) {
 /** Creates a new almController object.
   * Configuration command, called directly or from iocsh
   * \param[in] portName          The name of the asyn port that will be created for this driver
-  * \param[in] asynPortName      The name of the drvAsynIPPPort that was created previously to connect to the allmotion controller 
+  * \param[in] asynPortName      The name of the drvAsynIPPPort that was created previously to connect to the allmotion controller
   * \param[in] address           The address of the device on the RS485 bus
-  * \param[in] numAxes           The number of axes that this controller supports 
+  * \param[in] numAxes           The number of axes that this controller supports
   * \param[in] movingPollPeriod  The time in ms between polls when any axis is moving
-  * \param[in] idlePollPeriod    The time in ms between polls when no axis is moving 
+  * \param[in] idlePollPeriod    The time in ms between polls when no axis is moving
   */
 extern "C" int almCreateController(const char *portName, const char *asynPortName, int address, int numAxes,
                                    int movingPollPeriod, int idlePollPeriod)
@@ -92,11 +92,11 @@ static void almCreateControllerCallFunc(const iocshArgBuf *args)
 /** Creates a new almController object.
   * Configuration command, called directly or from iocsh
   * \param[in] portName          The name of the asyn port that will be created for this driver
-  * \param[in] asynPortName      The name of the drvAsynIPPPort that was created previously to connect to the allmotion controller 
+  * \param[in] asynPortName      The name of the drvAsynIPPPort that was created previously to connect to the allmotion controller
   * \param[in] address           The address of the device on the RS485 bus
-  * \param[in] numAxes           The number of axes that this controller supports 
+  * \param[in] numAxes           The number of axes that this controller supports
   * \param[in] movingPollPeriod  The time in ms between polls when any axis is moving
-  * \param[in] idlePollPeriod    The time in ms between polls when no axis is moving 
+  * \param[in] idlePollPeriod    The time in ms between polls when no axis is moving
   */
 extern "C" int almCreateEZ4Controller(const char *portName, const char *asynPortName, int address, int numAxes,
                                    int movingPollPeriod, int idlePollPeriod)
@@ -136,7 +136,7 @@ static void almCreateEZ4ControllerCallFunc(const iocshArgBuf *args)
   * \param[in] portName          The name of the controller's asyn port
   * \param[in] axis              The axis
   * \param[in] movingPollPeriod  The time in ms between polls when any axis is moving
-  * \param[in] idlePollPeriod    The time in ms between polls when no axis is moving 
+  * \param[in] idlePollPeriod    The time in ms between polls when no axis is moving
   */
 extern "C" int allmotionConfigureAxis(const char *portName, int axisNum,
                                       int movingPollPeriod, int idlePollPeriod)
@@ -146,7 +146,7 @@ extern "C" int allmotionConfigureAxis(const char *portName, int axisNum,
   if ((controller = findByPortName(portName)) == NULL) {
     return 1;
   }
-  
+
   allmotionAxis *axis = controller->getAxis(axisNum);
   if (!axis) {
     printf("Bad axis number #%d (axis count = %d)", axisNum, controller->getAxisCount());

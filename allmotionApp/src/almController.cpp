@@ -5,7 +5,19 @@
 // vim: tabstop=2 shiftwidth=2
 #include "allmotion.h"
 
-const char *ALM_PSTR_PROG[] = {
+static const char *ALM_PSTR_THRESH[] = {
+  ALM_PSTR_INPUT_THRESHOLD0,
+  ALM_PSTR_INPUT_THRESHOLD1,
+  ALM_PSTR_INPUT_THRESHOLD2,
+  ALM_PSTR_INPUT_THRESHOLD3
+};
+
+static const char *ALM_PSTR_LIM_THRESH[] = {
+  ALM_PSTR_LIMIT_THRESH_HIGH,
+  ALM_PSTR_LIMIT_THRESH_LOW
+};
+
+static const char *ALM_PSTR_PROG[] = {
   ALM_PSTR_PROG_0,
   ALM_PSTR_PROG_1,
   ALM_PSTR_PROG_2,
@@ -24,13 +36,6 @@ const char *ALM_PSTR_PROG[] = {
   ALM_PSTR_PROG_15
 };
 
-const char *ALM_PSTR_THRESH[] = {
-  ALM_PSTR_INPUT_THRESHOLD0,
-  ALM_PSTR_INPUT_THRESHOLD1,
-  ALM_PSTR_INPUT_THRESHOLD2,
-  ALM_PSTR_INPUT_THRESHOLD3
-};
-
 /** Creates a new almController object.
   * \param[in] portName          The name of the asyn port that will be created for this driver
   * \param[in] asynPort          The name of the drvAsynIPPPort that was created previously to connect to the controller
@@ -39,7 +44,7 @@ const char *ALM_PSTR_THRESH[] = {
   * \param[in] movingPollPeriod  The time between polls when any axis is moving
   * \param[in] idlePollPeriod    The time between polls when no axis is moving
   */
-almController::almController(const char *portName, const char *asynPortName, int address, 
+almController::almController(const char *portName, const char *asynPortName, int address,
                              int numAxes, double movingPollPeriod, double idlePollPeriod)
   :  asynMotorController(portName, numAxes, NUM_ALM_PARAMS,
                          asynInt32Mask | asynFloat64Mask | asynUInt32DigitalMask | asynOctetMask,
@@ -58,13 +63,12 @@ almController::almController(const char *portName, const char *asynPortName, int
     velocities_[i] = 0;
     encoder_positions_[i] = 0;
   }
-  
-  for (i=0; i < ALM_ADC_COUNT; i++) {
+
+  for (i=0; i < ALM_INPUT_COUNT; i++) {
     thresholds_[i] = 0;
     adc_[i] = 0.0;
   }
 
-  queryRate_ = 1;
   ready_ = true;
 
   // TODO: timeout being too slow could eventually be an issue
@@ -83,12 +87,13 @@ almController::almController(const char *portName, const char *asynPortName, int
   createParam(ALM_PSTR_READ_ADC          ,    asynParamInt32,  &param_read_adc_);
   createParam(ALM_PSTR_READ_INP          ,    asynParamInt32,  &param_read_inp_);
   createParam(ALM_PSTR_READ_THRESH       ,    asynParamInt32,  &param_read_thresh_);
+  createParam(ALM_PSTR_READ_LIM_THR      ,    asynParamInt32,  &param_read_limit_thresh_);
   createParam(ALM_PSTR_PROG_RUN          ,    asynParamInt32,  &param_prog_run_);
-  
+
   for (i=0; i < ALM_PROG_COUNT; i++) {
     createParam(ALM_PSTR_PROG[i], asynParamOctet, &param_prog_[i]);
   }
-  
+
   createParam(ALM_PSTR_PROG_IDX          ,    asynParamInt32, &param_prog_idx_);
   createParam(ALM_PSTR_PROG_WRITE        ,    asynParamOctet, &param_prog_write_);
 
@@ -137,7 +142,7 @@ almController::almController(const char *portName, const char *asynPortName, int
   createParam(ALM_PSTR_INP_CHA           ,    asynParamInt32, &param_inp_cha_);
   createParam(ALM_PSTR_INP_CHB           ,    asynParamInt32, &param_inp_chb_);
   createParam(ALM_PSTR_INP_IDX           ,    asynParamInt32, &param_inp_idx_);
-                                                                                    
+
   createParam(ALM_PSTR_FIRMWARE          ,    asynParamOctet, &param_firmware_);
   createParam(ALM_PSTR_ERROR             ,    asynParamOctet, &param_error_);
 
@@ -146,6 +151,12 @@ almController::almController(const char *portName, const char *asynPortName, int
 
   for (i=0; i < ALM_INPUT_COUNT; i++) {
     createParam(ALM_PSTR_THRESH[i],  asynParamFloat64, &param_input_threshold_[i]);
+  }
+
+  createParam(ALM_PSTR_LIMIT_INVERT      ,    asynParamInt32, &param_limit_invert_);
+
+  for (i=0; i < 2; i++) {
+    createParam(ALM_PSTR_LIM_THRESH[i],  asynParamFloat64, &param_limit_thresh_[i]);
   }
 
   // Read-write
@@ -196,13 +207,14 @@ almController::almController(const char *portName, const char *asynPortName, int
   queryInputs();
 
   getInputThresholds();
+  getLimitThresholds();
 }
 
 asynStatus almController::queryPositions() {
   almResponsePacket response;
   asynStatus status = asynSuccess;
   for (int axis=0; axis < numAxes_; axis++) {
-    if (queryParameter(axis, ALM_QUERY_POS, response) == asynSuccess)
+    if (queryParameter(axis + 1, ALM_QUERY_POS, response) == asynSuccess)
       positions_[axis] = response.as_int();
     else
       status = asynError;
@@ -214,7 +226,7 @@ asynStatus almController::queryVelocities() {
   almResponsePacket response;
   asynStatus status = asynSuccess;
   for (int axis=0; axis<numAxes_; axis++) {
-    if (queryParameter(axis, ALM_QUERY_VELOCITY, response) == asynSuccess)
+    if (queryParameter(axis + 1, ALM_QUERY_VELOCITY, response) == asynSuccess)
       velocities_[axis] = response.as_int();
     else
       status = asynError;
@@ -262,7 +274,7 @@ asynStatus almController::poll()
 /** Called when asyn clients call pasynFloat64->write().
   * Extracts the function and axis number from pasynUser.
   * Sets the value in the parameter library.
-  * Calls any registered callbacks for this pasynUser->reason and address.  
+  * Calls any registered callbacks for this pasynUser->reason and address.
   *
   * \param[in] pasynUser asynUser structure that encodes the reason and address.
   * \param[in] value     Value to write. */
@@ -273,7 +285,7 @@ asynStatus almController::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   almAxis *pAxis = getAxis(pasynUser);
   const char *paramName = "(unset)";
 
-  if (!pAxis) 
+  if (!pAxis)
     return asynError;
 
   /* Fetch the parameter string name for possible use in debugging */
@@ -295,20 +307,24 @@ asynStatus almController::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
     status = setInputThreshold(2, value);
   } else if (function == param_input_threshold_[3]) {
     status = setInputThreshold(3, value);
+  } else if (function == param_limit_thresh_[ALM_LIM_LOW]) {
+    status = pAxis->setLowLimitThreshold(value);
+  } else if (function == param_limit_thresh_[ALM_LIM_HIGH]) {
+    status = pAxis->setHighLimitThreshold(value);
   } else {
     /* Call base class method */
     status = asynMotorController::writeFloat64(pasynUser, value);
   }
-  
+
   /* Do callbacks so higher layers see any changes */
   callParamCallbacks(pAxis->axisNo_);
-  if (status) 
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-        "%s:%s: error, status=%d function=%s (%d), value=%f\n", 
+  if (status)
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
+        "%s:%s: error, status=%d function=%s (%d), value=%f\n",
         driverName, __func__, status, paramName, function, value);
-  else    
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-        "%s:%s: function=%s (%d), value=%f\n", 
+  else
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+        "%s:%s: function=%s (%d), value=%f\n",
         driverName, __func__, paramName, function, value);
   return status;
 }
@@ -317,7 +333,7 @@ asynStatus almController::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   * Extracts the function and axis number from pasynUser.
   * Sets the value in the parameter library.
   *
-  * Calls any registered callbacks for this pasynUser->reason and address.  
+  * Calls any registered callbacks for this pasynUser->reason and address.
   * \param[in] pasynUser asynUser structure that encodes the reason and address.
   * \param[in] value     Value to write. */
 asynStatus almController::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epicsUInt32 mask)
@@ -335,7 +351,7 @@ asynStatus almController::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
   status = setUIntDigitalParam(pAxis->axisNo_, function, value, mask);
 
 #if DEBUG
-  printf("%s:%s: mask=%x function=%s (%d), value=%d\n", 
+  printf("%s:%s: mask=%x function=%s (%d), value=%d\n",
         driverName, __func__, mask, paramName, function, value);
 #endif
 
@@ -347,16 +363,16 @@ asynStatus almController::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
     /* Call base class method */
     status = asynMotorController::writeUInt32Digital(pasynUser, value, mask);
   }
-  
+
   /* Do callbacks so higher layers see any changes */
   callParamCallbacks(pAxis->axisNo_);
-  if (status) 
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-        "%s:%s: error, status=%d function=%s (%d), value=%d\n", 
+  if (status)
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
+        "%s:%s: error, status=%d function=%s (%d), value=%d\n",
         driverName, __func__, status, paramName, function, value);
-  else    
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-        "%s:%s: function=%s (%d), value=%d\n", 
+  else
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+        "%s:%s: function=%s (%d), value=%d\n",
         driverName, __func__, paramName, function, value);
   return status;
 }
@@ -367,7 +383,7 @@ asynStatus almController::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
   *
   * \param[in] pasynUser asynUser structure that encodes the reason and address.
   * \param[in] value     Value to write. */
-asynStatus almController::writeOctet(asynUser *pasynUser, const char *value, 
+asynStatus almController::writeOctet(asynUser *pasynUser, const char *value,
                                      size_t nChars, size_t *nActual)
 {
   int addr=0;
@@ -381,12 +397,12 @@ asynStatus almController::writeOctet(asynUser *pasynUser, const char *value,
   getParamName(function, &paramName);
 
 #if DEBUG
-  printf("%s:%s: function=%s (%d), value=%s\n", 
+  printf("%s:%s: function=%s (%d), value=%s\n",
         driverName, __func__, paramName, function, value);
 #endif
 
   status = getAddress(pasynUser, &addr);
-  if (status != asynSuccess) 
+  if (status != asynSuccess)
     return status;
 
   /* Set the parameter in the parameter library. */
@@ -399,15 +415,15 @@ asynStatus almController::writeOctet(asynUser *pasynUser, const char *value,
       handled = true;
     }
   }
-  
+
   if (!handled) {
     if (param_prog_write_) {
       getIntegerParam(param_prog_idx_, &i);
 
-      asynPrint(pasynUser, ASYN_TRACE_FLOW, 
-            "%s:%s: write program %d value=%s\n", 
+      asynPrint(pasynUser, ASYN_TRACE_FLOW,
+            "%s:%s: write program %d value=%s\n",
             driverName, __func__, i, value);
-      
+
       if (0 <= i && i < ALM_PROG_COUNT) {
         setStringParam(addr, param_prog_[i], (char *)value);
         status = writeProgram(i, value);
@@ -417,13 +433,13 @@ asynStatus almController::writeOctet(asynUser *pasynUser, const char *value,
     }
   }
 
-  if (status) 
-      epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
-                "%s:%s: status=%d, function=%d, value=%s", 
+  if (status)
+      epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize,
+                "%s:%s: status=%d, function=%d, value=%s",
                 driverName, __func__, status, function, value);
-  else        
-      asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-            "%s:%s: function=%d, value=%s\n", 
+  else
+      asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+            "%s:%s: function=%d, value=%s\n",
             driverName, __func__, function, value);
 
   return status;
@@ -446,7 +462,7 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
   getParamName(function, &paramName);
 
 #if DEBUG
-  printf("%s:%s: function=%s (%d), value=%d\n", 
+  printf("%s:%s: function=%s (%d), value=%d\n",
         driverName, __func__, paramName, function, value);
 #endif
 
@@ -467,6 +483,8 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = queryInputs();
   } else if (function == param_read_thresh_) {
     status = getInputThresholds();
+  } else if (function == param_read_limit_thresh_) {
+    status = getLimitThresholds();
   } else if (function == param_prog_run_) {
     status = runProgram(value);
   } else if (function == param_reset_) {
@@ -515,16 +533,16 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
     /* Call base class method */
     status = asynMotorController::writeInt32(pasynUser, value);
   }
-  
+
   /* Do callbacks so higher layers see any changes */
   callParamCallbacks(pAxis->axisNo_);
-  if (status) 
-    asynPrint(pasynUser, ASYN_TRACE_ERROR, 
-        "%s:%s: error, status=%d function=%s (%d), value=%d\n", 
+  if (status)
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
+        "%s:%s: error, status=%d function=%s (%d), value=%d\n",
         driverName, __func__, status, paramName, function, value);
-  else    
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-        "%s:%s: function=%s (%d), value=%d\n", 
+  else
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+        "%s:%s: function=%s (%d), value=%d\n",
         driverName, __func__, paramName, function, value);
   return status;
 }
@@ -539,7 +557,7 @@ asynStatus almController::queryParameter(int axis, const char *operand, almRespo
   } else {
     command.append("?%s", operand);
   }
-  
+
   //command.dump();
 
   asynStatus ret = writeRead(response, command);
@@ -549,7 +567,7 @@ asynStatus almController::queryParameter(int axis, const char *operand, almRespo
 asynStatus almController::terminateCommand() {
   almCommandPacket command;
   initCommandPacket(command);
-  
+
   command.terminate();
   asynStatus ret = runWrite(command);
 
@@ -569,7 +587,7 @@ asynStatus almController::writeReadInt(int &ret, almCommandPacket &command) {
   if (status != asynSuccess) {
     return status;
   }
-  
+
   ret = response.as_int();
   return asynSuccess;
 }
@@ -586,7 +604,7 @@ asynStatus almController::writeRead(almResponsePacket &input, almCommandPacket &
   asynStatus status;
   int eomReason;
   char buf[ALM_STRING_LEN];
-  
+
   if (!command.finish()) {
     asynPrint(pasynUser_, ASYN_TRACE_ERROR,
         "%s failed: finish packet failed\n",
@@ -646,7 +664,7 @@ asynStatus almController::writeRead(almResponsePacket &input, almCommandPacket &
         driverName, __func__, command.get_buffer());
     }
   }
- 
+
   if (input.is_valid()) {
     input.dump(pasynUser_, ASYN_TRACEIO_DEVICE);
 
@@ -697,27 +715,27 @@ asynStatus almController::readADC() {
   almResponsePacket response;
   almCommandPacket command;
   initCommandPacket(command);
-  
+
   command.read_adc();
 
   asynStatus status = writeRead(response, command);
   if (status == asynSuccess) {
-    int adc_int[ALM_ADC_COUNT];
+    int adc_int[ALM_INPUT_COUNT];
 
-    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d",
            &adc_int[3], &adc_int[2], &adc_int[1], &adc_int[0]);
 
-    for (int i=0; i < ALM_ADC_COUNT; i++) {
+    for (int i=0; i < ALM_INPUT_COUNT; i++) {
       adc_[i] = adc_to_volts(adc_int[i]);
       setDoubleParam(param_adc_[i], adc_[i]);
     }
 
     asynPrint(pasynUser_, ASYN_TRACE_FLOW,
-              "Read ADC: %gV %gV %gV %gV\n", 
+              "Read ADC: %gV %gV %gV %gV\n",
               adc_[0], adc_[1], adc_[2], adc_[3]);
 
   }
-  
+
   return status;
 }
 
@@ -725,7 +743,6 @@ asynStatus almController::runWrite(almCommandPacket &command) {
   command.run();
 
   command.dump(pasynUser_, ASYN_TRACEIO_DRIVER);
-  //command.dump();
 
   asynStatus ret = write(command);
   return ret;
@@ -745,7 +762,7 @@ asynStatus almController::writeProgram(int number, const char *program) {
 
   command.append("s%d", number);
   command.append(program);
-  
+
   command.dump();
   if (command.get_last_ch() == 'R')
     return write(command);
@@ -769,11 +786,11 @@ asynStatus almController::setHomeFlagPolarity(bool polarity) {
 
 asynStatus almController::invertInputs(unsigned int input, bool invert) {
   int in[4];
-  
+
   for (int i=0; i < ALM_INPUT_COUNT; i++) {
     getIntegerParam(param_invert_input_[i], &in[i]);
   }
-  
+
   if (input >= ALM_INPUT_COUNT)
     return asynError;
   else
@@ -862,18 +879,49 @@ asynStatus almController::setInputThreshold(unsigned int chan, double thresh) {
 
 asynStatus almController::getInputThresholds() {
   almResponsePacket response;
-  
-  int thresh[ALM_ADC_COUNT];
+
+  int thresh[ALM_INPUT_COUNT];
 
   if (queryControllerParam(ALM_QUERY_ADC_THRESHOLDS, response) == asynSuccess) {
     //printf("Input thresholds %s\n", response.get_buffer());
-    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d", 
+    sscanf((const char*)response.get_buffer(), "%d,%d,%d,%d",
            &thresh[3], &thresh[2], &thresh[1], &thresh[0]);
-    
+
     // 0 to 16368 -> 0.0 to 3.3V
-    for (int i=0; i < ALM_ADC_COUNT; i++) {
+    for (int i=0; i < ALM_INPUT_COUNT; i++) {
       thresholds_[i] = adc_to_volts(thresh[i]);
       setDoubleParam(param_input_threshold_[i], thresholds_[i]);
+    }
+
+    return asynSuccess;
+  }
+  return asynError;
+}
+
+asynStatus almController::getLimitThresholds() {
+  almResponsePacket response;
+
+  int thresh[2];
+  int n_read;
+  almAxis *axis;
+
+  if (queryControllerParam(ALM_QUERY_LIMIT_THRESHOLDS, response) == asynSuccess) {
+    // Limit thresholds:
+    //    12, 11, 22, 21, 32, 31, 42, 41
+    //
+    const char *buf = (const char*)response.get_buffer();
+    printf("Limit thresholds %s\n", response.get_buffer());
+    for (int ax=0; ax < ALM_AXES; ax++) {
+      sscanf(buf, ((ax != ALM_AXES-1) ? "%d,%d,%n" : "%d,%d%n"),
+             &thresh[0], &thresh[1], &n_read);
+
+      buf = &buf[n_read];
+
+      axis = getAxis(ax);
+      for (int i=0; i < 2; i++) {
+        axis->limit_threshold_[i] = adc_to_volts(thresh[i]);
+        setDoubleParam(ax, param_input_threshold_[i], axis->limit_threshold_[i]);
+      }
     }
 
     return asynSuccess;
@@ -904,7 +952,7 @@ asynStatus almController::setPotDeadband(unsigned int deadband) {
 
 asynStatus almController::queryInputs() {
   almResponsePacket response;
-  
+
   // TODO: not sure why, but /1?4 and /1?a4 return different results
   // (with the same input) for sw1/2 and opto1/2
   if (queryControllerParam(ALM_QUERY_INPUTS, response) == asynSuccess) {

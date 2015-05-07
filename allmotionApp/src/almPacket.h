@@ -1,10 +1,10 @@
+// vim: tabstop=2 shiftwidth=2
 #include "allmotion.h"
 
 #ifndef byte
 typedef unsigned char byte;
 #endif
 
-// vim: tabstop=2 shiftwidth=2
 class almResponsePacket {
 private:
   byte buf_[ALM_STRING_LEN];
@@ -15,15 +15,15 @@ private:
 
 public:
   almResponsePacket() : valid_(false) {
-    buf_[0] = 0; 
+    buf_[0] = 0;
     invalidate();
   }
-  
+
   void invalidate();
 
   bool received(const byte *input, int len);
   const byte *find_response_start(const byte *str, int buflen);
-  
+
   void dump();
   void dump(asynUser* user, int asyn_trace_mask);
 
@@ -122,73 +122,89 @@ public:
 
   bool start_loop() { return append('g'); }
   bool end_loop(int reps) { return append('G'); }
- 
+
   // Daughter card
-  bool daughter_current(unsigned int current) { 
+  bool daughter_current(unsigned int current) {
     return append("l%d", current);
   }
 
-  bool daughter_current_flow(bool direction) { 
+  bool daughter_current_flow(bool direction) {
     if (direction)
       return append("O1");
     else
       return append("l1");
   }
-  
+
   // Potentiometer
   bool pot_offset(unsigned int offset) { return append("ao%d", offset); }
   bool pot_mul(unsigned int mul) { return append("am%d", mul); }
   bool pot_deadband(unsigned int usteps) { return append("ad%d", usteps); }
-  
+
   // Position correction mode commands (pg 42)
-  bool set_encoder_outer_deadband(unsigned int counts) { 
-    return append("aC%d", counts); 
+  bool set_encoder_outer_deadband(unsigned int counts) {
+    return append("aC%d", counts);
   }
 
-  bool set_encoder_ratio(unsigned int ticks_per_ustep) { 
+  bool set_encoder_ratio(unsigned int ticks_per_ustep) {
     // ticks/rev to microsteps/rev
-    return append("aE%d", ticks_per_ustep); 
+    return append("aE%d", ticks_per_ustep);
   }
 
-  bool set_overload_timeout(unsigned int moves) { 
-    return append("au%d", moves); 
+  bool set_overload_timeout(unsigned int moves) {
+    return append("au%d", moves);
   }
 
-  bool set_integration_period(unsigned int pd) { 
-    return append("x%d", pd); 
+  bool set_integration_period(unsigned int pd) {
+    return append("x%d", pd);
   }
 
-  bool set_encoder_inner_deadband(unsigned int counts) { 
-    return append("zsac%d", counts); 
+  bool set_encoder_inner_deadband(unsigned int counts) {
+    return append("zsac%d", counts);
   }
 
-  bool set_recovery_script_runs(unsigned int runs) { 
-    return append("u%d", runs); 
+  bool set_recovery_script_runs(unsigned int runs) {
+    return append("u%d", runs);
   }
 
   // Miscellaneous
-  bool input_threshold(unsigned int chan, unsigned int thresh) { 
-    return append("at%d%.5d", chan + 1, thresh); 
+  bool input_threshold(unsigned int chan, unsigned int thresh) {
+    return append("at%d%.5d", chan + 1, thresh);
+  }
+
+  bool limit_threshold(unsigned int chan, bool low_limit, unsigned int thresh) {
+    if (low_limit) {
+      return append("at%d1%.5d", chan + 1, thresh);
+    } else { //high limit
+      return append("at%d2%.5d", chan + 1, thresh);
+    }
+  }
+
+  bool low_limit_threshold(unsigned int chan, unsigned int thresh) {
+    return limit_threshold(chan, true, thresh);
+  }
+
+  bool high_limit_threshold(unsigned int chan, unsigned int thresh) {
+    return limit_threshold(chan, false, thresh);
   }
 
   bool driver_power(bool power1, bool power2) {
-    return append("J%d", ((power2 << 1) | power1)); 
+    return append("J%d", ((power2 << 1) | power1));
   }
 
   bool set_velocity(byte axis, unsigned int velocity) {
-    return set_axis_param('V', axis, min(velocity, ALM_MAX_VELOCITY)); 
+    return set_axis_param('V', axis, min(velocity, ALM_MAX_VELOCITY));
   }
 
-  bool set_hold_current(byte axis, unsigned int current) { 
-    return set_axis_param('h', axis, min(current, 100)); 
+  bool set_hold_current(byte axis, unsigned int current) {
+    return set_axis_param('h', axis, min(current, 100));
   }
 
   bool set_move_current(byte axis, unsigned int current) {
-    return set_axis_param('m', axis, min(current, 100)); 
+    return set_axis_param('m', axis, min(current, 100));
   }
 
   bool set_microsteps(byte axis, unsigned int microsteps) {
-    return set_axis_param('j', axis, min(microsteps, ALM_MAX_MICROSTEPS)); 
+    return set_axis_param('j', axis, min(microsteps, ALM_MAX_MICROSTEPS));
   }
 
   bool use_switch_limits() {

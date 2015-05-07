@@ -18,6 +18,10 @@ record(motor, "$(P)$(M)") {
   field(DLLM, "$(DLLM)")
   field(INIT, "$(INIT)")
   field(TWV, "1")
+
+  info(autosaveFields_pass0, "DVAL DIR DHLM DLLM TWV SREV MRES ERES RRES VBAS VELO VMAX ACCL BDST BVEL BACC RDBD DESC EGU RTRY UEIP URIP DLY RDBL PREC DISA DISP FOFF OFF FRAC OMSL JVEL JAR PCOF ICOF DCOF HVEL NTM NTMF")
+
+  info(autosaveFields_pass1, "DIR DHLM DLLM TWV SREV MRES ERES RRES VBAS VELO VMAX ACCL BDST BVEL BACC RDBD DESC EGU RTRY UEIP URIP DLY RDBL PREC DISA DISP FOFF OFF FRAC OMSL JVEL JAR PCOF ICOF DCOF HVEL NTM NTMF")
 }
 
 record(transform, "$(P)$(M)_ableput") {
@@ -112,4 +116,51 @@ record(longin, "$(P)$(M):HOLD_CUR-I") {
     field(EGU,  "%")
     field(LOPR, 0)
     field(HOPR, 100)
+}
+
+# Limit thresholds (Low)
+record(ai, "$(P)$(M):LOW_THRESH-I") {
+    field(DESC, "Low limit threshold")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_LOW")
+    field(EGU,  "V")
+}
+record(ao, "$(P)$(M):LOW_THRESH-O") {
+    field(DESC, "Low limit threshold")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_LOW")
+    field(EGU,  "V")
+    field(LOPR, 0)
+    field(HOPR, 3.3)
+    field(PINI, "YES")
+       
+    # default is 1.24V (6144)
+    field(VAL, 1.24)
+    info(autosaveFields_pass0, "VAL HOPR LOPR")
+    info(autosaveFields_pass1, "VAL HOPR LOPR")
+    field(FLNK, "$(P)$(M):LOW_THRESH-I")
+}
+
+# Limit thresholds (high)
+record(ai, "$(P)$(M):HIGH_THRESH-I") {
+    field(DESC, "High limit threshold")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_HIGH")
+    field(EGU,  "V")
+}
+
+record(ao, "$(P)$(M):HIGH_THRESH-O") {
+    field(DESC, "High limit threshold")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_HIGH")
+    field(EGU,  "V")
+    field(LOPR, 0)
+    field(HOPR, 3.3)
+    field(PINI, "YES")
+       
+    # default is 1.24V (6144)
+    field(VAL, 1.24)
+    info(autosaveFields_pass0, "VAL HOPR LOPR")
+    info(autosaveFields_pass1, "VAL HOPR LOPR")
+    field(FLNK, "$(P)$(M):HIGH_THRESH-I")
 }

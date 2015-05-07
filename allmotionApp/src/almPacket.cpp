@@ -73,9 +73,9 @@ bool almResponsePacket::received(const byte *input, int len) {
     ready_ = ((response[0] & ALM_READY_MASK) == ALM_READY_MASK);
     code_ = (almStatus)(response[0] & ALM_STATUS_MASK);
     overflow_ = (len - (response - input)) >= ALM_STRING_LEN;
-  
+
 #if DEBUG
-      fprintf(stderr, "[debug] Valid=%d status=%d [%s] ready=%d\n", 
+      fprintf(stderr, "[debug] Valid=%d status=%d [%s] ready=%d\n",
               valid_, code_, get_allmotion_error_string(code_), ready_);
 #endif
 
@@ -123,12 +123,12 @@ const byte *almResponsePacket::find_response_start(const byte *str, int buflen) 
         if (str[i] == ALM_OEM_START_CHAR) {
           if (verifyChecksum(&str[i], buflen - i))
             return &str[i + 2];
-          else 
+          else
             return NULL;
         } else {
           return &str[i + 2];
         }
-      } 
+      }
     }
   }
 
@@ -137,8 +137,6 @@ const byte *almResponsePacket::find_response_start(const byte *str, int buflen) 
 
 void almResponsePacket::dump(asynUser* user, int asyn_trace_mask) {
   if ((pasynTrace->getTraceMask(user) & asyn_trace_mask) != 0) {
-    printf("trace mask %x req trace mask %x\n", 
-          pasynTrace->getTraceMask(user), asyn_trace_mask);
     dump();
   }
 
@@ -184,7 +182,7 @@ almCommandPacket::almCommandPacket(int address) {
 
 void almCommandPacket::clear() {
   axis_ = 0;
-  
+
   finished_ = false;
   buf_pos_ = 0;
   memset(buf, '\0', (size_t)ALM_STRING_LEN);
@@ -209,7 +207,7 @@ void almCommandPacket::start(int address) {
 bool almCommandPacket::select_axis(byte axis) {
   if (axis == 0 || axis == axis_)
     return true;
-  
+
   axis_ = axis;
   return append("aM%d", axis);
 }
@@ -262,7 +260,7 @@ void almCommandPacket::dump() {
     printf("0x%x ", buf[i]);
   }
   printf("]\n");
-  
+
 }
 
 bool almCommandPacket::append(byte c) {
@@ -303,10 +301,10 @@ bool almCommandPacket::append_four(byte c, int v1, int v2, int v3, int v4) {
 
 bool almCommandPacket::append_four(byte c, byte axis, int value) {
   switch (axis) {
-  case 0: return append("%c%d,,,", c, value);
-  case 1: return append("%c,%d,,", c, value);
-  case 2: return append("%c,,%d,", c, value);
-  case 3: return append("%c,,,%d", c, value);
+  case 1: return append("%c%d,,,", c, value);
+  case 2: return append("%c,%d,,", c, value);
+  case 3: return append("%c,,%d,", c, value);
+  case 4: return append("%c,,,%d", c, value);
   default: return false;
   }
 }
@@ -406,8 +404,8 @@ bool almCommandPacket::set_axis_param(byte param, byte axis, int value) {
 
 
 almCommandPacket::almCommandPacket(const almCommandPacket &other) {
-  buf_pos_ = other.buf_pos_;  
-  axis_ = other.axis_;  
+  buf_pos_ = other.buf_pos_;
+  axis_ = other.axis_;
   finished_ = other.finished_;
 
   memcpy(buf, other.buf, ALM_STRING_LEN);

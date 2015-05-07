@@ -37,6 +37,7 @@
 #define ALM_PSTR_READ_ADC          "ALM_READ_ADC"
 #define ALM_PSTR_READ_INP          "ALM_READ_INP"
 #define ALM_PSTR_READ_THRESH       "ALM_READ_THRESH"
+#define ALM_PSTR_READ_LIM_THR      "ALM_READ_LIM_THR"
 #define ALM_PSTR_ADC_1             "ALM_ADC_1"
 #define ALM_PSTR_ADC_2             "ALM_ADC_2"
 #define ALM_PSTR_ADC_3             "ALM_ADC_3"
@@ -61,7 +62,7 @@
 
 #define ALM_PSTR_PROG_IDX          "ALM_PROG_IDX"
 #define ALM_PSTR_PROG_WRITE        "ALM_PROG_WRITE"
-#define ALM_PSTR_PROG_RUN          "ALM_RUN"  
+#define ALM_PSTR_PROG_RUN          "ALM_RUN"
 
 #define ALM_PSTR_MODE              "ALM_MODE"
 #define ALM_PSTR_SP_MODE           "ALM_SP_MODE"
@@ -109,6 +110,9 @@
 #define ALM_PSTR_INVERT_INPUT1     "ALM_INVERT_INPUT1"
 #define ALM_PSTR_INVERT_INPUT2     "ALM_INVERT_INPUT2"
 #define ALM_PSTR_INVERT_INPUT3     "ALM_INVERT_INPUT3"
+#define ALM_PSTR_LIMIT_INVERT      "ALM_LIMIT_INVERT"
+#define ALM_PSTR_LIMIT_THRESH_LOW  "ALM_LIMIT_THRESH_LOW"
+#define ALM_PSTR_LIMIT_THRESH_HIGH "ALM_LIMIT_THRESH_HIGH"
 
 #define ALM_PSTR_HOLD_I            "ALM_HOLD_I"
 #define ALM_PSTR_MOVE_I            "ALM_MOVE_I"
@@ -144,6 +148,7 @@
 
 #define ALM_QUERY_ADC                   "aa"
 #define ALM_QUERY_ADC_THRESHOLDS        "at"
+#define ALM_QUERY_LIMIT_THRESHOLDS      "aat"
 #define ALM_QUERY_FIRMWARE              "&"
 #define ALM_QUERY_STATUS                "Q"
 #define ALM_ERASE_EEPROM                "?9"
@@ -164,7 +169,6 @@
 #define ALM_STRING_LEN                  75
 #define ALM_AXES                        4
 #define ALM_INPUT_COUNT                 4
-#define ALM_ADC_COUNT                   ALM_INPUT_COUNT
 #define ALM_ENC_COUNT                   2
 #define ALM_PROG_COUNT                  16
 
@@ -174,6 +178,10 @@
 
 // Single mode allows only one axis to move at a time
 #define ALM_CONTROL_SINGLE              0
+
+// Lower and upper limits
+#define ALM_LIM_HIGH                    0
+#define ALM_LIM_LOW                     1
 
 #ifndef min
 #define min(a, b) (((a) < (b)) ? (a) : (b))

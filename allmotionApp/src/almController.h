@@ -4,7 +4,7 @@
 ///// Controller
 class almController : public asynMotorController {
 public:
-  almController(const char *portName, const char *asynPortName, int address, 
+  almController(const char *portName, const char *asynPortName, int address,
                       int numAxes, double movingPollPeriod, double idlePollPeriod);
   almAxis* getAxis(int axisNo) {
     return (almAxis*)asynMotorController::getAxis(axisNo);
@@ -60,6 +60,7 @@ public:
   asynStatus daughterCurrentFlow(bool direction);
 
   asynStatus getInputThresholds();
+  asynStatus getLimitThresholds();
   asynStatus setInputThreshold(unsigned int chan, double thresh);
 
   asynStatus setPotOffset(unsigned int offset);
@@ -94,7 +95,7 @@ protected:
 #define FIRST_ALM_PARAM param_kill_all_
   int param_error_;
 
-  int param_adc_[ALM_ADC_COUNT];
+  int param_adc_[ALM_INPUT_COUNT];
 
   int param_prog_[ALM_PROG_COUNT];
   int param_prog_idx_;
@@ -105,6 +106,7 @@ protected:
   int param_read_adc_;
   int param_read_inp_;
   int param_read_thresh_;
+  int param_read_limit_thresh_;
   int param_mode_;
   int param_sp_mode_;
 
@@ -125,7 +127,7 @@ protected:
   int param_switch_debounce_;
   int param_daughter_current_;
   int param_daughter_cur_flow_;
-  int param_input_threshold_[ALM_ADC_COUNT];
+  int param_input_threshold_[ALM_INPUT_COUNT];
 
   int param_pot_offset_;
   int param_pot_mul_;
@@ -142,7 +144,9 @@ protected:
 
   int param_home_polarity_;
   int param_reset_;
-  int param_invert_input_[ALM_ADC_COUNT];
+  int param_invert_input_[ALM_INPUT_COUNT];
+  int param_limit_invert_;
+  int param_limit_thresh_[2];
 
   int param_hold_i_;
   int param_move_i_;
@@ -150,8 +154,8 @@ protected:
 #define NUM_ALM_PARAMS (&LAST_ALM_PARAM - &FIRST_ALM_PARAM + 1)
   double timeout_;
 
-  double adc_[ALM_ADC_COUNT];
-  double thresholds_[ALM_ADC_COUNT];
+  double adc_[ALM_INPUT_COUNT];
+  double thresholds_[ALM_INPUT_COUNT];
 
   int positions_[ALM_AXES];
   int velocities_[ALM_AXES];
@@ -161,12 +165,10 @@ protected:
   almStatus response_code_;
   bool ready_;
   asynUser *pasynUser_;
-  int queryRate_;           // Query N parameters every poll
-    
 
 private:
   friend class almAxis;
 
   asynStatus runWrite(almCommandPacket &packet);
-  
+
 };
