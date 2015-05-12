@@ -1,6 +1,6 @@
 # vi: sw=4 ts=4
 
-record(motor, "$(P)$(M)") {
+record(motor, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr") {
   field(DESC, "$(DESC)")
   field(DTYP, "$(DTYP)")
   field(DIR, "$(DIR)")
@@ -20,60 +20,59 @@ record(motor, "$(P)$(M)") {
   field(TWV, "1")
 
   info(autosaveFields_pass0, "DVAL DIR DHLM DLLM TWV SREV MRES ERES RRES VBAS VELO VMAX ACCL BDST BVEL BACC RDBD DESC EGU RTRY UEIP URIP DLY RDBL PREC DISA DISP FOFF OFF FRAC OMSL JVEL JAR PCOF ICOF DCOF HVEL NTM NTMF")
-
   info(autosaveFields_pass1, "DIR DHLM DLLM TWV SREV MRES ERES RRES VBAS VELO VMAX ACCL BDST BVEL BACC RDBD DESC EGU RTRY UEIP URIP DLY RDBL PREC DISA DISP FOFF OFF FRAC OMSL JVEL JAR PCOF ICOF DCOF HVEL NTM NTMF")
 }
 
-record(transform, "$(P)$(M)_ableput") {
+record(transform, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr_ableput") {
   field(CLCB, "a")
   field(CLCC, "a")
-  field(OUTA, "$(P)$(M).DISA NPP NMS")
-  field(OUTB, "$(P)$(M).DISP NPP NMS")
-  field(OUTC, "$(P)$(M).DISA NPP NMS")
+  field(OUTA, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.DISA NPP NMS")
+  field(OUTB, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.DISP NPP NMS")
+  field(OUTC, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.DISA NPP NMS")
 }
 
-record(bo, "$(P)$(M)_able") {
+record(bo, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr_able") {
   field(DESC, "motor enable")
   field(PINI, "YES")
-  field(OUT, "$(P)$(M)_ableput.A PP MS")
+  field(OUT, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr_ableput.A PP MS")
   field(ZNAM, "Enable")
   field(ONAM, "Disable")
 }
 
 # allow users to change the velocity (or speed)
 # by sending a multipler to the
-#    $(P)$(M)_vCh.A field
+#    $(Sys){$(Dev)-Ax:$(Ax)}Mtr_vCh.A field
 # Range check output; SBAS <= S <= SMAX.
-record(scalcout, "$(P)$(M)_vCh") {
+record(scalcout, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr_vCh") {
   field(DESC, "change velocity")
-  field(INPB, "$(P)$(M).S")
-  field(INPC, "$(P)$(M).SBAS")
-  field(INPD, "$(P)$(M).SMAX")
+  field(INPB, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.S")
+  field(INPC, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.SBAS")
+  field(INPD, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.SMAX")
   field(CALC, "min(max(a*b,c),d)")
-  field(OUT, "$(P)$(M).S")
+  field(OUT, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.S")
 }
 
 # allow users to change the tweak value
 # by sending a multipler to the
-#    $(P)$(M)_twCh.A field
+#    $(Sys){$(Dev)-Ax:$(Ax)}Mtr_twCh.A field
 # Range check output; TWV <= HLM - LLM.
-record(scalcout, "$(P)$(M)_twCh") {
+record(scalcout, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr_twCh") {
   field(DESC, "change TWV")
-  field(INPB, "$(P)$(M).TWV")
-  field(INPC, "$(P)$(M).MRES")
-  field(INPD, "$(P)$(M).HLM")
-  field(INPE, "$(P)$(M).LLM")
+  field(INPB, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.TWV")
+  field(INPC, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.MRES")
+  field(INPD, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.HLM")
+  field(INPE, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.LLM")
   field(CALC, "min(max(a*b,c),d-e)")
-  field(OUT, "$(P)$(M).TWV")
+  field(OUT, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr.TWV")
 }
 
 
 ## Move current
-record(ao, "$(P)$(M):MOVE_CUR-O") {
+record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}MoveCur-O") {
     field(DESC, "Move current")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MOVE_I")
-    field(FLNK, "$(P)$(M):MOVE_CUR-I")
+    field(FLNK, "$(Sys){$(Dev)-Ax:$(Ax)}MoveCur-I")
     field(EGU,  "A")
     field(PREC, 1)
     field(LOPR, 0)
@@ -85,7 +84,7 @@ record(ao, "$(P)$(M):MOVE_CUR-O") {
     info(autosaveFields_pass1, "VAL HOPR LOPR")
 }
 
-record(ai, "$(P)$(M):MOVE_CUR-I") {
+record(ai, "$(Sys){$(Dev)-Ax:$(Ax)}MoveCur-I") {
     field(DESC, "Move current")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MOVE_I")
@@ -96,11 +95,11 @@ record(ai, "$(P)$(M):MOVE_CUR-I") {
 }
 
 ## Hold current
-record(ao, "$(P)$(M):HOLD_CUR-O") {
+record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}HoldCur-O") {
     field(DESC, "Hold current")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOLD_I")
-    field(FLNK, "$(P)$(M):HOLD_CUR-I")
+    field(FLNK, "$(Sys){$(Dev)-Ax:$(Ax)}HoldCur-I")
     field(EGU,  "A")
     field(PINI, "YES")
     
@@ -112,7 +111,7 @@ record(ao, "$(P)$(M):HOLD_CUR-O") {
     info(autosaveFields_pass1, "VAL HOPR LOPR")
 }
 
-record(ai, "$(P)$(M):HOLD_CUR-I") {
+record(ai, "$(Sys){$(Dev)-Ax:$(Ax)}HoldCur-I") {
     field(DESC, "Hold current")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOLD_I")
@@ -124,14 +123,14 @@ record(ai, "$(P)$(M):HOLD_CUR-I") {
 }
 
 # Limit thresholds (Low)
-record(ai, "$(P)$(M):LOW_THRESH-I") {
+record(ai, "$(Sys){$(Dev)-Ax:$(Ax)}LowThresh-I") {
     field(DESC, "Low limit threshold")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_LOW")
     field(EGU,  "V")
     field(PREC, 2)
 }
-record(ao, "$(P)$(M):LOW_THRESH-O") {
+record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}LowThresh-SP") {
     field(DESC, "Low limit threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_LOW")
@@ -145,11 +144,11 @@ record(ao, "$(P)$(M):LOW_THRESH-O") {
     field(VAL, 1.24)
     info(autosaveFields_pass0, "VAL HOPR LOPR")
     info(autosaveFields_pass1, "VAL HOPR LOPR")
-    field(FLNK, "$(P)$(M):LOW_THRESH-I")
+    field(FLNK, "$(Sys){$(Dev)-Ax:$(Ax)}LowThresh-I")
 }
 
 # Limit thresholds (high)
-record(ai, "$(P)$(M):HIGH_THRESH-I") {
+record(ai, "$(Sys){$(Dev)-Ax:$(Ax)}HiThresh-I") {
     field(DESC, "High limit threshold")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_HIGH")
@@ -157,7 +156,7 @@ record(ai, "$(P)$(M):HIGH_THRESH-I") {
     field(PREC, 2)
 }
 
-record(ao, "$(P)$(M):HIGH_THRESH-O") {
+record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}HiThresh-SP") {
     field(DESC, "High limit threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_THRESH_HIGH")
@@ -171,5 +170,5 @@ record(ao, "$(P)$(M):HIGH_THRESH-O") {
     field(VAL, 1.24)
     info(autosaveFields_pass0, "VAL HOPR LOPR")
     info(autosaveFields_pass1, "VAL HOPR LOPR")
-    field(FLNK, "$(P)$(M):HIGH_THRESH-I")
+    field(FLNK, "$(Sys){$(Dev)-Ax:$(Ax)}HiThresh-I")
 }
