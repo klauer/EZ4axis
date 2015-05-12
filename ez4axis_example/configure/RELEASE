@@ -25,10 +25,10 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 SUPPORT=/epics/support
-ASYN=$(SUPPORT)/asyn/4-21/
+ASYN=$(SUPPORT)/asyn/4-26/
 # ALLMOTION=$(SUPPORT)/allmotion/1-0/
 ALLMOTION=$(TOP)/../
-MOTOR=$(SUPPORT)/motor/6-8
+MOTOR=$(SUPPORT)/motor/6-9
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/usr/lib/epics
