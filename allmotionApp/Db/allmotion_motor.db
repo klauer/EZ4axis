@@ -68,7 +68,7 @@ record(scalcout, "$(Sys){$(Dev)-Ax:$(Ax)}Mtr_twCh") {
 
 
 ## Move current
-record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}MoveCur-O") {
+record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}MoveCur-SP") {
     field(DESC, "Move current")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MOVE_I")
@@ -95,7 +95,7 @@ record(ai, "$(Sys){$(Dev)-Ax:$(Ax)}MoveCur-I") {
 }
 
 ## Hold current
-record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}HoldCur-O") {
+record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}HoldCur-SP") {
     field(DESC, "Hold current")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOLD_I")
