@@ -241,7 +241,7 @@ record(longout, "$(Sys)$(Dev)RunProg-SP") {
 }
 
 record(calcout, "$(Sys)$(Dev)RunIdx-SP") {
-    field(DESC, "Run program in $(Sys)$(Dev)ProgIdx-SP")
+    field(DESC, "Run program in ProgIdx-SP")
     field(INPA, "$(Sys)$(Dev)ProgIdx-SP")
     field(CALC, "A")
     field(OOPT, "Every Time")
