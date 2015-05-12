@@ -388,6 +388,12 @@ bool almCommandPacket::set_position(int counts) {
   return append("z%d", counts);
 }
 
+bool almCommandPacket::set_limit_polarity(bool inverted) {
+  //   /1aM_f0R  <-- normal limits   (logic high when hitting limit)
+  //   /1aM_f1R  <-- inverted limits (logic low  when hitting limit)
+  return append("f%d", (inverted ? 1 : 0));
+}
+
 bool almCommandPacket::home(int counts) {
   return append("Z%d", counts);
 }

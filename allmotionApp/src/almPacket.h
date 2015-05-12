@@ -85,6 +85,7 @@ public:
   virtual bool home_flag_polarity(bool polarity);
   virtual bool invert_inputs(unsigned int mask);
   virtual bool invert_inputs(bool in0, bool in1, bool in2, bool in3);
+  virtual bool set_limit_polarity(bool inverted);
   virtual bool set_accel(unsigned int factor);
 
   virtual bool set_bump_jog_dist(unsigned int counts);

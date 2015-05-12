@@ -77,11 +77,6 @@ asynStatus almAxis::setPosition(double pos_) {
 
 }
 
-
-// TODO : invert limits per axis by:
-//   /1aM_f0R  <-- normal limits   (logic high when hitting limit)
-//   /1aM_f1R  <-- inverted limits (logic low  when hitting limit)
-//
 asynStatus almAxis::queryLimits() {
   int lim[2];
   epicsInt32 invert;
@@ -378,3 +373,11 @@ asynStatus almAxis::setHighLimitThreshold(epicsFloat64 value) {
   return pc_->runWrite(command);
 }
 
+asynStatus almAxis::setLimitPolarity(bool inverted) {
+  almCommandPacket command;
+  pc_->initCommandPacket(command);
+
+  command.select_axis(axis_num_);
+  command.set_limit_polarity(inverted);
+  return pc_->runWrite(command);
+}

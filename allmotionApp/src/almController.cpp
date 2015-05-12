@@ -531,6 +531,8 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = invertInputs(2, value);
   } else if (function == param_invert_input_[3]) {
     status = invertInputs(3, value);
+  } else if (function == param_limit_invert_) {
+    status = pAxis->setLimitPolarity((value == 1));
   } else {
     /* Call base class method */
     status = asynMotorController::writeInt32(pasynUser, value);

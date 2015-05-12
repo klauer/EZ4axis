@@ -172,3 +172,25 @@ record(ao, "$(Sys){$(Dev)-Ax:$(Ax)}HiThresh-SP") {
     info(autosaveFields_pass1, "VAL HOPR LOPR")
     field(FLNK, "$(Sys){$(Dev)-Ax:$(Ax)}HiThresh-I")
 }
+
+# Limit polarity
+record(bi, "$(Sys){$(Dev)-Ax:$(Ax)}LimitPolarity-I") {
+    field(DESC, "Limit polarity")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_INVERT")
+    field(ZNAM, "Normal (high)")
+    field(ONAM, "Inverted (low)")
+}
+record(bo, "$(Sys){$(Dev)-Ax:$(Ax)}LimitPolarity") {
+    field(DESC, "Limit polarity")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_LIMIT_INVERT")
+
+    field(ZNAM, "Normal (high)")
+    field(ONAM, "Inverted (low)")
+    field(FLNK, "$(Sys){$(Dev)-Ax:$(Ax)}LimitPolarity-I")
+
+    info(autosaveFields_pass0, "VAL")
+    info(autosaveFields_pass1, "VAL")
+}
+

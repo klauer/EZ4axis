@@ -27,6 +27,8 @@ public:
   asynStatus setLowLimitThreshold(epicsFloat64 value);
   asynStatus setHighLimitThreshold(epicsFloat64 value);
 
+  asynStatus setLimitPolarity(bool inverted);
+
   asynStatus getMicrosteps();
 
   asynStatus queryParameter(const char *operand, almResponsePacket &response);
