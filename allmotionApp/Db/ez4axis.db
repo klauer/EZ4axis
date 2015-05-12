@@ -1,7 +1,7 @@
 # vi: sw=4 ts=4
 
 ## Write-only
-record(bo, "$(P)KILL_ALL") {
+record(bo, "$(Sys)$(Dev)KillAll-Cmd") {
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_KILLALL")
 
@@ -10,7 +10,7 @@ record(bo, "$(P)KILL_ALL") {
 }
 
 ## Read-only
-record(bo, "$(P)READ_ADC") {
+record(bo, "$(Sys)$(Dev)ReadADC-Cmd") {
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_READ_ADC")
     field(SCAN, "1 second")
@@ -18,7 +18,7 @@ record(bo, "$(P)READ_ADC") {
     info(autosaveFields_pass0, "SCAN")
 }
 
-record(ai, "$(P)ADC_1") {
+record(ai, "$(Sys)$(Dev)ADC1-I") {
     field(DESC, "Analog input #1")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_1")
@@ -26,7 +26,7 @@ record(ai, "$(P)ADC_1") {
     field(SCAN, "I/O Intr")
 }
 
-record(ai, "$(P)ADC_2") {
+record(ai, "$(Sys)$(Dev)ADC2-I") {
     field(DESC, "Analog input #2")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_2")
@@ -34,7 +34,7 @@ record(ai, "$(P)ADC_2") {
     field(SCAN, "I/O Intr")
 }
 
-record(ai, "$(P)ADC_3") {
+record(ai, "$(Sys)$(Dev)ADC3-I") {
     field(DESC, "Analog input #3")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_3")
@@ -42,7 +42,7 @@ record(ai, "$(P)ADC_3") {
     field(SCAN, "I/O Intr")
 }
 
-record(ai, "$(P)ADC_4") {
+record(ai, "$(Sys)$(Dev)ADC4-I") {
     field(DESC, "Analog input #4")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ADC_4")
@@ -51,7 +51,7 @@ record(ai, "$(P)ADC_4") {
 }
 
 ## Programs
-record(stringout, "$(P)PROG_0-O") {
+record(stringout, "$(Sys)$(Dev)Prog0") {
     field(DESC, "Program 0 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_0")
@@ -62,7 +62,7 @@ record(stringout, "$(P)PROG_0-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_1-O") {
+record(stringout, "$(Sys)$(Dev)Prog1") {
     field(DESC, "Program 1 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_1")
@@ -73,7 +73,7 @@ record(stringout, "$(P)PROG_1-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_2-O") {
+record(stringout, "$(Sys)$(Dev)Prog2") {
     field(DESC, "Program 2 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_2")
@@ -84,7 +84,7 @@ record(stringout, "$(P)PROG_2-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_3-O") {
+record(stringout, "$(Sys)$(Dev)Prog3") {
     field(DESC, "Program 3 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_3")
@@ -95,7 +95,7 @@ record(stringout, "$(P)PROG_3-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_4-O") {
+record(stringout, "$(Sys)$(Dev)Prog4") {
     field(DESC, "Program 4 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_4")
@@ -106,7 +106,7 @@ record(stringout, "$(P)PROG_4-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_5-O") {
+record(stringout, "$(Sys)$(Dev)Prog5") {
     field(DESC, "Program 5 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_5")
@@ -117,7 +117,7 @@ record(stringout, "$(P)PROG_5-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_6-O") {
+record(stringout, "$(Sys)$(Dev)Prog6") {
     field(DESC, "Program 6 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_6")
@@ -128,7 +128,7 @@ record(stringout, "$(P)PROG_6-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_7-O") {
+record(stringout, "$(Sys)$(Dev)Prog7") {
     field(DESC, "Program 7 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_7")
@@ -139,7 +139,7 @@ record(stringout, "$(P)PROG_7-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_8-O") {
+record(stringout, "$(Sys)$(Dev)Prog8") {
     field(DESC, "Program 8 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_8")
@@ -150,7 +150,7 @@ record(stringout, "$(P)PROG_8-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_9-O") {
+record(stringout, "$(Sys)$(Dev)Prog9") {
     field(DESC, "Program 9 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_9")
@@ -161,7 +161,7 @@ record(stringout, "$(P)PROG_9-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_10-O") {
+record(stringout, "$(Sys)$(Dev)Prog10") {
     field(DESC, "Program 10 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_10")
@@ -172,7 +172,7 @@ record(stringout, "$(P)PROG_10-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_11-O") {
+record(stringout, "$(Sys)$(Dev)Prog11") {
     field(DESC, "Program 11 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_11")
@@ -183,7 +183,7 @@ record(stringout, "$(P)PROG_11-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_12-O") {
+record(stringout, "$(Sys)$(Dev)Prog12") {
     field(DESC, "Program 12 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_12")
@@ -194,7 +194,7 @@ record(stringout, "$(P)PROG_12-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_13-O") {
+record(stringout, "$(Sys)$(Dev)Prog13") {
     field(DESC, "Program 13 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_13")
@@ -205,7 +205,7 @@ record(stringout, "$(P)PROG_13-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_14-O") {
+record(stringout, "$(Sys)$(Dev)Prog14") {
     field(DESC, "Program 14 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_14")
@@ -216,7 +216,7 @@ record(stringout, "$(P)PROG_14-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_15-O") {
+record(stringout, "$(Sys)$(Dev)Prog15") {
     field(DESC, "Program 15 string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_15")
@@ -229,7 +229,7 @@ record(stringout, "$(P)PROG_15-O") {
 
 
 ## Run program
-record(longout, "$(P)RUN_PROG-O") {
+record(longout, "$(Sys)$(Dev)RunProg-SP") {
     field(DESC, "Run program number")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_RUN")
@@ -240,12 +240,12 @@ record(longout, "$(P)RUN_PROG-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(calcout, "$(P)RUN_IDX-O") {
-    field(DESC, "Run program in $(P)PROG_IDX-O")
-    field(INPA, "$(P)PROG_IDX-O")
+record(calcout, "$(Sys)$(Dev)RunIdx-SP") {
+    field(DESC, "Run program in $(Sys)$(Dev)ProgIdx-SP")
+    field(INPA, "$(Sys)$(Dev)ProgIdx-SP")
     field(CALC, "A")
     field(OOPT, "Every Time")
-    field(OUT,  "$(P)RUN_PROG-O PP")
+    field(OUT,  "$(Sys)$(Dev)RunProg-SP PP")
     field(SCAN, "Passive")
     
     field(TPRO, 1)
@@ -256,7 +256,7 @@ record(calcout, "$(P)RUN_IDX-O") {
 }
 
 ## Write program by index
-record(longout, "$(P)PROG_IDX-O") {
+record(longout, "$(Sys)$(Dev)ProgIdx-SP") {
     field(DESC, "Program number to write to")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_IDX")
@@ -266,7 +266,7 @@ record(longout, "$(P)PROG_IDX-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(stringout, "$(P)PROG_WRITE-O") {
+record(stringout, "$(Sys)$(Dev)ProgWrite-Cmd") {
     field(DESC, "Program string")
     field(DTYP, "asynOctetWrite")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_PROG_WRITE")
@@ -278,21 +278,21 @@ record(stringout, "$(P)PROG_WRITE-O") {
 }
 
 ## Error string [ERROR]
-record(stringin, "$(P)ERROR-I") {
+record(stringin, "$(Sys)$(Dev)Error-I") {
     field(DESC, "Error string")
     field(DTYP, "asynOctetRead")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ERROR")
     field(SCAN, "I/O Intr")
 }
 
-record(scalcout, "$(P)CLEAR_ERR") {
-    field(OUT, "$(P)ERROR-I")
+record(scalcout, "$(Sys)$(Dev)ClearErr-Cmd") {
+    field(OUT, "$(Sys)$(Dev)Error-I")
     field(CALC, "'OK'")
     field(OOPT, "Every Time")
 }
 
 ## Firmware version [FIRMWARE]
-record(stringin, "$(P)FIRMWARE-I") {
+record(stringin, "$(Sys)$(Dev)Firmware-I") {
     field(DESC, "Firmware version")
     field(DTYP, "asynOctetRead")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_FIRMWARE")
@@ -300,7 +300,7 @@ record(stringin, "$(P)FIRMWARE-I") {
 }
 
 ## Microsteps per step [MICROSTEPS]
-record(longin, "$(P)MICROSTEPS-I") {
+record(longin, "$(Sys)$(Dev)Microsteps-I") {
     field(DESC, "Microsteps per step")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MICROSTEPS")
@@ -308,7 +308,7 @@ record(longin, "$(P)MICROSTEPS-I") {
     field(SCAN, "I/O Intr")
 }
 
-record(ao, "$(P)MICROSTEPS-O") {
+record(ao, "$(Sys)$(Dev)Microsteps-SP") {
     field(DESC, "Microsteps per step")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MICROSTEPS")
@@ -316,11 +316,11 @@ record(ao, "$(P)MICROSTEPS-O") {
     info(autosaveFields_pass0, "VAL")
     field(VAL,  256)
 
-    field(FLNK, "$(P)MICROSTEPS-I")
+    field(FLNK, "$(Sys)$(Dev)Microsteps-I")
 }
 
 ## Microstep tweak value [MICROSTEP_TWEAK]
-record(ao, "$(P)USTEP_TWEAK-O") {
+record(ao, "$(Sys)$(Dev)UstepTweak-SP") {
     field(DESC, "Tweak to fix microstep unevenness")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_MICROSTEP_TWEAK")
@@ -331,7 +331,7 @@ record(ao, "$(P)USTEP_TWEAK-O") {
 }
 
 ## Switch debounce time [SWITCH_DEBOUNCE]
-record(ao, "$(P)DEBOUNCE-O") {
+record(ao, "$(Sys)$(Dev)Debounce-SP") {
     field(DESC, "Switch debounce time")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_SWITCH_DEBOUNCE")
@@ -342,7 +342,7 @@ record(ao, "$(P)DEBOUNCE-O") {
 }
 
 ## Potentiometer offset [POT_OFFSET]
-record(longout, "$(P)POT_OFFSET-O") {
+record(longout, "$(Sys)$(Dev)PotOffset-SP") {
     field(DESC, "Potentiometer offset")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_POT_OFFSET")
@@ -353,7 +353,7 @@ record(longout, "$(P)POT_OFFSET-O") {
 }
 
 ## Potentiometer multiplier [POT_MUL]
-record(longout, "$(P)POT_MUL-O") {
+record(longout, "$(Sys)$(Dev)PotMul-SP") {
     field(DESC, "Potentiometer multiplier")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_POT_MUL")
@@ -364,7 +364,7 @@ record(longout, "$(P)POT_MUL-O") {
 }
 
 ## Potentiometer deadband [POT_DEADBAND]
-record(longout, "$(P)POT_DEADBAND-O") {
+record(longout, "$(Sys)$(Dev)PotDeadband-SP") {
     field(DESC, "Potentiometer deadband")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_POT_DEADBAND")
@@ -377,7 +377,7 @@ record(longout, "$(P)POT_DEADBAND-O") {
 ## Encoder outer deadband [ENC_OUTER_DB]
 #    When in position correction mode, set distance allowed to move 
 #    before the motor corrects using encoder feedback
-record(longout, "$(P)ENC_OUTER_DB-O") {
+record(longout, "$(Sys)$(Dev)EncOuterDb-SP") {
     field(DESC, "Encoder outer deadband")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ENC_OUTER_DB")
@@ -391,7 +391,7 @@ record(longout, "$(P)ENC_OUTER_DB-O") {
 ## Encoder inner deadband [ENC_INNER_DB]
 #    Sets the final error allowed by the fine position correction 
 #    algorithm. 
-record(longout, "$(P)ENC_INNER_DB-O") {
+record(longout, "$(Sys)$(Dev)EncInnerDb-SP") {
     field(DESC, "Encoder inner deadband")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ENC_INNER_DB")
@@ -404,7 +404,7 @@ record(longout, "$(P)ENC_INNER_DB-O") {
 ## Encoder ratio (ticks/rev to ustep/rev) [ENC_RATIO]
 
 ## TODO motor record
-record(longout, "$(P)ENC_RATIO-O") {
+record(longout, "$(Sys)$(Dev)EncRatio-SP") {
     field(DESC, "Encoder ratio (ticks/rev to ustep/rev)")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_ENC_RATIO")
@@ -415,7 +415,7 @@ record(longout, "$(P)ENC_RATIO-O") {
 }
 
 ## Overload timeout [OVERLOAD_TIMEOUT]
-record(longout, "$(P)OVERLOAD_TIMEOUT-O") {
+record(longout, "$(Sys)$(Dev)OverloadTimeout-SP") {
     field(DESC, "Overload timeout")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_OVERLOAD_TIMEOUT")
@@ -426,7 +426,7 @@ record(longout, "$(P)OVERLOAD_TIMEOUT-O") {
 }
 
 ## Integration period [INT_PERIOD]
-record(longout, "$(P)INT_PERIOD-O") {
+record(longout, "$(Sys)$(Dev)IntPeriod-SP") {
     field(DESC, "Integration period")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INT_PERIOD")
@@ -437,7 +437,7 @@ record(longout, "$(P)INT_PERIOD-O") {
 }
 
 ## Recovery program run count [RECOVERY_RUNS]
-record(longout, "$(P)RECOVERY_RUNS-O") {
+record(longout, "$(Sys)$(Dev)RecoveryRuns-SP") {
     field(DESC, "Recovery program run count")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_RECOVERY_RUNS")
@@ -448,7 +448,7 @@ record(longout, "$(P)RECOVERY_RUNS-O") {
 }
 
 ## Daughter card current [DAUGHTER_CURRENT]
-record(longout, "$(P)DHT_CURRENT-O") {
+record(longout, "$(Sys)$(Dev)DhtCurrent-SP") {
     field(DESC, "Daughter card current")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DAUGHTER_CURRENT")
@@ -456,7 +456,7 @@ record(longout, "$(P)DHT_CURRENT-O") {
 }
 
 ## Daughter card current flow direction [DAUGHTER_CUR_FLOW]
-record(bo, "$(P)DHT_CUR_FLOW-O") {
+record(bo, "$(Sys)$(Dev)DhtCurFlow-SP") {
     field(DESC, "Daughter card current flow direction")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DAUGHTER_CUR_FLOW")
@@ -465,7 +465,7 @@ record(bo, "$(P)DHT_CUR_FLOW-O") {
 }
 
 ## Read inputs (switches, optos, encoders)
-record(bo, "$(P)READ_INP") {
+record(bo, "$(Sys)$(Dev)ReadInp-Cmd") {
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_READ_INP")
     field(SCAN, "1 second")
@@ -474,7 +474,7 @@ record(bo, "$(P)READ_INP") {
 }
 
 ## Input: encoder index [INP_IDX]
-record(bi, "$(P)INP_IDX-I") {
+record(bi, "$(Sys)$(Dev)InpIdx-I") {
     field(DESC, "Encoder index")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_IDX")
@@ -484,7 +484,7 @@ record(bi, "$(P)INP_IDX-I") {
 }
 
 ## Input: switch 1 [INP_SW1]
-record(bi, "$(P)INP_SW1-I") {
+record(bi, "$(Sys)$(Dev)InpSw1-I") {
     field(DESC, "Input switch 1")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_SW1")
@@ -494,7 +494,7 @@ record(bi, "$(P)INP_SW1-I") {
 }
 
 ## Input: switch 1 [INP_SW2]
-record(bi, "$(P)INP_SW2-I") {
+record(bi, "$(Sys)$(Dev)InpSw2-I") {
     field(DESC, "Input switch 1")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_SW2")
@@ -504,7 +504,7 @@ record(bi, "$(P)INP_SW2-I") {
 }
 
 ## Input: Opto switch 1 [INP_OPTO1]
-record(bi, "$(P)INP_OPTO1-I") {
+record(bi, "$(Sys)$(Dev)InpOpto1-I") {
     field(DESC, "Opto switch 1")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_OPTO1")
@@ -514,7 +514,7 @@ record(bi, "$(P)INP_OPTO1-I") {
 }
 
 ## Input: Opto switch 2 [INP_OPTO2]
-record(bi, "$(P)INP_OPTO2-I") {
+record(bi, "$(Sys)$(Dev)InpOpto2-I") {
     field(DESC, "Opto switch 2")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_OPTO2")
@@ -524,7 +524,7 @@ record(bi, "$(P)INP_OPTO2-I") {
 }
 
 ## Input: Encoder channel A [INP_CHA]
-record(bi, "$(P)INP_CHA-I") {
+record(bi, "$(Sys)$(Dev)InpCha-I") {
     field(DESC, "Encoder channel A")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_CHA")
@@ -534,7 +534,7 @@ record(bi, "$(P)INP_CHA-I") {
 }
 
 ## Input: Encoder channel B [INP_CHB]
-record(bi, "$(P)INP_CHB-I") {
+record(bi, "$(Sys)$(Dev)InpChb-I") {
     field(DESC, "Encoder channel B")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INP_CHB")
@@ -544,7 +544,7 @@ record(bi, "$(P)INP_CHB-I") {
 }
 
 ## Toggle driver 1 power [DRIVER1_POWER]
-record(bo, "$(P)DRIVER1_POWER-O") {
+record(bo, "$(Sys)$(Dev)Driver1Power-SP") {
     field(DESC, "Toggle driver 1 power")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DRIVER1_POWER")
@@ -556,7 +556,7 @@ record(bo, "$(P)DRIVER1_POWER-O") {
 }
 
 ## Toggle driver 2 power [DRIVER2_POWER]
-record(bo, "$(P)DRIVER2_POWER-O") {
+record(bo, "$(Sys)$(Dev)Driver2Power-SP") {
     field(DESC, "Toggle driver 2 power")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_DRIVER2_POWER")
@@ -568,7 +568,7 @@ record(bo, "$(P)DRIVER2_POWER-O") {
 }
 
 ## Device reset [RESET]
-record(bo, "$(P)RESET-O") {
+record(bo, "$(Sys)$(Dev)Reset-SP") {
     field(DESC, "Device reset")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_RESET")
@@ -580,7 +580,7 @@ record(bo, "$(P)RESET-O") {
 }
 
 ## Home polarity [HOME_POLARITY]
-record(bo, "$(P)HOME_POLARITY-O") {
+record(bo, "$(Sys)$(Dev)HomePolarity-SP") {
     field(DESC, "Home polarity")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_HOME_POLARITY")
@@ -592,9 +592,9 @@ record(bo, "$(P)HOME_POLARITY-O") {
 }
 
 ## Movement mode
-record(bo, "$(P)MOD_PULSE_JOG") {
+record(bo, "$(Sys)$(Dev)ModPulseJog") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -604,9 +604,9 @@ record(bo, "$(P)MOD_PULSE_JOG") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_EN_LIMITS") {
+record(bo, "$(Sys)$(Dev)ModEnLimits") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -616,9 +616,9 @@ record(bo, "$(P)MOD_EN_LIMITS") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_CONT_JOG") {
+record(bo, "$(Sys)$(Dev)ModContJog") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -628,9 +628,9 @@ record(bo, "$(P)MOD_CONT_JOG") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_CLOSED_LOOP") {
+record(bo, "$(Sys)$(Dev)ModClosedLoop") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -640,9 +640,9 @@ record(bo, "$(P)MOD_CLOSED_LOOP") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_OVR_REPORT") {
+record(bo, "$(Sys)$(Dev)ModOvrReport") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -652,9 +652,9 @@ record(bo, "$(P)MOD_OVR_REPORT") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_STEP_DIR") {
+record(bo, "$(Sys)$(Dev)ModStepDir") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -664,9 +664,9 @@ record(bo, "$(P)MOD_STEP_DIR") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_MOTOR_SLAVE") {
+record(bo, "$(Sys)$(Dev)ModMotorSlave") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -676,9 +676,9 @@ record(bo, "$(P)MOD_MOTOR_SLAVE") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_DUAL_ENCODER") {
+record(bo, "$(Sys)$(Dev)ModDualEncoder") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -688,9 +688,9 @@ record(bo, "$(P)MOD_DUAL_ENCODER") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_JOYSTICK") {
+record(bo, "$(Sys)$(Dev)ModJoystick") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -700,9 +700,9 @@ record(bo, "$(P)MOD_JOYSTICK") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_OVR_RUN_13") {
+record(bo, "$(Sys)$(Dev)ModOvrRun13") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -712,9 +712,9 @@ record(bo, "$(P)MOD_OVR_RUN_13") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_OVR_RUN_14") {
+record(bo, "$(Sys)$(Dev)ModOvrRun14") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -724,9 +724,9 @@ record(bo, "$(P)MOD_OVR_RUN_14") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_OVR_RUN_15") {
+record(bo, "$(Sys)$(Dev)ModOvrRun15") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -736,9 +736,9 @@ record(bo, "$(P)MOD_OVR_RUN_15") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_POT_2") {
+record(bo, "$(Sys)$(Dev)ModPot2") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -748,9 +748,9 @@ record(bo, "$(P)MOD_POT_2") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_SW1_KILLS") {
+record(bo, "$(Sys)$(Dev)ModSw1Kills") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -760,9 +760,9 @@ record(bo, "$(P)MOD_SW1_KILLS") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_SW2_KILLS") {
+record(bo, "$(Sys)$(Dev)ModSw2Kills") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -772,9 +772,9 @@ record(bo, "$(P)MOD_SW2_KILLS") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(bo, "$(P)MOD_OPTO2_POT_VEL") {
+record(bo, "$(Sys)$(Dev)ModOpto2PotVel") {
     field(DESC, "Mode: Pulse jog")
-    field(FLNK, "$(P)MODE_CALC")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc_")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(STAT, "NO_ALARM")
@@ -784,40 +784,40 @@ record(bo, "$(P)MOD_OPTO2_POT_VEL") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(calc, "$(P)MODE_CALC") {
-    field(INPA, "$(P)MOD_PULSE_JOG NPP")
-    field(INPB, "$(P)MOD_EN_LIMITS NPP")
-    field(INPC, "$(P)MOD_CONT_JOG NPP")
-    field(INPD, "$(P)MOD_CLOSED_LOOP NPP")
-    field(INPE, "$(P)MOD_OVR_REPORT NPP")
-    field(INPF, "$(P)MOD_STEP_DIR NPP")
-    field(INPG, "$(P)MOD_MOTOR_SLAVE NPP")
-    field(INPH, "$(P)MOD_DUAL_ENCODER NPP")
-    field(INPI, "$(P)MOD_JOYSTICK NPP")
-    field(INPJ, "$(P)MOD_OVR_RUN_13 NPP")
-    field(INPK, "$(P)MOD_OVR_RUN_14 NPP")
-    field(INPL, "$(P)MOD_OVR_RUN_15 NPP")
+record(calc, "$(Sys)$(Dev)ModeCalc_") {
+    field(INPA, "$(Sys)$(Dev)ModPulseJog NPP")
+    field(INPB, "$(Sys)$(Dev)ModEnLimits NPP")
+    field(INPC, "$(Sys)$(Dev)ModContJog NPP")
+    field(INPD, "$(Sys)$(Dev)ModClosedLoop NPP")
+    field(INPE, "$(Sys)$(Dev)ModOvrReport NPP")
+    field(INPF, "$(Sys)$(Dev)ModStepDir NPP")
+    field(INPG, "$(Sys)$(Dev)ModMotorSlave NPP")
+    field(INPH, "$(Sys)$(Dev)ModDualEncoder NPP")
+    field(INPI, "$(Sys)$(Dev)ModJoystick NPP")
+    field(INPJ, "$(Sys)$(Dev)ModOvrRun13 NPP")
+    field(INPK, "$(Sys)$(Dev)ModOvrRun14 NPP")
+    field(INPL, "$(Sys)$(Dev)ModOvrRun15 NPP")
     field(CALC, "A+B*2+C*4+D*8+E*16+F*32+G*64+H*96+I*128+J*512+K*1024+L*1536")
-    field(FLNK, "$(P)MODE_CALC1-O")
+    field(FLNK, "$(Sys)$(Dev)ModeCalc1_")
     field(TPRO, 1)
 }
 
-record(calcout, "$(P)MODE_CALC1-O") {
-    field(INPA, "$(P)MODE_CALC NPP")
-    field(INPB, "$(P)MOD_POT_2 NPP")
-    field(INPC, "$(P)MOD_SW1_KILLS NPP")
-    field(INPD, "$(P)MOD_SW2_KILLS NPP")
-    field(INPE, "$(P)MOD_OPTO2_POT_VEL NPP")
+record(calcout, "$(Sys)$(Dev)ModeCalc1_") {
+    field(INPA, "$(Sys)$(Dev)ModeCalc_ NPP")
+    field(INPB, "$(Sys)$(Dev)ModPot2 NPP")
+    field(INPC, "$(Sys)$(Dev)ModSw1Kills NPP")
+    field(INPD, "$(Sys)$(Dev)ModSw2Kills NPP")
+    field(INPE, "$(Sys)$(Dev)ModOpto2PotVel NPP")
     field(CALC, "A + B*8192 + C*16384 + D*32768 + E*65536")
     field(OOPT, "Every Time")
 
-    field(OUT, "$(P)MODE_RAW-O PP MS")
+    field(OUT, "$(Sys)$(Dev)ModeRaw-SP PP MS")
     field(TPRO, 1)
 }
 
-record(mbbo, "$(P)MODE-O") {
+record(mbbo, "$(Sys)$(Dev)Mode-SP") {
     field(DESC, "Mode")
-    field(OUT,  "$(P)MODE_RAW-O PP MS")
+    field(OUT,  "$(Sys)$(Dev)ModeRaw-SP PP MS")
 
     field(ZRVL, 1)
     field(ZRST, "Pulse jog")
@@ -856,7 +856,7 @@ record(mbbo, "$(P)MODE-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(mbbo, "$(P)MODE_RAW-O") {
+record(mbbo, "$(Sys)$(Dev)ModeRaw-SP") {
     field(DESC, "Mode")
     field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),0xffffffff,$(TIMEOUT=1.0))ALM_MODE")
@@ -866,9 +866,9 @@ record(mbbo, "$(P)MODE_RAW-O") {
 }
 
 ## Special mode
-record(mbbo, "$(P)SP_MODE-O") {
+record(mbbo, "$(Sys)$(Dev)SpMode-SP") {
     field(DESC, "Special mode")
-    field(OUT,  "$(P)RAW_SP_MODE-O PP MS")
+    field(OUT,  "$(Sys)$(Dev)RawSpMode-SP PP MS")
 
     field(ZRVL, 0)
     field(ZRST, "Unset")
@@ -893,7 +893,7 @@ record(mbbo, "$(P)SP_MODE-O") {
     info(autosaveFields_pass0, "VAL")
 }
 
-record(mbbo, "$(P)RAW_SP_MODE-O") {
+record(mbbo, "$(Sys)$(Dev)RawSpMode-SP") {
     field(DESC, "Special mode")
     field(DTYP, "asynUInt32Digital")
     field(OUT,  "@asynMask($(PORT),$(ADDR),0xffffffff,$(TIMEOUT=1.0))ALM_SP_MODE")

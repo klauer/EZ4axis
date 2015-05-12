@@ -1,7 +1,7 @@
 # Supported in driver, but not in EZ4Axis
 
 ## Input invert 0 [INVERT_INPUT0]
-record(bo, "$(Sys)$(Dev)INVERT_INPUT0-O") {
+record(bo, "$(Sys)$(Dev)InvertInput0-SP") {
     field(DESC, "Input invert 0")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT0")
@@ -12,7 +12,7 @@ record(bo, "$(Sys)$(Dev)INVERT_INPUT0-O") {
 }
 
 ## Input invert 1 [INVERT_INPUT1]
-record(bo, "$(Sys)$(Dev)INVERT_INPUT1-O") {
+record(bo, "$(Sys)$(Dev)InvertInput1-SP") {
     field(DESC, "Input invert 1")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT1")
@@ -23,7 +23,7 @@ record(bo, "$(Sys)$(Dev)INVERT_INPUT1-O") {
 }
 
 ## Input invert 2 [INVERT_INPUT2]
-record(bo, "$(Sys)$(Dev)INVERT_INPUT2-O") {
+record(bo, "$(Sys)$(Dev)InvertInput2-SP") {
     field(DESC, "Input invert 2")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT2")
@@ -34,7 +34,7 @@ record(bo, "$(Sys)$(Dev)INVERT_INPUT2-O") {
 }
 
 ## Input invert 3 [INVERT_INPUT3]
-record(bo, "$(Sys)$(Dev)INVERT_INPUT3-O") {
+record(bo, "$(Sys)$(Dev)InvertInput3-SP") {
     field(DESC, "Input invert 3")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INVERT_INPUT3")
@@ -46,14 +46,14 @@ record(bo, "$(Sys)$(Dev)INVERT_INPUT3-O") {
 
 # Thresholds are per-axis..
 ## Voltage input threshold [INPUT_THRESHOLD0]
-record(bo, "$(Sys)$(Dev)READ_THRESH") {
+record(bo, "$(Sys)$(Dev)ReadThresh-Cmd") {
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_READ_THRESH")
     field(SCAN, "Passive")
     field(PINI, "YES")
 }
 
-record(ai, "$(Sys)$(Dev)INPUT_THRESH0-I") {
+record(ai, "$(Sys)$(Dev)InputThresh0-I") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD0")
@@ -62,20 +62,20 @@ record(ai, "$(Sys)$(Dev)INPUT_THRESH0-I") {
     field(SCAN, "I/O Intr")
 }
 
-record(ao, "$(Sys)$(Dev)INPUT_THRESH0-O") {
+record(ao, "$(Sys)$(Dev)InputThresh0-SP") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD0")
     field(EGU,  "V")
     field(PREC, 5)
-    field(FLNK, "$(Sys)$(Dev)READ_THRESH")
+    field(FLNK, "$(Sys)$(Dev)ReadThresh-Cmd")
     field(VAL,  6144)
 
     info(autosaveFields_pass0, "VAL")
 }
 
 ## Voltage input threshold [INPUT_THRESHOLD1]
-record(ai, "$(Sys)$(Dev)INPUT_THRESH1-I") {
+record(ai, "$(Sys)$(Dev)InputThresh1-I") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD1")
@@ -84,20 +84,20 @@ record(ai, "$(Sys)$(Dev)INPUT_THRESH1-I") {
     field(SCAN, "I/O Intr")
 }
 
-record(ao, "$(Sys)$(Dev)INPUT_THRESH1-O") {
+record(ao, "$(Sys)$(Dev)InputThresh1-SP") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD1")
     field(EGU,  "V")
     field(PREC, 5)
-    field(FLNK, "$(Sys)$(Dev)READ_THRESH")
+    field(FLNK, "$(Sys)$(Dev)ReadThresh-Cmd")
     field(VAL,  6144)
 
     info(autosaveFields_pass0, "VAL")
 }
 
 ## Voltage input threshold [INPUT_THRESHOLD2]
-record(ai, "$(Sys)$(Dev)INPUT_THRESH2-I") {
+record(ai, "$(Sys)$(Dev)InputThresh2-I") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD2")
@@ -105,20 +105,20 @@ record(ai, "$(Sys)$(Dev)INPUT_THRESH2-I") {
     field(PREC, 5)
     field(SCAN, "I/O Intr")
 }
-record(ao, "$(Sys)$(Dev)INPUT_THRESH2-O") {
+record(ao, "$(Sys)$(Dev)InputThresh2-SP") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD2")
     field(EGU,  "V")
     field(PREC, 5)
-    field(FLNK, "$(Sys)$(Dev)READ_THRESH")
+    field(FLNK, "$(Sys)$(Dev)ReadThresh-Cmd")
     field(VAL,  6144)
 
     info(autosaveFields_pass0, "VAL")
 }
 
 ## Voltage input threshold [INPUT_THRESHOLD3]
-record(ai, "$(Sys)$(Dev)INPUT_THRESH3-I") {
+record(ai, "$(Sys)$(Dev)InputThresh3-I") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD3")
@@ -126,13 +126,13 @@ record(ai, "$(Sys)$(Dev)INPUT_THRESH3-I") {
     field(PREC, 5)
     field(SCAN, "I/O Intr")
 }
-record(ao, "$(Sys)$(Dev)INPUT_THRESH3-O") {
+record(ao, "$(Sys)$(Dev)InputThresh3-SP") {
     field(DESC, "Voltage input threshold")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT=1.0))ALM_INPUT_THRESHOLD3")
     field(EGU,  "V")
     field(PREC, 5)
-    field(FLNK, "$(Sys)$(Dev)READ_THRESH")
+    field(FLNK, "$(Sys)$(Dev)ReadThresh-Cmd")
     field(VAL,  6144)
 
     info(autosaveFields_pass0, "VAL")

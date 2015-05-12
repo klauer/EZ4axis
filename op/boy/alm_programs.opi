@@ -109,7 +109,7 @@
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_0-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog0</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -142,7 +142,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -294,7 +294,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_WRITE-O</pv_name>
+    <pv_name>$(Sys)$(Dev)ProgWrite-Cmd</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -327,7 +327,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_IDX-O.PROC</pv_name>
+    <pv_name>$(Sys)$(Dev)RunIdx-SP.PROC</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -380,7 +380,7 @@ $(pv_value)</tooltip>
     <page_increment>10.0</page_increment>
     <precision_from_pv>false</precision_from_pv>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_IDX-O</pv_name>
+    <pv_name>$(Sys)$(Dev)ProgIdx-SP</pv_name>
     <buttons_on_left>false</buttons_on_left>
     <background_color>
       <color red="255" green="255" blue="255" />
@@ -494,7 +494,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_1-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog1</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -527,7 +527,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -639,7 +639,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_2-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog2</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -672,7 +672,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -784,7 +784,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_3-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog3</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -817,7 +817,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -929,7 +929,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_4-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog4</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -962,7 +962,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1074,7 +1074,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_5-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog5</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1107,7 +1107,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1219,7 +1219,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_6-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog6</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1252,7 +1252,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1364,7 +1364,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_7-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog7</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1397,7 +1397,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1509,7 +1509,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_8-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog8</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1542,7 +1542,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1654,7 +1654,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_9-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog9</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1687,7 +1687,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1799,7 +1799,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_10-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog10</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1832,7 +1832,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1944,7 +1944,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_11-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog11</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1977,7 +1977,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2089,7 +2089,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_12-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog12</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2122,7 +2122,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2234,7 +2234,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_13-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog13</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2267,7 +2267,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2379,7 +2379,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_14-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog14</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2412,7 +2412,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2524,7 +2524,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)PROG_15-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Prog15</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2557,7 +2557,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RUN_PROG-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RunProg-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>

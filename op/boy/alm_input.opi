@@ -853,7 +853,7 @@ $(pv_value)</tooltip>
     <format_type>0</format_type>
     <precision_from_pv>false</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(P)ADC_1</pv_name>
+    <pv_name>$(Sys)$(Dev)ADC1-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -904,7 +904,7 @@ $(pv_value)</tooltip>
     <format_type>0</format_type>
     <precision_from_pv>false</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(P)ADC_2</pv_name>
+    <pv_name>$(Sys)$(Dev)ADC2-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -955,7 +955,7 @@ $(pv_value)</tooltip>
     <format_type>0</format_type>
     <precision_from_pv>false</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(P)ADC_3</pv_name>
+    <pv_name>$(Sys)$(Dev)ADC3-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -1006,7 +1006,7 @@ $(pv_value)</tooltip>
     <format_type>0</format_type>
     <precision_from_pv>false</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(P)ADC_4</pv_name>
+    <pv_name>$(Sys)$(Dev)ADC4-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -1059,7 +1059,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_SW1-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpSw1-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1112,7 +1112,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_SW2-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpSw2-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1165,7 +1165,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_OPTO1-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpOpto1-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1218,7 +1218,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_OPTO2-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpOpto2-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1322,7 +1322,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_CHA-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpCha-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1375,7 +1375,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_CHB-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpChb-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1428,7 +1428,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)INP_IDX-I</pv_name>
+    <pv_name>$(Sys)$(Dev)InpIdx-I</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>

@@ -109,7 +109,7 @@
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)DEBOUNCE-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Debounce-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -245,7 +245,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)DHT_CURRENT-O</pv_name>
+    <pv_name>$(Sys)$(Dev)DhtCurrent-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -279,7 +279,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <transparent>false</transparent>
-    <pv_name>$(P)DHT_CUR_FLOW-O</pv_name>
+    <pv_name>$(Sys)$(Dev)DhtCurFlow-SP</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -369,7 +369,7 @@ $(pv_value)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)DRIVER1_POWER-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Driver1Power-SP</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -429,7 +429,7 @@ $(pv_name)</tooltip>
     <off_color>
       <color red="0" green="100" blue="0" />
     </off_color>
-    <pv_name>$(P)DRIVER2_POWER-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Driver2Power-SP</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -520,7 +520,7 @@ $(pv_name)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_PULSE_JOG</pv_name>
+      <pv_name>$(Sys)$(Dev)ModPulseJog</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -566,7 +566,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_EN_LIMITS</pv_name>
+      <pv_name>$(Sys)$(Dev)ModEnLimits</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -612,7 +612,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_CONT_JOG</pv_name>
+      <pv_name>$(Sys)$(Dev)ModContJog</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -658,7 +658,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_CLOSED_LOOP</pv_name>
+      <pv_name>$(Sys)$(Dev)ModClosedLoop</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -704,7 +704,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_OVR_REPORT</pv_name>
+      <pv_name>$(Sys)$(Dev)ModOvrReport</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -750,7 +750,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_STEP_DIR</pv_name>
+      <pv_name>$(Sys)$(Dev)ModStepDir</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -796,7 +796,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_MOTOR_SLAVE</pv_name>
+      <pv_name>$(Sys)$(Dev)ModMotorSlave</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -842,7 +842,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_DUAL_ENCODER</pv_name>
+      <pv_name>$(Sys)$(Dev)ModDualEncoder</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -888,7 +888,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_JOYSTICK</pv_name>
+      <pv_name>$(Sys)$(Dev)ModJoystick</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -934,7 +934,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_OVR_RUN_13</pv_name>
+      <pv_name>$(Sys)$(Dev)ModOvrRun13</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -980,7 +980,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_OVR_RUN_14</pv_name>
+      <pv_name>$(Sys)$(Dev)ModOvrRun14</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -1026,7 +1026,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_OVR_RUN_15</pv_name>
+      <pv_name>$(Sys)$(Dev)ModOvrRun15</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -1072,7 +1072,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_POT_2</pv_name>
+      <pv_name>$(Sys)$(Dev)ModPot2</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -1118,7 +1118,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_SW1_KILLS</pv_name>
+      <pv_name>$(Sys)$(Dev)ModSw1Kills</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -1164,7 +1164,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_SW2_KILLS</pv_name>
+      <pv_name>$(Sys)$(Dev)ModSw2Kills</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -1210,7 +1210,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MOD_OPTO2_POT_VEL</pv_name>
+      <pv_name>$(Sys)$(Dev)ModOpto2PotVel</pv_name>
       <background_color>
         <color red="240" green="240" blue="240" />
       </background_color>
@@ -1255,7 +1255,7 @@ $(pv_value)</tooltip>
         <height_scalable>false</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)SP_MODE-O</pv_name>
+      <pv_name>$(Sys)$(Dev)SpMode-SP</pv_name>
       <background_color>
         <color red="255" green="255" blue="255" />
       </background_color>
@@ -1337,7 +1337,7 @@ $(pv_value)</tooltip>
         <height_scalable>true</height_scalable>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
-      <pv_name>$(P)MODE_CALC.PROC</pv_name>
+      <pv_name>$(Sys)$(Dev)ModeCalc_.PROC</pv_name>
       <foreground_color>
         <color red="0" green="0" blue="0" />
       </foreground_color>
@@ -1387,7 +1387,7 @@ $(pv_value)</tooltip>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)RESET-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Reset-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1499,7 +1499,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)ENC_INNER_DB-O</pv_name>
+    <pv_name>$(Sys)$(Dev)EncInnerDb-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1635,7 +1635,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)ENC_OUTER_DB-O</pv_name>
+    <pv_name>$(Sys)$(Dev)EncOuterDb-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1691,7 +1691,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)ENC_RATIO-O</pv_name>
+    <pv_name>$(Sys)$(Dev)EncRatio-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1765,7 +1765,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <transparent>false</transparent>
-    <pv_name>$(P)HOME_POLARITY-O</pv_name>
+    <pv_name>$(Sys)$(Dev)HomePolarity-SP</pv_name>
     <background_color>
       <color red="240" green="240" blue="240" />
     </background_color>
@@ -1909,7 +1909,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)MICROSTEPS-O</pv_name>
+    <pv_name>$(Sys)$(Dev)Microsteps-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -1965,7 +1965,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)USTEP_TWEAK-O</pv_name>
+    <pv_name>$(Sys)$(Dev)UstepTweak-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2044,7 +2044,7 @@ $(pv_value)</tooltip>
     <format_type>0</format_type>
     <precision_from_pv>true</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(P)FIRMWARE-I</pv_name>
+    <pv_name>$(Sys)$(Dev)Firmware-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -2095,7 +2095,7 @@ $(pv_value)</tooltip>
     <format_type>0</format_type>
     <precision_from_pv>true</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(P)MICROSTEPS-I</pv_name>
+    <pv_name>$(Sys)$(Dev)Microsteps-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -2203,7 +2203,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)INT_PERIOD-O</pv_name>
+    <pv_name>$(Sys)$(Dev)IntPeriod-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2299,7 +2299,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)OVERLOAD_TIMEOUT-O</pv_name>
+    <pv_name>$(Sys)$(Dev)OverloadTimeout-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2395,7 +2395,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)POT_DEADBAND-O</pv_name>
+    <pv_name>$(Sys)$(Dev)PotDeadband-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2491,7 +2491,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)POT_MUL-O</pv_name>
+    <pv_name>$(Sys)$(Dev)PotMul-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2587,7 +2587,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)POT_OFFSET-O</pv_name>
+    <pv_name>$(Sys)$(Dev)PotOffset-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2683,7 +2683,7 @@ $(pv_value)</tooltip>
     </scale_options>
     <selector_type>0</selector_type>
     <transparent>false</transparent>
-    <pv_name>$(P)RECOVERY_RUNS-O</pv_name>
+    <pv_name>$(Sys)$(Dev)RecoveryRuns-SP</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -2795,7 +2795,7 @@ $(pv_value)</tooltip>
       <height_scalable>false</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)READ_INP.SCAN</pv_name>
+    <pv_name>$(Sys)$(Dev)ReadInp-Cmd.SCAN</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -2836,7 +2836,7 @@ $(pv_value)</tooltip>
       <height_scalable>false</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(P)READ_ADC.SCAN</pv_name>
+    <pv_name>$(Sys)$(Dev)ReadADC-Cmd.SCAN</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
