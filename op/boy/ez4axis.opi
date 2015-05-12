@@ -2,19 +2,20 @@
 <display typeId="org.csstudio.opibuilder.Display" version="1.0.0">
   <auto_zoom_to_fit_all>false</auto_zoom_to_fit_all>
   <macros>
-    <include_parent_macros>true</include_parent_macros>
-    <P>IOC:ALM:</P>
-    <M1>m1</M1>
-    <M2>m2</M2>
-    <M3>m3</M3>
-    <M4>m4</M4>
-    <EPICS_OPI>/CSS/epics-opi</EPICS_OPI>
+    <include_parent_macros>false</include_parent_macros>
+    <Sys>XF:03IDC-ES</Sys>
+    <CntlDev>Ez4:1</CntlDev>
+    <Ax1>1</Ax1>
+    <Ax2>2</Ax2>
+    <Ax3>3</Ax3>
+    <Ax4>4</Ax4>
+    <Mtr>Mtr</Mtr>
   </macros>
   <wuid>c16092a:142ed4291e5:-8000</wuid>
-  <boy_version>3.2.10.201312171754</boy_version>
+  <boy_version>3.2.18.201410011619</boy_version>
   <scripts />
   <show_ruler>true</show_ruler>
-  <height>500</height>
+  <height>400</height>
   <name></name>
   <snap_to_geometry>true</snap_to_geometry>
   <show_grid>true</show_grid>
@@ -60,11 +61,11 @@
     </foreground_color>
     <widget_type>Label</widget_type>
     <enabled>true</enabled>
-    <text>EZ4Axis [$(P)]</text>
+    <text>EZ4Axis [$(Sys){$(CntlDev)}]</text>
     <font>
-      <opifont.name fontName="Sans" height="18" style="1">Header 1</opifont.name>
+      <opifont.name fontName="Cantarell" height="19" style="1">Header 1</opifont.name>
     </font>
-    <width>613</width>
+    <width>889</width>
     <border_style>0</border_style>
     <rules />
     <border_width>1</border_width>
@@ -81,61 +82,21 @@
   <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
     <macros>
       <include_parent_macros>true</include_parent_macros>
+      <Dev>{$(CntlDev)-Ax:$(Ax1)}</Dev>
     </macros>
     <visible>true</visible>
     <wuid>c16092a:142ed4291e5:-7ff7</wuid>
     <auto_size>true</auto_size>
     <scripts />
     <zoom_to_fit>true</zoom_to_fit>
-    <height>201</height>
-    <name>Linking Container</name>
+    <height>23</height>
+    <name>ax1</name>
     <scale_options>
       <width_scalable>true</width_scalable>
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <opi_file>alm_motor4x.opi</opi_file>
-    <foreground_color>
-      <color red="192" green="192" blue="192" />
-    </foreground_color>
-    <background_color>
-      <color red="218" green="218" blue="218" />
-    </background_color>
-    <group_name></group_name>
-    <enabled>true</enabled>
-    <widget_type>Linking Container</widget_type>
-    <font>
-      <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
-    </font>
-    <width>477</width>
-    <border_style>0</border_style>
-    <rules />
-    <border_width>1</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <y>36</y>
-    <actions hook="false" hook_all="false" />
-    <x>42</x>
-    <tooltip></tooltip>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-    <macros>
-      <include_parent_macros>true</include_parent_macros>
-    </macros>
-    <visible>true</visible>
-    <wuid>-1e43b71:14302040277:-6926</wuid>
-    <auto_size>true</auto_size>
-    <scripts />
-    <zoom_to_fit>true</zoom_to_fit>
-    <height>133</height>
-    <name>Linking Container_1</name>
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <opi_file>alm_input.opi</opi_file>
+    <opi_file>ez4_1h_wide.opi</opi_file>
     <foreground_color>
       <color red="192" green="192" blue="192" />
     </foreground_color>
@@ -148,16 +109,16 @@
     <font>
       <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
     </font>
-    <width>548</width>
+    <width>877</width>
     <border_style>0</border_style>
     <rules />
-    <border_width>0</border_width>
+    <border_width>1</border_width>
     <border_color>
       <color red="0" green="128" blue="255" />
     </border_color>
-    <y>288</y>
+    <y>48</y>
     <actions hook="false" hook_all="false" />
-    <x>0</x>
+    <x>12</x>
     <tooltip></tooltip>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -195,14 +156,14 @@
     <border_color>
       <color red="0" green="128" blue="255" />
     </border_color>
-    <y>432</y>
+    <y>168</y>
     <actions hook="false" hook_all="false">
-      <action type="OPEN_OPI_IN_VIEW">
+      <action type="OPEN_DISPLAY">
         <path>alm_advanced.opi</path>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
-        <Position>1</Position>
+        <replace>0</replace>
         <description></description>
       </action>
     </actions>
@@ -244,19 +205,19 @@
     <border_color>
       <color red="0" green="128" blue="255" />
     </border_color>
-    <y>432</y>
+    <y>168</y>
     <actions hook="false" hook_all="false">
-      <action type="OPEN_OPI_IN_VIEW">
+      <action type="OPEN_DISPLAY">
         <path>alm_programs.opi</path>
         <macros>
           <include_parent_macros>true</include_parent_macros>
         </macros>
-        <Position>1</Position>
+        <replace>0</replace>
         <description></description>
       </action>
     </actions>
     <tooltip>Programs on the controller</tooltip>
-    <x>12</x>
+    <x>17</x>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <visible>true</visible>
@@ -293,7 +254,7 @@
     </border_color>
     <horizontal_alignment>1</horizontal_alignment>
     <actions hook="false" hook_all="false" />
-    <y>435</y>
+    <y>171</y>
     <wrap_words>false</wrap_words>
     <tooltip></tooltip>
     <x>192</x>
@@ -312,7 +273,7 @@
       <height_scalable>true</height_scalable>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
-    <pv_name>$(Sys)$(Dev)ClearErr-Cmd</pv_name>
+    <pv_name>$(Sys){$(CntlDev)}ClearErr-Cmd.PROC</pv_name>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
@@ -333,7 +294,7 @@
     <border_color>
       <color red="0" green="128" blue="255" />
     </border_color>
-    <y>432</y>
+    <y>168</y>
     <actions hook="false" hook_all="false">
       <action type="WRITE_PV">
         <pv_name>$(pv_name)</pv_name>
@@ -344,7 +305,7 @@
       </action>
     </actions>
     <tooltip></tooltip>
-    <x>521</x>
+    <x>456</x>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <border_alarm_sensitive>true</border_alarm_sensitive>
@@ -366,7 +327,7 @@
     <format_type>0</format_type>
     <precision_from_pv>true</precision_from_pv>
     <transparent>true</transparent>
-    <pv_name>$(Sys)$(Dev)Error-I</pv_name>
+    <pv_name>$(Sys){$(CntlDev)}Error-I</pv_name>
     <background_color>
       <color red="255" green="255" blue="255" />
     </background_color>
@@ -391,10 +352,136 @@
     </border_color>
     <horizontal_alignment>0</horizontal_alignment>
     <actions hook="false" hook_all="false" />
-    <y>435</y>
+    <y>171</y>
     <wrap_words>false</wrap_words>
     <tooltip>$(pv_name)
 $(pv_value)</tooltip>
     <x>271</x>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+    <macros>
+      <include_parent_macros>true</include_parent_macros>
+      <Dev>{$(CntlDev)-Ax:$(Ax2)}</Dev>
+    </macros>
+    <visible>true</visible>
+    <wuid>-d005ec8:14d1fb82454:-d78</wuid>
+    <auto_size>true</auto_size>
+    <scripts />
+    <zoom_to_fit>true</zoom_to_fit>
+    <height>23</height>
+    <name>ax2</name>
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <opi_file>ez4_1h_wide.opi</opi_file>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <group_name></group_name>
+    <enabled>true</enabled>
+    <widget_type>Linking Container</widget_type>
+    <font>
+      <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
+    </font>
+    <width>877</width>
+    <border_style>0</border_style>
+    <rules />
+    <border_width>1</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <y>70</y>
+    <actions hook="false" hook_all="false" />
+    <x>12</x>
+    <tooltip></tooltip>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+    <macros>
+      <include_parent_macros>true</include_parent_macros>
+      <Dev>{$(CntlDev)-Ax:$(Ax3)}</Dev>
+    </macros>
+    <visible>true</visible>
+    <wuid>-d005ec8:14d1fb82454:-d5a</wuid>
+    <auto_size>true</auto_size>
+    <scripts />
+    <zoom_to_fit>true</zoom_to_fit>
+    <height>23</height>
+    <name>ax3</name>
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <opi_file>ez4_1h_wide.opi</opi_file>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <group_name></group_name>
+    <enabled>true</enabled>
+    <widget_type>Linking Container</widget_type>
+    <font>
+      <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
+    </font>
+    <width>877</width>
+    <border_style>0</border_style>
+    <rules />
+    <border_width>1</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <y>92</y>
+    <actions hook="false" hook_all="false" />
+    <x>12</x>
+    <tooltip></tooltip>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
+    <macros>
+      <include_parent_macros>true</include_parent_macros>
+      <Dev>{$(CntlDev)-Ax:$(Ax4)}</Dev>
+    </macros>
+    <visible>true</visible>
+    <wuid>-d005ec8:14d1fb82454:-d4d</wuid>
+    <auto_size>true</auto_size>
+    <scripts />
+    <zoom_to_fit>true</zoom_to_fit>
+    <height>23</height>
+    <name>ax4</name>
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <opi_file>ez4_1h_wide.opi</opi_file>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <group_name></group_name>
+    <enabled>true</enabled>
+    <widget_type>Linking Container</widget_type>
+    <font>
+      <opifont.name fontName="Sans" height="10" style="0">Default</opifont.name>
+    </font>
+    <width>877</width>
+    <border_style>0</border_style>
+    <rules />
+    <border_width>1</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <y>114</y>
+    <actions hook="false" hook_all="false" />
+    <x>12</x>
+    <tooltip></tooltip>
   </widget>
 </display>
