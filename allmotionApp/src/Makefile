@@ -16,7 +16,7 @@ LIBRARY_IOC += allmotion
 DBD += allmotion.dbd
 
 # specify all source files to be compiled and added to the library
-allmotion_SRCS += main.cpp asynMotorController.cpp asynMotorAxis.cpp
+allmotion_SRCS += main.cpp
 allmotion_SRCS += almPacket.cpp almController.cpp almAxis.cpp almEZ4Controller.cpp
 
 allmotion_LIBS += $(EPICS_BASE_IOC_LIBS)

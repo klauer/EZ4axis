@@ -77,7 +77,6 @@ private:
   double limit_threshold_[2];
   bool limits_[2];
 
-  int axis_num_;         // ez4axis axis number (1-based)
   int status_;
 };
 

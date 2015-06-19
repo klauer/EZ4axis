@@ -7,7 +7,7 @@
 
 /** Creates a new almAxis object.
   * \param[in] controller         The allmotion controller
-  * \param[in] axis_num           The axis number (1-based)
+  * \param[in] axis_num           The axis number
   */
 almAxis::almAxis(almController *controller, int axis_num)
   :  asynMotorAxis((asynMotorController*)controller, axis_num)
@@ -17,7 +17,6 @@ almAxis::almAxis(almController *controller, int axis_num)
   //param_num_ = -1;
   moving_ = false;
   has_encoder_ = false;
-  axis_num_ = axis_num;
 
   getMicrosteps();
   motionFinished();
@@ -32,9 +31,9 @@ asynStatus almAxis::poll(bool *moving) {
   // Controllers poll the positions at the same time and store them
   // all together.
   double pos, vel, enc;
-  enc = pc_->encoder_positions_[axis_num_ - 1];
-  pos = pc_->positions_[axis_num_ - 1];
-  vel = pc_->velocities_[axis_num_ - 1];
+  enc = pc_->encoder_positions_[axisNo_];
+  pos = pc_->positions_[axisNo_];
+  vel = pc_->velocities_[axisNo_];
 
   setDoubleParam(pc_->motorEncoderPosition_, enc);
   setDoubleParam(pc_->motorPosition_, pos);
@@ -46,7 +45,7 @@ asynStatus almAxis::poll(bool *moving) {
 
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
             "Axis %d Position: %f (encoder %f) velocity: %f moving: %s\n",
-            axis_num_, pos, enc, vel, (moving_ ? "yes" : "no"));
+            axisNo_, pos, enc, vel, (moving_ ? "yes" : "no"));
 
   pc_->unlock();
 
@@ -56,11 +55,11 @@ asynStatus almAxis::poll(bool *moving) {
 }
 
 asynStatus almAxis::getIntegerParam(int param, epicsInt32 *value) {
-  return pc_->getIntegerParam(axis_num_ - 1, param, value);
+  return pc_->getIntegerParam(axisNo_, param, value);
 }
 
 asynStatus almAxis::getDoubleParam(int param, epicsFloat64 *value) {
-  return pc_->getDoubleParam(axis_num_ - 1, param, value);
+  return pc_->getDoubleParam(axisNo_, param, value);
 }
 
 asynStatus almAxis::setPosition(double pos_) {
@@ -69,7 +68,7 @@ asynStatus almAxis::setPosition(double pos_) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
   command.set_position(pos);
   asynStatus ret = pc_->runWrite(command);
   // command.dump();
@@ -85,7 +84,7 @@ asynStatus almAxis::queryLimits() {
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
-  command.query_limits(axis_num_);
+  command.query_limits(axisNo_);
 
   if (pc_->writeRead(response, command) == asynSuccess) {
     sscanf((const char*)response.get_buffer(), "%d,%d",
@@ -109,7 +108,7 @@ asynStatus almAxis::queryLimits() {
         setIntegerParam(pc_->motorStatusLowLimit_, limits_[i]);
       }
     }
-    // printf("axis %d limit adc %f %f\n", axis_num_, limit_adc_[0], limit_adc_[1]);
+    // printf("axis %d limit adc %f %f\n", axisNo_, limit_adc_[0], limit_adc_[1]);
   }
 
   return asynSuccess;
@@ -120,7 +119,7 @@ asynStatus almAxis::queryStatus() {
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
   command.append(ALM_QUERY_STATUS);
 
   if (pc_->writeRead(response, command) == asynSuccess) {
@@ -134,7 +133,7 @@ asynStatus almAxis::queryStatus() {
     if (response.get_status() != ALM_OVERFLOW_ERROR) {
       asynPrint(pc_->pasynUser_, ASYN_TRACE_ERROR,
         "%s:%s: axis %d status check failed (%d) %s\n",
-        driverName, __func__, axis_num_, response.get_status(),
+        driverName, __func__, axisNo_, response.get_status(),
         get_allmotion_error_string(response.get_status()));
     }
   }
@@ -152,14 +151,14 @@ asynStatus almAxis::terminateCommand() {
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
   command.terminate();
   asynStatus ret = pc_->runWrite(command);
 
   if (ret == asynError) {
     asynPrint(pc_->pasynUser_, ASYN_TRACE_ERROR,
       "%s:%s: axis %d terminate failed\n",
-      driverName, __func__, axis_num_);
+      driverName, __func__, axisNo_);
   }
   return ret;
 }
@@ -172,11 +171,11 @@ asynStatus almAxis::stop(double acceleration)
 asynStatus almAxis::home(double min_velocity, double max_velocity, double acceleration, int forwards) {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW | ASYN_TRACE_ERROR,
     "%s:%s: axis %d: home (forwards=%d)\n",
-    driverName, __func__, axis_num_, forwards);
+    driverName, __func__, axisNo_, forwards);
 
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
   command.home((forwards) ? home_counts_ : -home_counts_);
   command.run();
 
@@ -189,7 +188,7 @@ asynStatus almAxis::home(double min_velocity, double max_velocity, double accele
 
 int almAxis::position_to_counts(double position) {
   double res;
-  pc_->getDoubleParam(axis_num_ - 1, pc_->motorResolution_, &res);
+  pc_->getDoubleParam(axisNo_, pc_->motorResolution_, &res);
 
   if (res < 1e-10)
     return 0.0;
@@ -199,7 +198,7 @@ int almAxis::position_to_counts(double position) {
 
 double almAxis::counts_to_position(int counts) {
   double res;
-  pc_->getDoubleParam(axis_num_ - 1, pc_->motorResolution_, &res);
+  pc_->getDoubleParam(axisNo_, pc_->motorResolution_, &res);
   return res * counts;
 }
 
@@ -207,7 +206,7 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
 {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW | ASYN_TRACE_ERROR,
     "%s:%s: axis %d: move to %g (relative=%d)\n",
-    driverName, __func__, axis_num_,
+    driverName, __func__, axisNo_,
     position, relative);
 
   // Set slew speed
@@ -224,13 +223,14 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
-  command.set_velocity(axis_num_, max_velocity);
+  command.set_velocity(axisNo_, max_velocity);
   asynStatus ret = pc_->runWrite(command);
 
   pc_->initCommandPacket(command);
-  command.move(axis_num_, position, (relative != 0));
+  command.move(axisNo_, position, (relative != 0));
   ret = pc_->runWrite(command);
 
+  command.dump();
   if (ret == asynSuccess)
     moving_ = true;
 
@@ -241,12 +241,12 @@ asynStatus almAxis::move(double position, int relative, double min_velocity, dou
 asynStatus almAxis::moveVelocity(double min_velocity, double max_velocity, double acceleration) {
   asynPrint(pc_->pasynUser_, ASYN_TRACE_FLOW,
     "%s:%s: axis %d: jog with max velocity %g accel %g\n",
-    driverName, __func__, axis_num_,
+    driverName, __func__, axisNo_,
     max_velocity, acceleration);
 
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
 
   // Set slew speed
   //command.append("V%d", abs(max_velocity));
@@ -294,15 +294,14 @@ asynStatus almAxis::setUIntDigitalParam(int index, epicsUInt32 value) {
 asynStatus almAxis::setHoldCurrent(double amps) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.set_hold_current(axis_num_, pc_->ampsToPercent(amps));
+  command.set_hold_current(axisNo_, pc_->ampsToPercent(amps));
   return pc_->runWrite(command);
 }
 
 asynStatus almAxis::setMoveCurrent(double amps) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.set_move_current(axis_num_, pc_->ampsToPercent(amps));
-
+  command.set_move_current(axisNo_, pc_->ampsToPercent(amps));
   return pc_->runWrite(command);
 }
 
@@ -326,7 +325,7 @@ asynStatus almAxis::setClosedLoop(bool closed) {
 asynStatus almAxis::setMicrosteps(unsigned int microsteps) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.set_microsteps(axis_num_, microsteps);
+  command.set_microsteps(axisNo_, microsteps);
 
   asynStatus ret = pc_->runWrite(command);
 
@@ -337,7 +336,7 @@ asynStatus almAxis::setMicrosteps(unsigned int microsteps) {
 asynStatus almAxis::setMicrostepTweak(unsigned int size) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
   command.set_microstep_tweak(size);
   return pc_->runWrite(command);
 }
@@ -352,7 +351,7 @@ asynStatus almAxis::getMicrosteps() {
 }
 
 asynStatus almAxis::queryParameter(const char *operand, almResponsePacket &response) {
-  return pc_->queryParameter(axis_num_, operand, response);
+  return pc_->queryParameter(axisNo_, operand, response);
 }
 
 asynStatus almAxis::setLowLimitThreshold(epicsFloat64 value) {
@@ -360,7 +359,7 @@ asynStatus almAxis::setLowLimitThreshold(epicsFloat64 value) {
   int int_thresh = volts_to_adc(value);
 
   pc_->initCommandPacket(command);
-  command.low_limit_threshold(axis_num_, int_thresh);
+  command.low_limit_threshold(axisNo_, int_thresh);
   return pc_->runWrite(command);
 }
 
@@ -369,7 +368,7 @@ asynStatus almAxis::setHighLimitThreshold(epicsFloat64 value) {
   int int_thresh = volts_to_adc(value);
 
   pc_->initCommandPacket(command);
-  command.high_limit_threshold(axis_num_, int_thresh);
+  command.high_limit_threshold(axisNo_, int_thresh);
   return pc_->runWrite(command);
 }
 
@@ -377,7 +376,7 @@ asynStatus almAxis::setLimitPolarity(bool inverted) {
   almCommandPacket command;
   pc_->initCommandPacket(command);
 
-  command.select_axis(axis_num_);
+  command.select_axis(axisNo_);
   command.set_limit_polarity(inverted);
   return pc_->runWrite(command);
 }

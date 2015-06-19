@@ -181,7 +181,7 @@ almCommandPacket::almCommandPacket(int address) {
 }
 
 void almCommandPacket::clear() {
-  axis_ = 0;
+  axis_ = 1;
 
   finished_ = false;
   buf_pos_ = 0;
@@ -205,11 +205,13 @@ void almCommandPacket::start(int address) {
 }
 
 bool almCommandPacket::select_axis(byte axis) {
-  if (axis == 0 || axis == axis_)
+  axis++;
+
+  if (axis_ == axis)
     return true;
 
   axis_ = axis;
-  return append("aM%d", axis);
+  return append("aM%d", axis_);
 }
 
 bool almCommandPacket::run() {
@@ -300,6 +302,8 @@ bool almCommandPacket::append_four(byte c, int v1, int v2, int v3, int v4) {
 }
 
 bool almCommandPacket::append_four(byte c, byte axis, int value) {
+  axis++;
+
   switch (axis) {
   case 1: return append("%c%d,,,", c, value);
   case 2: return append("%c,%d,,", c, value);
@@ -314,7 +318,7 @@ bool almCommandPacket::read_adc() {
 }
 
 bool almCommandPacket::query_limits(byte axis) {
-  return append("?aa%d", axis);
+  return append("?aa%d", axis + 1);
 }
 
 bool almCommandPacket::move(byte axis, int position, bool relative) {

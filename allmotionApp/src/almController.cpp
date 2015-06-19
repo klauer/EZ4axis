@@ -161,8 +161,8 @@ almController::almController(const char *portName, const char *asynPortName, int
   }
 
   // Read-write
-  createParam(ALM_PSTR_HOLD_I    ,    asynParamInt32,  &param_hold_i_);
-  createParam(ALM_PSTR_MOVE_I    ,    asynParamInt32,  &param_move_i_);
+  createParam(ALM_PSTR_HOLD_I    ,    asynParamFloat64,  &param_hold_i_);
+  createParam(ALM_PSTR_MOVE_I    ,    asynParamFloat64,  &param_move_i_);
 
 #if 0
   const char *pname;
@@ -218,7 +218,7 @@ asynStatus almController::queryPositions() {
   almResponsePacket response;
   asynStatus status = asynSuccess;
   for (int axis=0; axis < numAxes_; axis++) {
-    if (queryParameter(axis + 1, ALM_QUERY_POS, response) == asynSuccess)
+    if (queryParameter(axis, ALM_QUERY_POS, response) == asynSuccess)
       positions_[axis] = response.as_int();
     else
       status = asynError;
@@ -230,7 +230,7 @@ asynStatus almController::queryVelocities() {
   almResponsePacket response;
   asynStatus status = asynSuccess;
   for (int axis=0; axis<numAxes_; axis++) {
-    if (queryParameter(axis + 1, ALM_QUERY_VELOCITY, response) == asynSuccess)
+    if (queryParameter(axis, ALM_QUERY_VELOCITY, response) == asynSuccess)
       velocities_[axis] = response.as_int();
     else
       status = asynError;
@@ -351,6 +351,9 @@ asynStatus almController::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 va
   almAxis *pAxis = getAxis(pasynUser);
   const char *paramName = "(unset)";
 
+  if (!pAxis)
+    return asynError;
+
   /* Fetch the parameter string name for possible use in debugging */
   getParamName(function, &paramName);
 
@@ -465,6 +468,9 @@ asynStatus almController::writeInt32(asynUser *pasynUser, epicsInt32 value)
   asynStatus status = asynSuccess;
   almAxis *pAxis = getAxis(pasynUser);
   const char *paramName = "(unset)";
+
+  if (!pAxis)
+    return asynError;
 
   /* Fetch the parameter string name for possible use in debugging */
   getParamName(function, &paramName);
@@ -922,6 +928,10 @@ asynStatus almController::getLimitThresholds() {
       buf = &buf[n_read];
 
       axis = getAxis(ax);
+      if (!axis) {
+        continue;
+      }
+
       for (int i=0; i < 2; i++) {
         axis->limit_threshold_[i] = adc_to_volts(thresh[i]);
         setDoubleParam(ax, param_input_threshold_[i], axis->limit_threshold_[i]);
