@@ -12,7 +12,7 @@ epicsEnvSet("LOCATION",  "740 3IDC RG-C?")
 dbLoadDatabase("../../dbd/ez4axis.dbd",0,0)
 ez4axis_registerRecordDeviceDriver(pdbbase) 
 
-epicsEnvSet(EZ_IP   , "10.3.2.60")
+epicsEnvSet(EZ_IP   , "10.3.2.61")
 epicsEnvSet(EZ_PORT , 4001)
 
 epicsEnvSet(CtlSys  , "XF:03IDC-CT")
@@ -34,12 +34,12 @@ drvAsynIPPortConfigure("IP1", "$(EZ_IP):$(EZ_PORT)", 0, 0, 0)
 
 # almCreateController(AllMotion port name, asyn port name, RS485 address,
 #                     Number of axes, Moving poll period (ms), Idle poll period (ms))
-almCreateEZ4Controller("ALM1", "IP1", "$(ALM_ADDR)", 1, 100, 250)
+almCreateEZ4Controller("ALM1", "IP1", "$(ALM_ADDR)", 4, 100, 250)
 
-# asynSetTraceMask("ALM1", -1, 0x01)
-# asynSetTraceMask("IP1", -1, 0x01)
- asynSetTraceMask("ALM1", -1, 0x0)
- asynSetTraceMask("IP1", -1, 0x0)
+asynSetTraceMask("ALM1", -1, 0x01)
+asynSetTraceMask("IP1", -1, 0x01)
+# asynSetTraceMask("ALM1", -1, 0x0)
+# asynSetTraceMask("IP1", -1, 0x0)
 
 cd ${TOP}/
 
