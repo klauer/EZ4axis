@@ -3,20 +3,13 @@
   <auto_zoom_to_fit_all>false</auto_zoom_to_fit_all>
   <macros>
     <include_parent_macros>false</include_parent_macros>
-    <Sys>XF:03IDC-ES</Sys>
-    <CntlDev>Ez4:1</CntlDev>
-    <Ax1>1</Ax1>
-    <Ax2>2</Ax2>
-    <Ax3>3</Ax3>
-    <Ax4>4</Ax4>
-    <Mtr>Mtr</Mtr>
   </macros>
   <wuid>c16092a:142ed4291e5:-8000</wuid>
   <boy_version>3.2.18.201410011619</boy_version>
   <scripts />
   <show_ruler>true</show_ruler>
   <height>400</height>
-  <name></name>
+  <name>$(TITLE)</name>
   <snap_to_geometry>true</snap_to_geometry>
   <show_grid>true</show_grid>
   <background_color>
@@ -46,7 +39,7 @@
     <auto_size>false</auto_size>
     <scripts />
     <height>26</height>
-    <name>Label</name>
+    <name>Title</name>
     <scale_options>
       <width_scalable>true</width_scalable>
       <height_scalable>true</height_scalable>
@@ -61,7 +54,7 @@
     </foreground_color>
     <widget_type>Label</widget_type>
     <enabled>true</enabled>
-    <text>EZ4Axis [$(Sys){$(CntlDev)}]</text>
+    <text>$(TITLE) (EZ4Axis) [$(Sys){$(CntlDev)}]</text>
     <font>
       <opifont.name fontName="Cantarell" height="19" style="1">Header 1</opifont.name>
     </font>
